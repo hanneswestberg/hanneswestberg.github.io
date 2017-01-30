@@ -83,11 +83,7 @@ d3.json("flare.json", function(error, root) {
 	  
 	// if the vis is at the 'root' level hide text, otherwise show    <! here is the test!  
 	
-    var atRoot = (d.name === "All") ? true : false ;
-
-	console.log(atRoot); 
-	
-    text.attr("visibility",function(d) { return atRoot ? "hidden" : "visible"})  
+    text.attr("visibility",function(d, e) { return (e.depth > d.depth + 1) ? "hidden" : "visible";})  
 	  
   }
 });
