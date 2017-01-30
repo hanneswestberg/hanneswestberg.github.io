@@ -3,7 +3,7 @@ var width = 960,
     radius = Math.min(width, height) / 2;
 
 var x = d3.scale.linear()
-    .range([0, 1 * Math.PI]);
+    .range([0, 2 * Math.PI]);
 
 var y = d3.scale.linear()
     .range([0, radius]);
@@ -45,8 +45,6 @@ d3.json("flare.json", function(error, root) {
   function click(d) {
     // fade out all text elements
     text.transition().attr("opacity", 0);
-
-	//console.
 	
     path.transition()
       .duration(300)
