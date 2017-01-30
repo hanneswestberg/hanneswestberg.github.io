@@ -1,59 +1,23 @@
-var w = 500,
-	h = 500;
+var w = 250,
+	h = 250;
 
 var colorscale = d3.scale.category10();
 
 //Legend titles
-var LegendOptions = ['Smartphone','Tablet'];
+var LegendOptions = ['Smartphone'];
 
 //Data
 var d = [
 		  [
-			{axis:"Email",value:0.59},
-			{axis:"Social Networks",value:0.56},
-			{axis:"Internet Banking",value:0.42},
-			{axis:"News Sportsites",value:0.34},
-			{axis:"Search Engine",value:0.48},
-			{axis:"View Shopping sites",value:0.14},
-			{axis:"Paying Online",value:0.11},
-			{axis:"Buy Online",value:0.05},
-			{axis:"Stream Music",value:0.07},
-			{axis:"Online Gaming",value:0.12},
-			{axis:"Navigation",value:0.27},
-			{axis:"App connected to TV program",value:0.03},
-			{axis:"Offline Gaming",value:0.12},
-			{axis:"Photo Video",value:0.4},
-			{axis:"Reading",value:0.03},
-			{axis:"Listen Music",value:0.22},
-			{axis:"Watch TV",value:0.03},
-			{axis:"TV Movies Streaming",value:0.03},
-			{axis:"Listen Radio",value:0.07},
-			{axis:"Sending Money",value:0.18},
-			{axis:"Other",value:0.07},
-			{axis:"Use less Once week",value:0.08}
-		  ],[
-			{axis:"Email",value:0.48},
-			{axis:"Social Networks",value:0.41},
-			{axis:"Internet Banking",value:0.27},
-			{axis:"News Sportsites",value:0.28},
-			{axis:"Search Engine",value:0.46},
-			{axis:"View Shopping sites",value:0.29},
-			{axis:"Paying Online",value:0.11},
-			{axis:"Buy Online",value:0.14},
-			{axis:"Stream Music",value:0.05},
-			{axis:"Online Gaming",value:0.19},
-			{axis:"Navigation",value:0.14},
-			{axis:"App connected to TV program",value:0.06},
-			{axis:"Offline Gaming",value:0.24},
-			{axis:"Photo Video",value:0.17},
-			{axis:"Reading",value:0.15},
-			{axis:"Listen Music",value:0.12},
-			{axis:"Watch TV",value:0.1},
-			{axis:"TV Movies Streaming",value:0.14},
-			{axis:"Listen Radio",value:0.06},
-			{axis:"Sending Money",value:0.16},
-			{axis:"Other",value:0.07},
-			{axis:"Use less Once week",value:0.17}
+			{axis:"IVIS",value:4},
+			{axis:"Stats",value:4},
+			{axis:"Math",value:5},
+			{axis:"Art",value:6},
+			{axis:"User",value:9},
+			{axis:"Prog",value:10},
+			{axis:"Graph",value:2},
+			{axis:"HCI",value:1},
+			{axis:"UX",value:5}
 		  ]
 		];
 
@@ -61,8 +25,8 @@ var d = [
 var mycfg = {
   w: w,
   h: h,
-  maxValue: 0.6,
-  levels: 6,
+  maxValue: 10,
+  levels: 10,
   ExtraWidthX: 300
 }
 
