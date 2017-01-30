@@ -22,7 +22,7 @@ var RadarChart = {
 	 opacityArea: 0.5,
 	 ToRight: 5,
 	 TranslateX: 80,
-	 TranslateY: 30,
+	 TranslateY: 80,
 	 ExtraWidthX: 100,
 	 ExtraWidthY: 100,
 	 color: d3.scale.category10()
@@ -35,7 +35,7 @@ var RadarChart = {
 		}
 	  }
 	}
-	cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}))}));
+	//cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}))}));
 	var allAxis = (d[0].map(function(i, j){return i.axis}));
 	var total = allAxis.length;
 	var radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
@@ -219,3 +219,7 @@ var RadarChart = {
 			   .style('font-size', '13px');
   }
 };
+
+function HideChart(){
+  d3.select('#chart').selectAll('svg').remove();
+}
