@@ -62,6 +62,9 @@ d3.json("flare.json", function(error, root) {
 			  .attr("visibility", function(d) { return (e.depth > d.depth + 3) ? "hidden" : "visible"});
           }
       });	  
+	
+	if (d.name != 'All') 
+		d3.select("#chart").attr("align","left");
   }
 });
 
