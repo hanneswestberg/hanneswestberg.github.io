@@ -4,7 +4,17 @@
   {
    "name": "Group 1",
    "children": [
-    {"name": "Bounder", "size": 5000},
+    {"name": "Bounder", "size": 5000, "children":[
+	{"name": "iVis -  3"},
+	{"name": "Stats -  9"},
+	{"name": "Math -  9"},
+	{"name": "Art -  3"},
+	{"name": "User -  10"},
+	{"name": "Prog -  10"},
+	{"name": "Graph -  3"},
+	{"name": "HCI -  3"},
+	{"name": "UX -  9"}
+	]},
     {"name": "Hardang", "size": 5000},
     {"name": "Pelendur", "size": 5000},
     {"name": "Gorbag", "size": 5000},
