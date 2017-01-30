@@ -4,17 +4,7 @@
   {
    "name": "Group 1",
    "children": [
-    {"name": "Bounder", "children":[
-	{"name": "iVis -  3", "size": 300},
-	{"name": "Stats -  9", "size": 300},
-	{"name": "Math -  9", "size": 300},
-	{"name": "Art -  3", "size": 300},
-	{"name": "User -  10", "size": 300},
-	{"name": "Prog -  10", "size": 300},
-	{"name": "Graph -  3", "size": 300},
-	{"name": "HCI -  3", "size": 300},
-	{"name": "UX -  9", "size": 300}
-	]},
+    {"name": "Bounder", "size": 5000},
     {"name": "Hardang", "size": 5000},
     {"name": "Pelendur", "size": 5000},
     {"name": "Gorbag", "size": 5000},
