@@ -59,7 +59,7 @@ d3.json("flare.json", function(error, root) {
               .attr("opacity", 1)
               .attr("transform", function() { return "rotate(" + computeTextRotation(e) + ")" })
               .attr("x", function(d) { return y(d.y); })
-			  .attr("visibility", function(d) { return (e.depth > d.depth + 3) ? "hidden" : "visible"});
+			  .attr("visibility", function(d) { return (e.depth > d.depth + 1) ? "hidden" : "visible"});
           }
       });	  
 	
