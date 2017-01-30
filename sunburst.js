@@ -66,7 +66,7 @@ d3.json("flare.json", function(error, root) {
 	console.log(d); 
 	
 	if (d.name != 'All') 
-		d3.select("#sunburst").attr("align","left");
+		svg.attr("align","left");
   }
 });
 
