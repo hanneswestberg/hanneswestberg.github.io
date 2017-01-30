@@ -14,7 +14,7 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 10) + ")");
+    .attr("transform", "translate(" + 0 + "," + (height / 2 + 10) + ")");
 
 var partition = d3.layout.partition()
     .value(function(d) { return d.size; });
