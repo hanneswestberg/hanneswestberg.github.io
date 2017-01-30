@@ -46,6 +46,8 @@ d3.json("flare.json", function(error, root) {
     // fade out all text elements
     text.transition().attr("opacity", 0);
 
+	//console.
+	
     path.transition()
       .duration(300)
       .attrTween("d", arcTween(d))
