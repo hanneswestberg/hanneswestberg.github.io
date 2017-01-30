@@ -14,7 +14,7 @@
     {"name": "Elendil", "size": 5000}
    ]
   },
-    {
+  {
    "name": "Group 2",
    "children": [
     {"name": "Eothain", "size": 5000},
@@ -25,6 +25,32 @@
     {"name": "Balin", "size": 5000},
     {"name": "Gimli", "size": 5000},
     {"name": "Ugluk", "size": 5000}
+   ]
+  },
+  {
+   "name": "Group 3",
+   "children": [
+    {"name": "Uruk", "size": 5000},
+    {"name": "Bilbo", "size": 5000},
+    {"name": "Faramir", "size": 5000},
+    {"name": "Freda", "size": 5000},
+    {"name": "Haleth", "size": 5000},
+    {"name": "Bofur", "size": 5000},
+    {"name": "Kili", "size": 5000},
+    {"name": "Dwalin", "size": 5000}
+   ]
+  },
+  {
+   "name": "Group 4",
+   "children": [
+    {"name": "Oin", "size": 5000},
+    {"name": "Thorin", "size": 5000},
+    {"name": "Grishnakh", "size": 5000},
+    {"name": "Sam", "size": 5000},
+    {"name": "Aragorn", "size": 5000},
+    {"name": "Isildur", "size": 5000},
+    {"name": "Merry", "size": 5000},
+    {"name": "Bombadil", "size": 5000}
    ]
   }
  ]
