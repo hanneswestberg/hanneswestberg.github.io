@@ -86,6 +86,8 @@ d3.json("flare.json", function(error, root) {
     var patt = 'root';
     var atRoot = (str === patt) ? true : false ;
 
+	console.log(atRoot); 
+	
     text.attr("visibility",function(d) { return atRoot ? "hidden" : "visible"})  
 	  
   }
