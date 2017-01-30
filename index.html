@@ -77,8 +77,8 @@ d3.json("flare.json", function(error, root) {
             arcText.transition().duration(300)
               .attr("opacity", 1)
               .attr("transform", function() { return "rotate(" + computeTextRotation(e) + ")" })
-              .attr("x", function(d) { return y(d.y); });
-			  .attr("visibility", function(d) { return (e.depth > d.depth + 3) ? "hidden" : "visible"})
+              .attr("x", function(d) { return y(d.y); })
+			  .attr("visibility", function(d) { return (e.depth > d.depth + 3) ? "hidden" : "visible"});
           }
       });	  
   }
