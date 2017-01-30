@@ -52,7 +52,7 @@ var text = svg.append("text")
 	.attr("y", 10)
 	.attr("font-size", "12px")
 	.attr("fill", "#404040")
-	.text("What % of owners use a specific service in a week");
+	.text("Skills");
 		
 //Initiate Legend	
 var legend = svg.append("g")
