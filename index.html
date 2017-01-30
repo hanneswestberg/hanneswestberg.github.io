@@ -78,12 +78,15 @@ d3.json("flare.json", function(error, root) {
               .attr("opacity", 1)
               .attr("transform", function() { return "rotate(" + computeTextRotation(e) + ")" })
               .attr("x", function(d) { return y(d.y); });
-			  
-			  if (e.depth > d.depth + 1) return "hidden";
           }
       });
 	  
+	// if the vis is at the 'root' level hide text, otherwise show    <! here is the test!  
+    var str = d.name;
+    var patt = 'root';
+    var atRoot = (str === patt) ? true : false ;
 
+    text.attr("visibility",function(d) { return atRoot ? "hidden" : "visible"})  
 	  
   }
 });
