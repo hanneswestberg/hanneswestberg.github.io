@@ -3,25 +3,31 @@ var width = 960,
     radius = Math.min(width, height) / 2;
 
 var x = d3.scale.linear()
-    .range([0, 1 * Math.PI]);
+    .range([0, fullOrHalf() * Math.PI]);
 
 var y = d3.scale.linear()
     .range([0, radius]);
+	
+function fullOrHalf(){
+	return (currentNode === 'All') ? 2 : 1;
+}
+
+var currentNode = 'All';
 
 var color = d3.scale.category20c();
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + 80 + "," + (height / 2 + 10) + ")");
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 10) + ")");
 
 var partition = d3.layout.partition()
     .value(function(d) { return d.size; });
 
 var arc = d3.svg.arc()
-    .startAngle(function(d) { return Math.max(0, Math.min(1 * Math.PI, x(d.x))); })
-    .endAngle(function(d) { return Math.max(0, Math.min(1 * Math.PI, x(d.x + d.dx))); })
+    .startAngle(function(d) { return Math.max(0, Math.min(fullOrHalf() * Math.PI, x(d.x))); })
+    .endAngle(function(d) { return Math.max(0, Math.min(fullOrHalf() * Math.PI, x(d.x + d.dx))); })
     .innerRadius(function(d) { return Math.max(0, y(d.y)); })
     .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
@@ -45,6 +51,11 @@ d3.json("flare.json", function(error, root) {
   function click(d) {
     // fade out all text elements
     text.transition().attr("opacity", 0);
+	  currentNode = d.name;
+
+    svg.transition()
+      .duration(300)
+      .attrTween("transform", posTween(d))
 	
     path.transition()
       .duration(300)
@@ -59,18 +70,54 @@ d3.json("flare.json", function(error, root) {
               .attr("opacity", 1)
               .attr("transform", function() { return "rotate(" + computeTextRotation(e) + ")" })
               .attr("x", function(d) { return y(d.y); })
-			  .attr("visibility", function(d) { return (e.depth > d.depth + 1) ? "hidden" : "visible"});
+			  .attr("visibility", function(d) { return (e.depth > d.depth) ? "hidden" : "visible"});
           }
       });	  
 	
 	console.log(d); 
 	
-	if (d.name != 'All') 
-		svg.attr("align","left");
+	//if (d.name != 'All') 
+		//svg.attr("align","left");
+  
   }
 });
 
 d3.select(self.frameElement).style("height", height + "px");
+
+// Interpolate the position
+function posTween(){
+  // We only use 'd', but list d,i,a as params just to show can have them as params.
+  // Code only really uses d and t.
+  return function(d, i, a) {
+    return function(t) {
+
+  // 't': what's t? T is the fraction of time (between 0 and 1) since the
+  // transition began. Handy. 
+  var t_offset = d.get('offset');
+  var t_x, t_y;
+
+  // If the data says the element should follow a circular path, do that.
+  if (d.get('rtype') == 'circle') {
+    var rotation_radius = d.get('rotr');
+    var t_angle = (2 * Math.PI) * t;
+    var t_x = rotation_radius * Math.cos(t_angle);
+    var t_y = rotation_radius * Math.sin(t_angle);
+  }
+
+  // Likewise for an ellipse:
+  if (d.get('rtype') == 'ellipse')  {
+    var rotation_radius_x = d.get('rotrx');
+    var rotation_radius_y = d.get('rotry');
+    var t_angle = (2 * Math.PI) * t;
+    var t_x = rotation_radius_x * Math.cos(t_angle);
+    var t_y = rotation_radius_y * Math.sin(t_angle);
+  }
+
+  return "translate(" + ((width/2) + t_offset + t_x) + "," + (height/2 + t_offset + t_y) + ")";
+    };
+  };
+}
+
 
 // Interpolate the scales!
 function arcTween(d) {
