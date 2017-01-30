@@ -4,7 +4,7 @@ var w = 250,
 var colorscale = d3.scale.category10();
 
 //Legend titles
-var LegendOptions = ['Smartphone'];
+var LegendOptions = ['User'];
 
 //Data
 var d = [
