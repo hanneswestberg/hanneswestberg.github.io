@@ -1,0 +1,17 @@
+{
+	"name":"all",
+	"questions": [
+	{
+	"id":"v1", 
+	"subject": "Feeling of happiness", 
+	"wording": "Taking all things together, would you say you are:",
+	"answers": 
+		{
+		"a1": "Very happy",
+		"a2": "Rather happy",
+		"a3": "Not very happy",
+		"a4": "Not at all happy"
+		}
+	}
+	]
+}

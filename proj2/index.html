@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Project 2 - iVis17</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+	<!-- External -->
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+  	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+
+	<!-- Internal -->
+	<script src="lib/angular/angular.min.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/controllers/myCtrl.js"></script>
+	<script src="js/dataManager.js"></script>
+	<script src="js/services/proj2Service.js"></script>
+	<script src="js/d3/pieChart.js"></script>
+	<script src="js/d3/diffPlot.js"></script>
+	
+
+</head>
+<body id="app" ng-app="myApp" ng-controller="myCtrl">
+	<div class="container-fluid">
+
+		<!-- THE HEADER -->
+		<div id="header" class="row">
+			<h1>Visualizing the World Through its Own Worldview</h1>
+			<h3>Made by Hannes Vestberg in 2017 - Information Visualization, KTH</h3>
+		</div>
+
+
+		<!-- VISUALIZATIONS -->
+		<div id="visualizationContent" class="row">
+
+			<!-- STEP 1 - COUNTRY PICKER -->
+			<div id="countryPicker" class="col-md-12">
+				<h2>Select country</h2>
+
+				<div id="countryFlag" ng-repeat="country in countries" class="col-md-1 col-sm-4 col-xs-6 col-centered">
+					<img src="images/{{ country.flag }}" alt="country.name" draggable="false" ng-click="selectCountry(country)" style="display:block; margin: 0 auto">
+					<p style="text-align: center">{{ country.name }}</p>
+				</div>
+			</div>
+
+			<!-- STEP 2 - COUNTRY VISUALIZER -->
+			<div id="countryVisualizer" class="col-md-6" style="display: none">
+				<span id="goBackArrow" class="glyphicon glyphicon-arrow-left" ng-click="goBack()"></span>
+
+				<h2 style="text-align: center; position: absolute; left:285px; top: 40px"> Viewing the world as {{ originCountry.name }}</h2>
+
+				<div id="selectedCountryInfo">
+					<img class="noselect" draggable="false" src="images/{{ selectedCountry.flag }}" alt="country.name" draggable="false" style="display:block; margin: 0 auto">
+					<h2 class="noselect" draggable="false" style="text-align: center">{{ selectedCountry.name }}</h2>
+					<p class="noselect" draggable="false" style="text-align: center; margin-bottom: 50px">Pop:</p>
+					<h2 class="noselect" draggable="false" style="text-align: center; margin-bottom: 50px; text-transform: capitalize">{{ selectedCountry.continent }}</h2>
+					<p class="noselect" draggable="false" style="text-align: center">Our values differ by:</p>
+					<h1 class="noselect" draggable="false" id="valueAlike" style="text-align: center; color: yellow"> {{ selectCountryValueDifference }}</h1>
+				</div>
+			</div>
+
+			<div id="questionVisualiserContent" class="col-md-6"> </div>
+
+
+			<div id="slider"></div>
+		</div>
+
+
+
+		<div id="projInfo" class="row">
+			<h1>Process</h1>
+			<div class="row" style="margin-top: 50px">
+				<div id="processInfo" class="col-sm-6">
+					<h2>Analytic trail 1</h2>
+					<p>I started out with...</p>
+				</div>
+				<div id="processInfo" class="col-sm-6">
+					<h2>Analytic trail 2</h2>
+					<p>I changed this...</p>
+				</div>
+			</div>
+			<div class="row" style=" align-items: center;">
+				<div id="processInfo" class="col-sm-12">
+					<h2>Learning</h2>
+					<p>Here is what I learned..</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
