@@ -46,52 +46,64 @@ var DataManager = function(){
 		var totalCountryDifferencesArray = [];
 
 		answerDifferencesArray = [];
+		tempOriginAnswerArray = [];
 
 		// First find the originCountry answers
 		for(var questionId = 0; questionId < Object.keys(allAnswers[0][wave].questions).length; questionId++){
 			originCountryAnswers.push(allAnswers[0][wave].questions[questionId].answers[originCountry.name]);
+			tempOriginAnswerArray.push({question: allAnswers[0][wave].questions[questionId].id, ans: allAnswers[0][wave].questions[questionId].answers[originCountry.name]});
 		}
+
+		// First index is the origin country
+		totalCountryDifferencesArray.push({ name:originCountry.name, diff:0, pop: 1000, continent: originCountry.continent});
+		answerDifferencesArray.push({ name:originCountry.name, questions:tempOriginAnswerArray});
 
 		// Then we calculate the difference for each country
 		for(var countryId = 0; countryId < countries.length; countryId++){
 
-			// The total differnce
-			var totalMeanDifference = 0;
+			if(countries[countryId].name != originCountry.name) {
 
-			var countryQuestionAnswers = [];
+				// The total differnce
+				var totalMeanDifference = 0;
 
-			// Let's check each question
-			for(var questionId = 0; questionId < questionsCodebook.length; questionId++){
-				
-				// The question difference
-				var questionMeanDifference = 0;
-				var questionDifference = {};
+				var countryQuestionAnswers = [];
 
-				// Let's check each answer
-				for(var answerId = 0; answerId < Object.keys(questionsCodebook[questionId].answers).length; answerId++){
+				// Let's check each question
+				for(var questionId = 0; questionId < questionsCodebook.length; questionId++){
+					
+					// The question difference
+					var questionMeanDifference = 0;
+					var questionDifference = {};
 
-					// We add the absolute value of the difference
-					questionMeanDifference += Math.abs(originCountryAnswers[0][Object.keys(questionsCodebook[questionId].answers)[answerId]] - allAnswers[0][wave].questions[questionId].answers[countries[countryId].name][Object.keys(questionsCodebook[questionId].answers)[answerId]]);
+					// Let's check each answer
+					for(var answerId = 0; answerId < Object.keys(questionsCodebook[questionId].answers).length; answerId++){
 
-					var key = Object.keys(questionsCodebook[questionId].answers)[answerId];
-					questionDifference[key] = allAnswers[0][wave].questions[questionId].answers[countries[countryId].name][Object.keys(questionsCodebook[questionId].answers)[answerId]] - originCountryAnswers[0][Object.keys(questionsCodebook[questionId].answers)[answerId]];
+						// We add the absolute value of the difference
+						questionMeanDifference += Math.abs(originCountryAnswers[questionId][Object.keys(questionsCodebook[questionId].answers)[answerId]] - allAnswers[0][wave].questions[questionId].answers[countries[countryId].name][Object.keys(questionsCodebook[questionId].answers)[answerId]]);
+
+						var key = Object.keys(questionsCodebook[questionId].answers)[answerId];
+						questionDifference[key] = allAnswers[0][wave].questions[questionId].answers[countries[countryId].name][Object.keys(questionsCodebook[questionId].answers)[answerId]] - originCountryAnswers[questionId][Object.keys(questionsCodebook[questionId].answers)[answerId]];
+					}
+
+					countryQuestionAnswers.push({ question:questionsCodebook[questionId].id, diff:questionDifference, ans:allAnswers[0][wave].questions[questionId].answers[countries[countryId].name] });
+
+					// Then we divide with number of answers to get the mean value
+					questionMeanDifference = (questionMeanDifference / Object.keys(questionsCodebook[questionId].answers).length);
+					totalMeanDifference += questionMeanDifference;
 				}
 
-				countryQuestionAnswers.push({ question:questionsCodebook[questionId].id, diff:questionDifference, ans:allAnswers[0][wave].questions[questionId].answers[countries[countryId].name] });
+				totalMeanDifference = (totalMeanDifference / questionsCodebook.length);
 
-				// Then we divide with number of answers to get the mean value
-				questionMeanDifference = (questionMeanDifference / Object.keys(questionsCodebook[questionId].answers).length);
-				totalMeanDifference += questionMeanDifference;
+				// Then add to our array of differences
+				totalCountryDifferencesArray.push({ name:countries[countryId].name, diff:totalMeanDifference, pop: 1000, continent: countries[countryId].continent});
+				
+
+				answerDifferencesArray.push({ name:countries[countryId].name, questions:countryQuestionAnswers});
 			}
-
-			totalMeanDifference = (totalMeanDifference / questionsCodebook.length);
-
-			// Then add to our array of differences
-			totalCountryDifferencesArray.push({ name:countries[countryId].name, diff:totalMeanDifference, pop: 1000, continent: countries[countryId].continent});
-		
-			answerDifferencesArray.push({ name:countries[countryId].name, questions:countryQuestionAnswers});
 		}
 
+		//console.dir(totalCountryDifferencesArray);
+		//console.log(answerDifferencesArray);
 		return totalCountryDifferencesArray;
 	}
 
@@ -113,7 +125,7 @@ var DataManager = function(){
 			}
 		}
 
-		//console.log(retArray);
+
 		return retArray;
 	}
 

@@ -24,10 +24,7 @@ app.controller('myCtrl', function($scope, $http){
 	currentData = dataManager.calculateAllCountryDifferences(country, 5);
 
 	// Create the pie chart with the current data
-	createPieChart(currentData);
-
-	// Remove the scroll
-	document.getElementById('visualizationContent').style.overflowY = 'hidden';
+	createPieChart(currentData, true);
 
 	// Change view to visualization
 	document.getElementById('countryPicker').style.display = 'none';
@@ -40,9 +37,6 @@ app.controller('myCtrl', function($scope, $http){
 	removeAllDiffPlots();
 
   	if(document.getElementById('pieChart') != undefined) removePieChart();
-   	// Remove the scroll
-	document.getElementById('visualizationContent').style.overflowY = 'scroll';
-
    	// Change back view to country picker
 	document.getElementById('countryPicker').style.display = 'inline';
 	document.getElementById('countryVisualizer').style.display = 'none';
@@ -56,7 +50,7 @@ app.controller('myCtrl', function($scope, $http){
   	}
 
   	// Update the displayed values to correctly reflect the current country the user is hovering over
-  	if(countryName != originCountry.name){
+  	if(countryName != originCountry){
 	  	for(var i = 0; i < currentData.length; i++){
 	  		if(currentData[i].name == countryName){
 	  			$scope.selectCountryValueDifference = Number(currentData[i].diff).toFixed(2) + " %";
@@ -73,6 +67,11 @@ app.controller('myCtrl', function($scope, $http){
 
   	// Apply the changes
   	$scope.$apply();
+  }
+
+  $scope.goBackToRoot = function(){
+  	console.log("asd");
+	createPieChart(currentData, true);
   }
 
   $scope.getSelectedCountry = function(){

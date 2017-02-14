@@ -4,8 +4,9 @@ var width = 700,
 
 var startAngle;
 var tweenDuration = 1050;
-var sortedData = [];
+var currentData = [];
 var oldPieData = [];
+var rootData = [];
 var originCountry = "";
 
 // Selection
@@ -15,6 +16,7 @@ var selectedObject = {};
 // Filtering
 var filteredObjects = [];
 var isDraging = false;
+var isOnRoot;
 
 
 var color = d3.scale.category20()
@@ -36,6 +38,13 @@ var pie = d3.layout.pie()
     .value(function (d) {
     return d.pop;
 });
+
+
+
+
+
+
+
 
 function sortCorrect(unSortedData){
     // First sort the data
@@ -74,117 +83,135 @@ function sortCorrect(unSortedData){
     return newSorted;
 }
 
+var paths;
+var vis;
+var arc_group;
 
-function createPieChart(data){
+function generateNewSvg(){
+  vis = d3.select("#countryVisualizer").append("svg:svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("id", "pieChart")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    // Set this as the origin country
-    originCountry = data[0].name;
-
-    // Calculate the right angles of the pie chart to make the origin country symetrical at the top of the chart
-    calculateStartAngle(data);
-
-    sortedData = sortCorrect(data);
-
-    var svg = d3.select("#countryVisualizer").append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("id", "pieChart")
-        .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+  arc_group = vis.append("svg:g")
+      .attr("class", "arc")
+      .attr("transform", "translate(" + (width/2) + "," + (height/2) + ")");
 
     // SHADOWS //
-
-    var defs = svg.append( 'defs' );
-
-    // append filter element
+    var defs = vis.append( 'defs' );
     var filter = defs.append( 'filter' )
-          .attr( 'id', 'simpleChartShadow' ); /// !!! important - define id to reference it later
-
-    // append gaussian blur to filter
+          .attr( 'id', 'simpleChartShadow' );
     filter.append( 'feGaussianBlur' )
           .attr( 'in', 'SourceAlpha' )
           .attr( 'stdDeviation', 5 ) // !!! important parameter - blur
           .attr( 'result', 'blur' );
-
-    // append offset filter to result of gaussion blur filter
     filter.append( 'feOffset' )
           .attr( 'in', 'blur' )
           .attr( 'dx', 0 ) // !!! important parameter - x-offset
           .attr( 'dy', 0 ) // !!! important parameter - y-offset
           .attr( 'result', 'offsetBlur' );
-
-    // merge result with original image
     var feMerge = filter.append( 'feMerge' );
-
-    // first layer result of blur and offset
     feMerge.append( 'feMergeNode' )
-           .attr( 'in", "offsetBlur' )
-
-    // original image on top
+           .attr( 'in', 'offsetBlur' )
     feMerge.append( 'feMergeNode' )
            .attr( 'in', 'SourceGraphic' );
 
-    // SHADOWS //
+}
 
-    var g = svg.selectAll(".arc")
-        .data(pie(sortedData))
-        .enter().append("g")
-        .attr("class", "arc")
-        .attr("filter", "url(#simpleChartShadow)"); // !!! important - set id of predefined filter
+function createPieChart(data, isRootData){
 
-    g.append("path")
-        .attr("stroke-width", 0)
-        .attr("stroke", "white")
-        .attr("d", arc)
-        .style("fill", function (d) {
+    // If we need to regenerate the svg
+    if(vis == undefined) generateNewSvg();
+
+    if(isRootData == true) {
+      rootData = data;
+      isOnRoot = true;
+      $("#goToRootArrow").css('display', 'none');
+    }else{
+      
+      if(isOnRoot == true){
+      $("#goToRootArrow").css('display', 'inline');
+        isOnRoot = false;
+      }
+    }
+    // Set this as the origin country
+    originCountry = data[0].name;
+    
+    // Calculate the right angles of the pie chart to make the origin country symetrical at the top of the chart
+    calculateStartAngle(data);
+
+    currentData = sortCorrect(data);
+
+    
+    paths = arc_group.selectAll("path").data(pie(currentData));
+    paths.enter().append("svg:path")
+      .attr("filter", "url(#simpleChartShadow)")
+      .attr("stroke", "white")
+      .attr("stroke-width", 0)
+      .attr("d", arc)
+      .style("fill", function (d) {
             return color(d.data.continent);
-        })
-        .on ("mouseover", function(d){
-            if(selectedCountry == "" && angular.element($('#app')).scope().getSelectedCountry() != d.data.name) angular.element($('#app')).scope().hoverOverCountryCompare(d.data.name);
-            
-            if(isDraging && !filteredObjects.includes(d3.select(this))) {
-                filteredObjects.push(d3.select(this));
-                d3.select(this).style("stroke-width", 3);
-            }
+      })
+      .on ("mouseover", function(d){
 
-            d3.select(this).style({opacity:'0.8'})
-            d3.select(this).style({cursor: 'pointer'})
-        })
-        .on ("mouseout", function(){
-            d3.select(this).style({opacity:'1.0'})
-        })
-        .on('mousedown', function(d,i){
-            if(selectedCountry == "" && filteredObjects.length <= 1){
-                selectedCountry = d.data.name;
-                selectedObject = d3.select(this);
-                selectedObject.style("stroke-width", 3);
-            }
-            else {
-                selectedObject.style("stroke-width", 0);
-                selectedCountry = "";
-            }
+        if(selectedCountry == "" && angular.element($('#app')).scope().getSelectedCountry() != d.data.name) angular.element($('#app')).scope().hoverOverCountryCompare(d.data.name);
+        
+        if(isDraging && !filteredObjects.includes(d3.select(this))) {
+            filteredObjects.push(d3.select(this));
+            d3.select(this).style("stroke-width", 3);
+        }
 
-            //console.log("Start drag");
-            isDraging = true;
-        })
-        .on('mouseup', function(d,i){
-            //console.log("End drag");
-            isDraging = false;
+        d3.select(this).style({opacity:'0.8'})
+        d3.select(this).style({cursor: 'pointer'})
+      })
+      .on ("mouseout", function(){
+        d3.select(this).style({opacity:'1.0'})
+      })        
+      .on('mousedown', function(d,i){        
+        if(selectedCountry == "" && filteredObjects.length <= 1){
+            selectedCountry = d.data.name;
+            selectedObject = d3.select(this);
+            selectedObject.style("stroke-width", 3);
+        }
+        else {
+            selectedObject.style("stroke-width", 0);
+            selectedCountry = "";
+        }
 
-            if(filteredObjects.length > 1){
-                selectedObject.style("stroke-width", 0);
-                selectedCountry = "";
-            }
+        isDraging = true;
+      })
+      .on('mouseup', function(d,i){
+        isDraging = false;
 
+        if(filteredObjects.length > 1){
+            selectedObject.style("stroke-width", 0);
+            selectedCountry = "";
+
+            var newSelectedData = [];
+            newSelectedData.push(currentData[0]);
             for (var i = 0; i < filteredObjects.length; i++) {
                 filteredObjects[i].style("stroke-width", 0);
+                if(currentData[0].name != filteredObjects[i].data()[0].data.name){
+                  newSelectedData.push(filteredObjects[i].data()[0].data); 
+                }
             }
+            selectedCountry = "";
             filteredObjects = [];
-        })
-        .transition()
+            createPieChart(newSelectedData, false);
+        }
+      })
+      .transition()
         .duration(tweenDuration)
         .attrTween("d", pieTween);
-
+    paths.transition()
+        .duration(tweenDuration)
+        .attrTween("d", pieTween);
+    paths.exit()
+      .transition()
+        .duration(tweenDuration)
+        .attrTween("d", removePieTween)
+      .remove();
 
     // SLIDER //
     $("#slider").slider({
@@ -217,10 +244,7 @@ function createPieChart(data){
 }
 
 
-
-
-
-var calculateStartAngle = function(data){
+function calculateStartAngle(data){
     var originPop = 0;
     var totalPop = 0;
 
@@ -239,6 +263,7 @@ var calculateStartAngle = function(data){
 
 
 function removePieChart(){
+    vis = undefined;
     d3.select('#pieChart').selectAll('g').remove();
     $("#pieChart").remove();
 }
@@ -263,6 +288,16 @@ function pieTween(d, i) {
     e0 = 0;
   }
   var i = d3.interpolate({startAngle: s0, endAngle: e0}, {startAngle: d.startAngle, endAngle: d.endAngle});
+  return function(t) {
+    var b = i(t);
+    return arc(b);
+  };
+}
+
+function removePieTween(d, i) {
+  s0 = 2 * Math.PI;
+  e0 = 2 * Math.PI;
+  var i = d3.interpolate({startAngle: d.startAngle, endAngle: d.endAngle}, {startAngle: s0, endAngle: e0});
   return function(t) {
     var b = i(t);
     return arc(b);

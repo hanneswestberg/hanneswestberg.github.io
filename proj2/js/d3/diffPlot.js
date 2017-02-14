@@ -4,6 +4,7 @@ var margin = {top: 50, right: 20, bottom: 50, left: 20},
       xRoundBands = 0.5,
       xValue = function(d) { return d[0]; },
       yValue = function(d) { return d[1]; },
+      zValue = function(d) { return d[2]; },
       xScale = d3.scale.ordinal(),
       yScale = d3.scale.linear(),
       yAxis = d3.svg.axis().scale(yScale).orient("left"),
@@ -12,35 +13,34 @@ var margin = {top: 50, right: 20, bottom: 50, left: 20},
 
 function createDiffPlots(allData, codebook){
 
-    //console.log(allData);
+    // We create diffplots for all questions
+    for(var q = 0; q < codebook.length; q++){
 
     var usableData = [];
 
-    for(var i = 0; i < Object.keys(allData[1].questions[0].diff).length; i++){
-      usableData.push([Object.keys(allData[1].questions[0].diff)[i], allData[1].questions[0].diff[Object.keys(allData[1].questions[0].diff)[i]]])
+    for(var i = 0; i < Object.keys(allData[1].questions[q].diff).length; i++){
+      usableData.push([Object.keys(allData[1].questions[q].diff)[i], allData[1].questions[q].diff[Object.keys(allData[1].questions[q].diff)[i]], allData[1].questions[q].question])
     }
 
-    for(var i = 0; i < 1; i++){
+    //console.log(usableData);
 
-    // Convert data to standard representation greedily;
-    // this is needed for nondeterministic accessors.
-    usableData = usableData.map(function(d, i) {
-      return [xValue.call(usableData, d, i), yValue.call(usableData, d, i)];
+    usableData = usableData.map(function(d, i, p) {
+      return [xValue.call(usableData, d, i), yValue.call(usableData, d, i), zValue.call(usableData, d, i)];
     });
   
     // Update the x-scale.
     xScale
         .domain(usableData.map(function(d) { return d[0];} ))
-        .rangeRoundBands([0, diffPlotWidth], xRoundBands);
+        .rangeRoundBands([30, diffPlotWidth-70], xRoundBands);
        
 
     // Update the y-scale.
 
     //d3.extent(usableData.map(function(d) { return d[1];} ))
     yScale
-        .domain([0, 100])
-        .range([diffPlotHeight/2, -diffPlotHeight/2]);
-        //.nice();
+        .domain([0, 160])
+        .range([diffPlotHeight/2, -diffPlotHeight/2])
+        .nice();
         
 
     // Select the svg element, if it exists.
@@ -100,15 +100,23 @@ function createDiffPlots(allData, codebook){
     var g = svg.select("g")
         .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
+    var qtest = q;
 
     var tip = d3.tip()
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function(d) {
-          if(d[1] < 0)
-            return "<p>They answered:<p/><br><strong style='color:yellow'>" + codebook[0].answers[d[0]] + ": </strong> <span style='color:red'>   " + Number(d[1]).toFixed(2) + " % less</span><p><br>" + allData[0].name + ":  " + allData[0].questions[0].ans[d[0]] + " %</p><p>" + allData[1].name + ": " + allData[1].questions[0].ans[d[0]] + " %</p>";
-          else
-            return "<p>They answered:<p/><br><strong style='color:yellow'>" + codebook[0].answers[d[0]] + ": </strong> <span style='color:#2aa02a'>   +" + Number(d[1]).toFixed(2) + " % more</span><p><br>" + allData[0].name + ":  " + allData[0].questions[0].ans[d[0]] + " %</p><p>" + allData[1].name + ": " + allData[1].questions[0].ans[d[0]] + " %</p>";
+
+          // A bugg fix that searches for the correct question to display info for
+          var myQ = "";
+          for(var i = 0; i < codebook.length; i++){
+            if(codebook[i].id == d[2])
+              myQ = i;
+          }
+
+          var posOrNeg = (d[1] < 0) ? ("<span style='color:#D3000C'> &#160 " + Number(d[1]).toFixed(2) + " % less:") : ("<span style='color:#30C02C'> &#160 +" + Number(d[1]).toFixed(2) + " % more");
+      
+          return "<p>They answered:<p/><br><strong style='color:#75C9FF'>" + codebook[myQ].answers[d[0]] + "</strong>" + posOrNeg + "</span><p><strong style='color:#B09062'><br>" + allData[0].name + ":  </strong> &#160 " + allData[0].questions[myQ].ans[d[0]] + " %</p><strong style='color:#B09062'><p>" + allData[1].name + ": </strong> &#160 " + allData[1].questions[myQ].ans[d[0]] + " %</p>";
   })
 
 
@@ -116,17 +124,24 @@ function createDiffPlots(allData, codebook){
           .attr('class', 'd3-tip')
           .offset([-10, 0])
           .html(function(d) {
-            var retString = "<p><strong style='color:yellow'>Wording: </strong>" + codebook[0].wording + "<p/>";
 
-            for(var i = 0; i < Object.keys(codebook[0].answers).length; i++){
-              retString = retString.concat("<p> <strong style='color:yellow'>" + Object.keys(codebook[0].answers)[i] + ":</strong> " + codebook[0].answers[Object.keys(codebook[0].answers)[i]] + "</p>");
+          var myQ = "";
+          for(var i = 0; i < codebook.length; i++){
+            if(codebook[i].id == d[2])
+              myQ = i;
+          }
+            
+            var retString = "<p><strong style='color:#FFCA00'>Wording: </strong>" + codebook[myQ].wording + "<p/>";
+
+            for(var i = 0; i < Object.keys(codebook[myQ].answers).length; i++){
+              retString = retString.concat("<p> <strong style='color:#75C9FF'>" + Object.keys(codebook[myQ].answers)[i] + ":</strong> " + codebook[myQ].answers[Object.keys(codebook[myQ].answers)[i]] + "</p>");
             }
 
             return retString;
     })
 
     var text = svg.selectAll("text")
-      .data(codebook[0].subject)
+      .data(usableData)
       .enter()
       .append("text");
 
@@ -134,15 +149,13 @@ function createDiffPlots(allData, codebook){
       .attr('class', 'questionLabel')
       .attr("x", function(d) { return 0; })                
       .attr("y", function(d) { return -30; })
-      //.html(function(d) { return "<h2>" + codebook[0].subject + "</h2>"; })
-      .text( function (d) { return codebook[0].subject; })
+      .text( function (d) { return codebook[q].subject; })
       .attr("font-family", "sans-serif")
       .attr("font-size", "20px")
       .attr("fill", "white");
     textLabels.call(questionTip);
     textLabels.on('mouseover', questionTip.show);
     textLabels.on('mouseout', questionTip.hide);
-
 
 
    // Update the bars.
@@ -155,7 +168,6 @@ function createDiffPlots(allData, codebook){
         .attr("y", function(d, i) { return d[1] < 0 ? Y0() : Y(d); })
         .attr("width", xScale.rangeBand())
         .attr("height", function(d, i) { 
-          //console.log(Math.abs( Y(d) - Y0() ));
           return Math.abs( Y(d) - Y0() ); 
         });
     bar.call(tip);

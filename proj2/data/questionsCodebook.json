@@ -12,6 +12,18 @@
 		"a3": "Not very happy",
 		"a4": "Not at all happy"
 		}
+	},
+	{
+	"id":"v2", 
+	"subject": "Important in life: Religion", 
+	"wording": "For each of the following, indicate how important it is in your life. Would you say it is: Religion",
+	"answers": 
+		{
+		"a1": "Very important",
+		"a2": "Rather important",
+		"a3": "Not very important",
+		"a4": "Not at all important"
+		}
 	}
 	]
 }

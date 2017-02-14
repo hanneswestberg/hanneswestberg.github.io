@@ -34,8 +34,8 @@
 
 		<!-- THE HEADER -->
 		<div id="header" class="row">
-			<h1>Visualizing the World Through its Own Worldview</h1>
-			<h3>Made by Hannes Vestberg in 2017 - Information Visualization, KTH</h3>
+			<h1 style="color: #F8F8F8">Visualizing the World Through its Own Worldview</h1>
+			<h3 style="color: #F8F8F8">Made by Hannes Vestberg in 2017 - Information Visualization, KTH</h3>
 		</div>
 
 
@@ -44,11 +44,11 @@
 
 			<!-- STEP 1 - COUNTRY PICKER -->
 			<div id="countryPicker" class="col-md-12">
-				<h2>Select country</h2>
+				<h2 style="color: #F8F8F8">Select country</h2>
 
-				<div id="countryFlag" ng-repeat="country in countries" class="col-md-1 col-sm-4 col-xs-6 col-centered">
-					<img src="images/{{ country.flag }}" alt="country.name" draggable="false" ng-click="selectCountry(country)" style="display:block; margin: 0 auto">
-					<p style="text-align: center">{{ country.name }}</p>
+				<div id="countryFlag" ng-repeat="country in countries" class="col-lg-1 col-sm-3 col-xs-6 col-centered">
+					<img src="images/{{ country.flag }}" alt="country.name" draggable="false" ng-click="selectCountry(country)" style="display:block; margin: 0 auto; width: 90px; height: 90px">
+					<p style="color: #F8F8F8; text-align: center">{{ country.name }}</p>
 				</div>
 			</div>
 
@@ -56,15 +56,17 @@
 			<div id="countryVisualizer" class="col-md-6" style="display: none">
 				<span id="goBackArrow" class="glyphicon glyphicon-arrow-left" ng-click="goBack()"></span>
 
-				<h2 style="text-align: center; position: absolute; left:285px; top: 40px"> Viewing the world as {{ originCountry.name }}</h2>
+				<h2 style="color: #F8F8F8; text-align: center; position: absolute; left:285px; top: 40px"> Viewing the world as <strong style="color: #B08062">{{ originCountry.name }}</strong></h2>
 
 				<div id="selectedCountryInfo">
-					<img class="noselect" draggable="false" src="images/{{ selectedCountry.flag }}" alt="country.name" draggable="false" style="display:block; margin: 0 auto">
-					<h2 class="noselect" draggable="false" style="text-align: center">{{ selectedCountry.name }}</h2>
-					<p class="noselect" draggable="false" style="text-align: center; margin-bottom: 50px">Pop:</p>
-					<h2 class="noselect" draggable="false" style="text-align: center; margin-bottom: 50px; text-transform: capitalize">{{ selectedCountry.continent }}</h2>
-					<p class="noselect" draggable="false" style="text-align: center">Our values differ by:</p>
-					<h1 class="noselect" draggable="false" id="valueAlike" style="text-align: center; color: yellow"> {{ selectCountryValueDifference }}</h1>
+					<img class="noselect" draggable="false" src="images/{{ selectedCountry.flag }}" alt="country.name" style="display:block; top:170px; opacity: .5;margin: 0 auto; position: relative;z-index: 1;">
+					<img class="noselect" draggable="false" src="images/middleCircle.png" style="display: inline;margin: 0 auto;top: -10px;right: -55px; width: 500px; height:500px; position: absolute; z-index: 0;">
+					<h2 class="noselect" draggable="false" style="bottom: 50px; color: #B09062;text-align: center; position: relative; z-index: 1;">{{ selectedCountry.name }}</h2>
+					<p class="noselect" draggable="false" style="text-align: center; bottom: 40px ;margin-bottom: 50px; position: relative; color: #44862B; z-index: 1;"">Pop:</p>
+					<h2 class="noselect" draggable="false" style="color: #75C9FF; left:140px; bottom: 20px; text-align: center; margin-bottom: 50px; text-transform: capitalize; position: relative; z-index: 1;"">{{ selectedCountry.continent }}</h2>
+					<p class="noselect" draggable="false" style="text-align: center; position: relative; z-index: 1;"">Our values differ by:</p>
+					<h1 class="noselect" draggable="false" id="valueAlike" style="text-align: center; color: #FFCA00; position: relative; z-index: 1;""> {{ selectCountryValueDifference }}</h1>
+					<span id="goToRootArrow" class="glyphicon glyphicon-arrow-left" ng-click="goBackToRoot()" style="position: absolute; z-index: 10; cursor: pointer;"></span>
 				</div>
 			</div>
 
