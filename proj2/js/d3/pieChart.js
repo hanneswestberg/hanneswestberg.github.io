@@ -205,6 +205,9 @@ function createPieChart(data, isRootData){
         .duration(tweenDuration)
         .attrTween("d", pieTween);
     paths.transition()
+        .style("fill", function (d) {
+          return color(d.data.continent);
+        })
         .duration(tweenDuration)
         .attrTween("d", pieTween);
     paths.exit()
