@@ -21,25 +21,27 @@ app.controller('myCtrl', function($scope, $http){
   	$scope.selectedCountry = country;
 
   	// Generate the current data
-	currentData = dataManager.calculateAllCountryDifferences(country, 5);
+  	currentData = dataManager.calculateAllCountryDifferences(country, 5);
 
-	// Create the pie chart with the current data
-	createPieChart(currentData, true);
+  	// Create the pie chart with the current data
+  	createPieChart(currentData, true);
 
-	// Change view to visualization
-	document.getElementById('countryPicker').style.display = 'none';
-	document.getElementById('countryVisualizer').style.display = 'inline';
+  	// Change view to visualization
+  	document.getElementById('countryPicker').style.display = 'none';
+  	document.getElementById('countryVisualizer').style.display = 'inline';
+    //document.getElementById('slider').style.display = 'inline';
   }
 
    // Called when we go back from the country visualisation
    $scope.goBack = function(country){
 
-	removeAllDiffPlots();
+  	removeAllDiffPlots();
 
-  	if(document.getElementById('pieChart') != undefined) removePieChart();
-   	// Change back view to country picker
-	document.getElementById('countryPicker').style.display = 'inline';
-	document.getElementById('countryVisualizer').style.display = 'none';
+    if(document.getElementById('pieChart') != undefined) removePieChart();
+    // Change back view to country picker
+  	document.getElementById('countryPicker').style.display = 'inline';
+    document.getElementById('countryVisualizer').style.display = 'none';
+  	document.getElementById('slider').style.display = 'none';
   }
 
   // Called when the user hovers over an another country than the origin

@@ -249,7 +249,7 @@ function calculateStartAngle(data){
     var totalPop = 0;
 
     originPop = data[0].pop;
-    totalPop += originPop;
+    //totalPop += originPop;
 
     for (var i = 0; i < data.length; i++) {
         totalPop += data[i].pop;

@@ -48,7 +48,7 @@ function createDiffPlots(allData, codebook){
     
     var svg = d3.select("#questionVisualiserContent").append("svg");
     //svg.attr("class", "diffPlot");
-    svg.attr("class", "diffPlot col-md-4 col-sm-6 col-xs-12")
+    svg.attr("class", "diffPlot col-lg-4 col-md-6 col-xs-12")
     svg.style("overflow", "visible");
 
     // SHADOWS //

@@ -52,7 +52,7 @@
 		{"name":"Sweden","flag":"flag_sweden.png","continent":"europe"},
 		{"name":"Taiwan","flag":"flag_taiwan.png","continent":"asia"},
 		{"name":"Thailand","flag":"flag_thailand.png","continent":"asia"},
-		{"name":"Trinidad and Tobago","flag":"flag_trinidad and tobago.png","continent":"north america"},
+		{"name":"Trinidad and Tobago","flag":"flag_trinidad and tobago.png","continent":"south america"},
 		{"name":"Tunisia","flag":"flag_tunisia.png","continent":"africa"},
 		{"name":"Turkey","flag":"flag_turkey.png","continent":"asia"},
 		{"name":"Ukraine","flag":"flag_ukraine.png","continent":"europe"},

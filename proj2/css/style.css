@@ -36,7 +36,7 @@ h1 {
 h2 {
 	font-family: 'Open Sans', sans-serif;
 	text-align:center;
-	font-size:25px;
+	font-size: 1.4vw;
 	color: white;
 	margin-left: 15px;
 	margin-right: 15px;
@@ -47,7 +47,7 @@ h2 {
 h3 {
 	font-family: 'Open Sans', sans-serif;
 	text-align:center;
-	font-size: 15px;
+  font-size: 0.8vw;
 	font-style: italic;
 	color: white;
 	margin-left: 15px;
@@ -60,7 +60,7 @@ h3 {
 p {
 	font-family: 'Open Sans', sans-serif;
 	text-align: justify-content;
-	font-size:14px;
+	font-size: 0.75vw;
 	color: white;
 	margin-left: 15px;
 	margin-right: 15px;
@@ -104,8 +104,8 @@ p {
 }
 
 #countryFlag{
-	min-width: 140px;
-	min-height: 140px;
+  /*min-width: 140px;
+  min-height: 140px;*/
 	margin-bottom: 20px;
 	cursor: pointer;
     opacity: .3;
