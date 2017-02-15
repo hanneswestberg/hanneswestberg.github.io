@@ -34,8 +34,6 @@ var DataManager = function(){
 		$.getJSON(dataUrl + "values.json", function(json) {
 	    	allAnswers.push(json.all);
 		});
-
-		window.allAnswers = allAnswers;
 	}
 
 	this.getQuestionsCodebook = function(){
@@ -187,18 +185,18 @@ var DataManager = function(){
 		else{ console.log("This wave has no questions?! Something must have gone wrong"); }
 	}
 
-
+	/*
 	this.whenAvailable = function(name, callback) {
 	// Store the interval id
     var intervalId = window.setInterval(function() {
-        if (window[name]) {
+        if (window[name] != undefined) {
         		// Clear the interval id
         		window.clearInterval(intervalId);
             // Call back
             callback(window[name]);
         }
     }, 10);
-	}
+	}*/
 
 	this.loadData();
 	return this;

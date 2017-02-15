@@ -46,7 +46,7 @@ function createDiffPlots(allData, codebook){
     // Select the svg element, if it exists.
     var svg = d3.select("#questionVisualiserContent").append("svg");
     //svg.attr("class", "diffPlot");
-    svg.attr("class", "diffPlot col-lg-4 col-md-6 col-xs-12")
+    svg.attr("class", "diffPlot col-lg-4 col-md-12")
     svg.attr("min-width", diffPlotWidth+40)
     svg.style("overflow", "visible");
 

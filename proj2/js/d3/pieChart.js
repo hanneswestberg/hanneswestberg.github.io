@@ -181,7 +181,7 @@ function createPieChart(data, isRootData){
       })
       .on ("mouseover", function(d){
         // Send info to the controller to display more info about the country the user is hovering over
-        if(selectedCountry == "" && angular.element($('#app')).scope().getSelectedCountry() != d.data.name) angular.element($('#app')).scope().hoverOverCountryCompare(d.data.name);
+        if(selectedCountry == "" && angular.element($('#app')).scope().getSelectedCountry() != d.data.name) angular.element('#app').scope().hoverOverCountryCompare(d.data.name);
         // If the user is draging, then add this element to the array of filtered objects
         if(isDraging && !filteredNames.includes(d3.select(this).data()[0].data.name)) {
             filteredObjects.push(d3.select(this));

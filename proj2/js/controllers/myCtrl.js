@@ -1,4 +1,4 @@
-app.controller('myCtrl', function($scope, $http){ 
+app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){ 
 
 
   var dataManager = new DataManager();
@@ -46,7 +46,7 @@ app.controller('myCtrl', function($scope, $http){
     // Check slider colors (which waves did the origin country participate in?)
     $scope.calculateColorForSliderLabels();
     // Apply the changes
-    $scope.$apply();
+    //$scope.$apply();
   }
 
 
@@ -178,32 +178,35 @@ app.controller('myCtrl', function($scope, $http){
   	return dataManager.getAllAnswers();
   }
 
-  // Activate the slider when the data has loaded
-  dataManager.whenAvailable("allAnswers", function(t){
   // SLIDER //
-  $scope.waveSlider = $("#slider").slider({
-      orientation:"vertical",
-      value: 5,
-      min: 0,
-      max: 5,
-      step: 1,
-      slide: function(event, ui){
-        $scope.changeWave(ui.value);
-      }
-  })
-  .each(function() {
-    var opt = $(this).data().uiSlider.options;
-    var vals = opt.max - opt.min;
-    
-    for (var i = vals; i >= 0; i--) {
-      var ans = dataManager.getAllAnswers();
-      var el = "";
+  $timeout(function(){
+    $scope.waveSlider = $("#slider").slider({
+        orientation:"vertical",
+        value: 5,
+        min: 0,
+        max: 5,
+        step: 1,
+        slide: function(event, ui){
+          $scope.changeWave(ui.value);
+        }
+    })
+    .each(function() {
+      var opt = $(this).data().uiSlider.options;
+      var vals = opt.max - opt.min;
+      
+      for (var i = vals; i >= 0; i--) {
+        var ans = dataManager.getAllAnswers();
+        var el = "";
 
-      el = $('<label class="sliderLabel">'+ans[0][i].interval+'</label>').css('bottom',(-10 + i/vals*100)+'%');
-      $("#slider").append(el);
-    }
-  });
-  });
+        el = $('<label class="sliderLabel">'+ans[0][i].interval+'</label>').css('bottom',(-10 + i/vals*100)+'%');
+        $("#slider").append(el);
+      }
+    });
+  }, 10);
+  // Activate the slider when the data has loaded
+
+
+
 
   $scope.calculateColorForSliderLabels = function(){
     $(".sliderLabel").remove();
