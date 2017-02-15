@@ -2,7 +2,7 @@
 	"name":"all",
 	"questions": [
 	{
-	"id":"v1", 
+	"id":0, 
 	"subject": "Feeling of happiness", 
 	"wording": "Taking all things together, would you say you are:",
 	"answers": 
@@ -14,7 +14,7 @@
 		}
 	},
 	{
-	"id":"v2", 
+	"id":1, 
 	"subject": "Important in life: Religion", 
 	"wording": "For each of the following, indicate how important it is in your life. Would you say it is: Religion",
 	"answers": 
@@ -23,6 +23,18 @@
 		"a2": "Rather important",
 		"a3": "Not very important",
 		"a4": "Not at all important"
+		}
+	},	
+	{
+	"id":2, 
+	"subject": "Men make better political leaders", 
+	"wording": "On the whole, men make better political leaders than women do",
+	"answers": 
+		{
+		"a1": "Agree strongly",
+		"a2": "Agree",
+		"a3": "Disagree",
+		"a4": "Strongly disagree"
 		}
 	}
 	]
