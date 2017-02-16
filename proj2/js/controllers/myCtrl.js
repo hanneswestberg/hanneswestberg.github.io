@@ -200,7 +200,7 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
       var intervals = ["1981-1984", "1990-1994", "1995-1998", "1999-2004", "2005-2009", "2010-2014"];
       var el = "";
 
-      el = $('<label class="sliderLabel">'+intervals[0] +'</label>').css('bottom',(-10 + i/vals*100)+'%');
+      el = $('<label class="sliderLabel">'+intervals[i] +'</label>').css('bottom',(-10 + i/vals*100)+'%');
       $("#slider").append(el);
     }
   });
