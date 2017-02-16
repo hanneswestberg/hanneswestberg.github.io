@@ -43,37 +43,33 @@ var pie = d3.layout.pie()
     .value(function (d) {
       if(d.pop == "nodata" || d.pop == 0){
         console.log("Missing population data for " + d.name);
-        return logValue(minLogValue);
+        return scaleValue(minScaleValue);
       }
       else{
-        //console.log(d.name + "  " + logValue(d.pop));
-        return logValue(d.pop);      
+        //console.log(d.name + "  " + scaleValue(d.pop));
+        return scaleValue(d.pop);      
       }
 });
 
+var scaleValue;
+var minScaleValue = 1000000;
 
-var logValue = d3.scale.log ()
-    .base(Math.E)
-    .domain([Math.exp(0), Math.exp(9)])
-    .range([2, 10]);
-
-var minLogValue = 10000;
-
+function reCalcScaleValue(data){
+  scaleValue = d3.scale.linear()
+    .domain([d3.min(data, function(d){return d.pop}), d3.max(data, function(d){return d.pop})])
+    .range([1, 8]);
+}
 
 
 function calculateStartAngle(data){
     var originPop = 0;
     var totalPop = 0;
-
-    originPop = (data[0].pop == "nodata" || data[0].pop == 0) ? logValue(minLogValue) : logValue(data[0].pop);
-
+    originPop = (data[0].pop == "nodata" || data[0].pop == 0) ? scaleValue(minScaleValue) : scaleValue(data[0].pop);
     for (var i = 0; i < data.length; i++) {
-      totalPop += (data[i].pop == "nodata" || data[i].pop == 0) ? logValue(minLogValue) : logValue(data[i].pop);
+      totalPop += (data[i].pop == "nodata" || data[i].pop == 0) ? scaleValue(minScaleValue) : scaleValue(data[i].pop);
     }
-
     var quota = originPop / totalPop;
     startAngle = -(quota * Math.PI * 2) / 2;
-
     return startAngle;
 }
 
@@ -160,6 +156,8 @@ function createPieChart(data, isRootData){
         isOnRoot = false;
       }
     }
+    // We need to recalculate our scale
+    reCalcScaleValue(data);
     // Set the old pie data, to make them transision out
     oldPieData = pie(currentData);
     // Set this as the origin country
