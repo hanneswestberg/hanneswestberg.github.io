@@ -16,7 +16,9 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   $http.get('data/countries.json')
   	.then(function(res){
   		$scope.countries = res.data.countries;
-      $scope.filterCountriesByWave();
+      $timeout(function(){
+        $scope.filterCountriesByWave();
+      }, 10)
   });
 
 
