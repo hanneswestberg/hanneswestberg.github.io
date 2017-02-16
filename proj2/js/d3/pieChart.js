@@ -20,8 +20,6 @@ var filteredNames = [];
 var isDraging = false;
 var isOnRoot;
 
-
-//var color = d3.scale.category20()
 var color = d3.scale.ordinal()
   .domain(["europe", "asia", "africa", "north america", "south america", "oceania"])
   .range(["#1f77b4", "#ff7f0e" , "#2ca02c", "#9467bd", "#8c564b" , "#d62728"]);
@@ -46,20 +44,15 @@ var pie = d3.layout.pie()
         return scaleValue(minScaleValue);
       }
       else{
-        //console.log(d.name + "  " + scaleValue(d.pop));
         return scaleValue(d.pop);      
       }
 });
 
-var scaleValue;
-var minScaleValue = 1000000;
-
-function reCalcScaleValue(data){
-  scaleValue = d3.scale.linear()
-    .domain([d3.min(data, function(d){return d.pop}), d3.max(data, function(d){return d.pop})])
+var scaleValue = d3.scale.linear()
+    .domain([0, 1500000000])
     .range([1, 8]);
-}
 
+var minScaleValue = 1000000;
 
 function calculateStartAngle(data){
     var originPop = 0;
@@ -144,7 +137,7 @@ function generateNewSvg(){
 
 function createPieChart(data, isRootData){
     // If we need to regenerate the svg
-    if(vis == undefined) generateNewSvg();
+    if(vis == undefined) generateNewSvg(data);
     // We must check if we are to display root data or filtered data
     if(isRootData == true) {
       rootData = data;
@@ -156,8 +149,8 @@ function createPieChart(data, isRootData){
         isOnRoot = false;
       }
     }
-    // We need to recalculate our scale
-    reCalcScaleValue(data);
+
+
     // Set the old pie data, to make them transision out
     oldPieData = pie(currentData);
     // Set this as the origin country

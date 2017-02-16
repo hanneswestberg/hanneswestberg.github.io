@@ -312,6 +312,7 @@ p {
 
 .d3-tip {
   font-size: 12px;
+  z-index: 100;
   line-height: 1;
   /*font-weight: bold;*/
   padding: 12px;

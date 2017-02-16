@@ -69,7 +69,7 @@
 					<img class="noselect" draggable="false" ng-src="{{'images/middleCircle.png'}}" style="display: inline;margin: 0 auto;top: -10px;right: -55px; width: 500px; height:500px; position: absolute; z-index: 0;">
 					<h2 class="noselect" draggable="false" style="bottom: 80px; color: #B09062;text-align: center; position: relative; z-index: 1;">{{ selectedCountry.name }}</h2>
 					<p class="noselect" draggable="false" style="text-align: center; bottom: 80px ;margin-bottom: 50px; position: relative; z-index: 1;" ng-style="checkIfNoData(selectedCountryPopulation)">{{ selectedCountryPopulation | textOrNumber }}</p>
-					<h3 class="noselect" draggable="false" style="color: #75C9FF; bottom: 110px; text-align: center; margin-bottom: 50px; text-transform: capitalize; position: relative; z-index: 1;">{{ selectedCountry.continent }}</h3>
+					<h3 class="noselect" draggable="false" style="bottom: 110px; text-align: center; margin-bottom: 50px; text-transform: capitalize; position: relative; z-index: 1;" ng-style="getContinentColor(selectedCountry.continent)">{{ selectedCountry.continent }}</h3>
 					<p class="noselect" draggable="false" style="text-align: center; position: relative; z-index: 1;">Our values differ by:</p>
 					<h1 class="noselect" draggable="false" id="valueAlike" style="text-align: center; position: relative; z-index: 1; font-size: 40px" ng-style="checkIfNoDataForOriginCountry(selectCountryValueDifference)"> {{ selectCountryValueDifference }}</h1>
 					<span id="goToRootArrow" class="glyphicon glyphicon-arrow-left" ng-click="goBackToRoot()" style="position: absolute; z-index: 10; cursor: pointer;"></span>

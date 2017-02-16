@@ -3,6 +3,8 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   // Create the datamanager instance
   var dataManager = new DataManager();
   var currentData = [];
+  var continentColorDictionary = {"europe":"#1f77b4", "asia":"#ff7f0e", "africa":"#2ca02c", "north america":"#9467bd", "south america":"#8c564b", "oceania":"#d62728"};
+
 
   // Instance variables
   $scope.selectedCountry = "";
@@ -166,29 +168,17 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
 
   // A CSS function that checks if value lacks any data
   $scope.checkIfNoData = function(myValue){
-    var css;
-    if(myValue == 0 || myValue == "No data"){
-      css = { 'color':'#D3000C' };
-      return css;
-    }
-    else {
-      css = { 'color':'#44862B' };
-      return css;
-    }
+    return (myValue == 0 || myValue == "No data") ? { 'color':'#D3000C' } : { 'color':'#44862B' };
   }
 
   // Changes the color for the origin country if there is no data
   $scope.checkIfNoDataForOriginCountry = function(myValue){
-    var css;
-    if(myValue.indexOf("No data") != -1){
-      css = { 'color':'#D3000C' };
-      return css;
-    }
-    else {
-      css = { 'color':'#FFCA00' };
-      return css;
-    }
-}
+    return (myValue.indexOf("No data") != -1) ? { 'color':'#D3000C' } : { 'color':'#FFCA00' };
+  }
+
+  $scope.getContinentColor = function(myValue){
+    return {'color': continentColorDictionary[myValue]};
+  }
 
   // Goes back to the root
   $scope.goBackToRoot = function(){
@@ -198,6 +188,10 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   // Returns the name of the selected country
   $scope.getSelectedCountry = function(){
   	return $scope.selectedCountry.name;
+  }
+
+  $scope.getPopulationData = function(){
+    return dataManager.getAllCountries();
   }
 
   // Returns the answer data
@@ -212,9 +206,7 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
     var vals = opt.max - opt.min;
     for (var i = vals; i >= 0; i--) {
       var ans = dataManager.getAllAnswers();
-      var el = ($scope.originCountry == "") ? $('<label class="sliderLabel">'+ans[i].interval+'</label>').css('bottom',(-10 + i/vals*100)+'%') :dataManager.countryIsInWave($scope.originCountry.name, i) ? $('<label class="sliderLabel">'+ans[i].interval+'</label>').css('bottom',(-10 + i/vals*100)+'%') : $('<label class="sliderLabel" style="color: #D3000C">'+ans[i].interval+'</label>').css('bottom',(-10 + i/vals*100)+'%');
-      // We have no country selected, go back to standard settings
-      el = $('<label class="sliderLabel">'+ans[i].interval+'</label>').css('bottom',(-10 + i/vals*100)+'%');
+      var el = ($scope.originCountry == "") ? $('<label class="sliderLabel">'+ans[i].interval+'</label>').css('bottom',(-10 + i/vals*100)+'%') : dataManager.countryIsInWave($scope.originCountry.name, i) ? $('<label class="sliderLabel">'+ans[i].interval+'</label>').css('bottom',(-10 + i/vals*100)+'%') : $('<label class="sliderLabel" style="color: #D3000C">'+ans[i].interval+'<br><label class="sliderLabel" style="color: #D3000C; left:10px; position:absolute;">No Data</label></label>').css('bottom',(-10 + i/vals*100)+'%');
       $("#slider").append(el);
     }
   }
@@ -222,9 +214,9 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   // Waits until jQuery has loaded, then fires the method
   function defer(method) {
     if (window.jQuery)
-        method();
+      method();
     else
-        setTimeout(function() { defer(method) }, 50);
+      setTimeout(function() { defer(method) }, 50);
   }
 
   // Let's load the data on start

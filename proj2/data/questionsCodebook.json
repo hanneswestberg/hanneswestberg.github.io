@@ -1,10 +1,37 @@
 {
 	"name": "all",
+	"categories": [
+		{
+			"id":0,
+			"subject": "Living quality",
+			"questions": [0, 3, 4]
+		},
+		{
+			"id":1,
+			"subject": "Importance in Life",
+			"questions": [5, 1, 6]
+		},
+		{
+			"id":2,
+			"subject": "Justifiable",
+			"questions": [7, 8, 9]
+		},
+		{
+			"id":3,
+			"subject": "Gender",
+			"questions": [2, 10, 11]
+		},
+		{
+			"id":4,
+			"subject": "Important child qualities",
+			"questions": [12, 13, 14]
+		}
+	],
 	"questions": [
 	{
 	"id":0, 
-	"subject": "Feeling of happiness", 
-	"wording": "Taking all things together, would you say you are:",
+	"subject": "Happiness", 
+	"wording": "Taking all things together, would you say you are: Happy",
 	"answers": 
 		{
 		"a1": "Very happy",
@@ -15,7 +42,7 @@
 	},
 	{
 	"id":1, 
-	"subject": "Important in life: Religion", 
+	"subject": "Religion",
 	"wording": "For each of the following, indicate how important it is in your life. Would you say it is: Religion",
 	"answers": 
 		{
@@ -35,6 +62,167 @@
 		"a2": "Agree",
 		"a3": "Disagree",
 		"a4": "Strongly disagree"
+		}
+	},
+	{
+	"id":3, 
+	"subject": "State of health", 
+	"wording": "(Subjective) All in all, how would you describe your state of health these days?. Would you say it is:",
+	"answers": 
+		{
+		"a1": "Very good",
+		"a2": "Good",
+		"a3": "Fair",
+		"a4": "Poor"
+		}
+	},
+	{
+	"id":4, 
+	"subject": "Financial satisfaction", 
+	"wording": "(Scale 1 - 10) How satisfied are you with the financial situation of your household?",
+	"answers": 
+		{
+		"a1": "Completely satisfied",
+		"a2": "9",
+		"a3": "8",
+		"a4": "7",
+		"a5": "6",
+		"a6": "5",
+		"a7": "4",
+		"a8": "3",
+		"a9": "2",
+		"a10": "Completely dissatisfied"
+		}
+	},
+	{
+	"id":5, 
+	"subject": "Work", 
+	"wording": "For each of the following, indicate how important it is in your life. Would you say it is: Work",
+	"answers": 
+		{
+		"a1": "Very important",
+		"a2": "Rather important",
+		"a3": "Not very important",
+		"a4": "Not at all important"
+		}
+	},
+	{
+	"id":6, 
+	"subject": "Politics", 
+	"wording": "For each of the following, indicate how important it is in your life. Would you say it is: Politics",
+	"answers": 
+		{
+		"a1": "Very important",
+		"a2": "Rather important",
+		"a3": "Not very important",
+		"a4": "Not at all important"
+		}
+	},
+	{
+	"id":7, 
+	"subject": "Abortion", 
+	"wording": "(Scale 1 - 10) Please tell for each of the following actions whether you think it can always be justified, never be justified, or something in between: Abortion",
+	"answers": 
+		{
+		"a1": "Always justifiable",
+		"a2": "9",
+		"a3": "8",
+		"a4": "7",
+		"a5": "6",
+		"a6": "5",
+		"a7": "4",
+		"a8": "3",
+		"a9": "2",
+		"a10": "Never justifiable"
+		}
+	},	
+	{
+	"id":8, 
+	"subject": "Homosexuality", 
+	"wording": "(Scale 1 - 10) Please tell for each of the following actions whether you think it can always be justified, never be justified, or something in between: Homosexuality",
+	"answers": 
+		{
+		"a1": "Always justifiable",
+		"a2": "9",
+		"a3": "8",
+		"a4": "7",
+		"a5": "6",
+		"a6": "5",
+		"a7": "4",
+		"a8": "3",
+		"a9": "2",
+		"a10": "Never justifiable"
+		}
+	},	
+	{
+	"id":9, 
+	"subject": "Divorce", 
+	"wording": "(Scale 1 - 10) Please tell for each of the following actions whether you think it can always be justified, never be justified, or something in between: Divorce",
+	"answers": 
+		{
+		"a1": "Always justifiable",
+		"a2": "9",
+		"a3": "8",
+		"a4": "7",
+		"a5": "6",
+		"a6": "5",
+		"a7": "4",
+		"a8": "3",
+		"a9": "2",
+		"a10": "Never justifiable"
+		}
+	},	
+	{
+	"id":10, 
+	"subject": "Men have more rights to a job", 
+	"wording": "Do you agree, disagree or neither agree nor disagree with the following statements?: When jobs are scarce, men should have more right to a job than women",
+	"answers": 
+		{
+		"a1": "Agree",
+		"a2": "Neither",		
+		"a3": "Disagree"
+		}
+	},
+	{
+	"id":11, 
+	"subject": "Men make better business executives", 
+	"wording": "For each of the following statements, can you tell how strongly you agree or disagree with each. Do you strongly agree, agree, disagree, or strongly disagree?: On the whole, men make better business executives than women do",
+	"answers": 
+		{
+		"a1": "Agree strongly",
+		"a2": "Agree",
+		"a3": "Disagree",
+		"a4": "Strongly disagree"
+		}
+	},
+	{
+	"id":12, 
+	"subject": "Independence", 
+	"wording": "Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?: Independence",
+	"answers": 
+		{
+		"a1": "Mentioned",
+		"a2": "Not mentioned"
+		}
+	},
+	{
+	"id":13, 
+	"subject": "Hard work", 
+	"wording": "Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?: Hard work",
+	"answers": 
+		{
+		"a1": "Mentioned",
+		"a2": "Not mentioned"
+		}
+	},
+	{
+	"id":14, 
+	"subject": "Feeling of responsibility", 
+	"wording": "Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?: Feeling of responsibility",
+	"answers": 
+		{
+		"a1": "Mentioned",
+		"a2": "Not mentioned"
 		}
 	}
 	]

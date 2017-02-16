@@ -85,7 +85,10 @@ function DataManager(){
 							questionMeanDifference = (questionMeanDifference / Object.keys(questionsCodebook[questionId].answers).length);
 							totalMeanDifference += questionMeanDifference;
 						}
-						else{ boolCountryIsInWave = false; }
+						else{
+							// We must check if the wave lacks data about this question, otherwise this country is not in the current wave
+							if(allAnswers[wave].questions[questionId].answers != "nodata") boolCountryIsInWave = false; 
+						}
 					}
 				}
 				// Then we divide with number of questions to get the total mean value difference
