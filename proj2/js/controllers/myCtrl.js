@@ -179,33 +179,29 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   }
 
   // SLIDER //
-  $timeout(function(){
-    $scope.waveSlider = $("#slider").slider({
-        orientation:"vertical",
-        value: 5,
-        min: 0,
-        max: 5,
-        step: 1,
-        slide: function(event, ui){
-          $scope.changeWave(ui.value);
-        }
-    })
-    .each(function() {
-      var opt = $(this).data().uiSlider.options;
-      var vals = opt.max - opt.min;
-      
-      for (var i = vals; i >= 0; i--) {
-        var ans = dataManager.getAllAnswers();
-        var el = "";
-
-        el = $('<label class="sliderLabel">'+ans[0][i].interval+'</label>').css('bottom',(-10 + i/vals*100)+'%');
-        $("#slider").append(el);
-      }
-    });
-  }, 10);
   // Activate the slider when the data has loaded
+  $scope.waveSlider = $("#slider").slider({
+      orientation:"vertical",
+      value: 5,
+      min: 0,
+      max: 5,
+      step: 1,
+      slide: function(event, ui){
+        $scope.changeWave(ui.value);
+      }
+  })
+  .each(function() {
+    var opt = $(this).data().uiSlider.options;
+    var vals = opt.max - opt.min;
+    
+    for (var i = vals; i >= 0; i--) {
+      var intervals = ["1981-1984", "1990-1994", "1995-1998", "1999-2004", "2005-2009", "2010-2014"];
+      var el = "";
 
-
+      el = $('<label class="sliderLabel">'+intervals[0] +'</label>').css('bottom',(-10 + i/vals*100)+'%');
+      $("#slider").append(el);
+    }
+  });
 
 
   $scope.calculateColorForSliderLabels = function(){
