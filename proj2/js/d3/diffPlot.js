@@ -1,7 +1,7 @@
 var margin = {top: 50, right: 20, bottom: 50, left: 20},
       diffPlotWidth = 240,
       diffPlotHeight = 350,
-      xRoundBands = 0.2,
+      xRoundBands = 0.3,
       xValue = function(d) { return d[0]; },
       yValue = function(d) { return d[1]; },
       zValue = function(d) { return d[2]; },
@@ -34,7 +34,7 @@ function createDiffPlots(allData, codebook){
           .nice();
       // Select the svg element, if it exists.
       var svg = d3.select("#questionVisualiserContent").append("svg");
-      //svg.attr("class", "diffPlot");
+      svg.attr("class", "nano-content");
       svg.attr("class", "diffPlot col-lg-4 col-md-12")
       svg.attr("min-width", diffPlotWidth+40)
       svg.style("overflow", "visible");

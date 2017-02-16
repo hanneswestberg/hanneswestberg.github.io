@@ -205,31 +205,24 @@ function createPieChart(data, isRootData){
       })
       .on('mouseup', function(d,i){
         isDraging = false;
-
         if(filteredObjects.length > 1){
             selectedObject.style("stroke-width", 0);
             selectedCountry = "";
-
             var newSelectedData = [];
             newSelectedData.push(currentData[0]);
             for (var i = 0; i < filteredObjects.length; i++) {
                 filteredObjects[i].style("stroke-width", 0);
                 if(currentData[0].name != filteredObjects[i].data()[0].data.name){
                   newSelectedData.push(filteredObjects[i].data()[0].data); 
-                  //newSelectedData.push(filteredObjects[i].data()); 
                 }
             }
-
-            /*var allOldData = []
-            for(var i = 0; i < currentData.length; i++){
-              if(!filteredNames.includes(currentData[i].name))
-                allOldData.push(currentData[i]);
-            }*/
             selectedCountry = "";
             filteredObjects = [];
             filteredNames = [];
-
             createPieChart(newSelectedData, false);
+        }
+        else{
+          filteredObjects = [];
         }
       })
       .transition()

@@ -7,6 +7,8 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
 
 
   // Instance variables
+  $scope.showQuestionVisualizer = false;
+  $scope.showCountryPicker = true;
   $scope.selectedCountry = "";
   $scope.selectedCountryPopulation = "";
   $scope.originCountry = "";
@@ -31,6 +33,7 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
         defer(createWaveSlider);
         // Then we filter the countries to display
         filterCountriesByWave();
+
       }
       else{
         // Recusivly call this function until we have the correct data
@@ -84,8 +87,7 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   	// Create the pie chart with the current data
   	createPieChart(currentData, true);
   	// Change view to visualization
-  	document.getElementById('countryPicker').style.display = 'none';
-  	document.getElementById('countryVisualizer').style.display = 'inline';
+    $scope.showCountryPicker = false;
     // Check slider colors (which waves did the origin country participate in?)
     $scope.calculateColorForSliderLabels();
   }
@@ -94,17 +96,19 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
    // Called when we go back from the country visualisation
    $scope.goBack = function(country){
   	removeAllDiffPlots();
+    $(".nano-pane").remove();
+    $scope.showQuestionVisualizer = false;
     if(document.getElementById('pieChart') != undefined) removePieChart();
     $scope.originCountry = "";
     $scope.calculateColorForSliderLabels();
     // Change back view to country picker
-  	document.getElementById('countryPicker').style.display = 'inline';
-    document.getElementById('countryVisualizer').style.display = 'none';
+    $scope.showCountryPicker = true;
   }
 
 
   // Called when the user hovers over an another country than the origin
   $scope.hoverOverCountryCompare = function(countryName){
+    $scope.showQuestionVisualizer = true;
   	// Update the reference
   	for(var i = 0; i < $scope.countries.length; i++){
   		if($scope.countries[i].name == countryName) $scope.selectedCountry = $scope.countries[i];
@@ -118,6 +122,11 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
           $scope.selectCountryValueDifference = (currentData[i].diff == "nodata" || currentData[i].diff == undefined || isNaN(currentData[i].diff)) ? "No data for " + $scope.originCountry.name : Number(currentData[i].diff).toFixed(2) + " %";
 	  			removeAllDiffPlots();
 	  			createDiffPlots(dataManager.getAnswerDifferences($scope.originCountry.name, countryName), dataManager.getQuestionsInWave());
+
+          $(".nano").nanoScroller({
+            sliderMaxHeight: 100,
+            alwaysVisible: true
+          });
 	  		}
 	  	}
   	}
@@ -125,6 +134,7 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   	else{
 	  	removeAllDiffPlots();
       $scope.selectCountryValueDifference = "0 %";
+      $(".nano-pane").remove();
   	}
   	// Apply the changes
   	$scope.$apply();
