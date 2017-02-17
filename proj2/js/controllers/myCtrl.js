@@ -120,7 +120,7 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
 	  	for(var i = 0; i < currentData.length; i++){
 	  		if(currentData[i].name == countryName){
           $scope.selectCountryValueDifference = (currentData[i].diff == "nodata" || currentData[i].diff == undefined || isNaN(currentData[i].diff)) ? "No data for " + $scope.originCountry.name : Number(currentData[i].diff).toFixed(2) + " %";
-	  			removeAllDiffPlots();
+	  			//removeAllDiffPlots();
 	  			createDiffPlots(dataManager.getAnswerDifferences($scope.originCountry.name, countryName), dataManager.getQuestionsInWave());
 
           $(".nano").nanoScroller({
@@ -132,7 +132,6 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   	}
   	// If the country that the user is hovering over is the origin country
   	else{
-	  	removeAllDiffPlots();
       $scope.selectCountryValueDifference = "0 %";
       $(".nano-pane").remove();
   	}

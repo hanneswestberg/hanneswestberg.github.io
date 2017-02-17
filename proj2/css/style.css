@@ -248,6 +248,7 @@ p {
 	margin-bottom: 50px;*/
   position: absolute;
 	background-color: #F8F8F8;
+
 }
 
 
@@ -284,11 +285,11 @@ p {
 }
 
 .bar.positive {
-  fill: #30C02C;
+  /*fill: #30C02C;*/
 }
 
 .bar.negative {
-  fill: #D3000C;
+  /*fill: #D3000C;*/
 }
 
 .axis text {

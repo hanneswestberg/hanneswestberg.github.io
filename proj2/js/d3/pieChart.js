@@ -149,8 +149,6 @@ function createPieChart(data, isRootData){
         isOnRoot = false;
       }
     }
-
-
     // Set the old pie data, to make them transision out
     oldPieData = pie(currentData);
     // Set this as the origin country
