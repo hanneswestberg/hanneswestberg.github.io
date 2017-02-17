@@ -69,7 +69,15 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   function filterCountriesByWave(){
     $scope.filteredCountries = [];
     for(var i = 0; i < $scope.countries.length-1; i++){
-      if(dataManager.countryIsInWave($scope.countries[i].name, $scope.currentWave)) $scope.filteredCountries.push($scope.countries[i]);
+      // If we are checking too fast and the data has not yet been set, we need to wait
+      if(dataManager.countryIsInWave($scope.countries[i].name, $scope.currentWave) == undefined){
+        $timeout(filterCountriesByWave, 100);
+        break;
+      }
+      // Else send it to our filtered array
+      else if(dataManager.countryIsInWave($scope.countries[i].name, $scope.currentWave)){
+        $scope.filteredCountries.push($scope.countries[i]);
+      }
     }
     $scope.$apply();
   }
@@ -90,6 +98,7 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
     $scope.showCountryPicker = false;
     // Check slider colors (which waves did the origin country participate in?)
     $scope.calculateColorForSliderLabels();
+    $scope.hoverOverCountryCompare(country.name);
   }
 
 
@@ -121,7 +130,7 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
 	  		if(currentData[i].name == countryName){
           $scope.selectCountryValueDifference = (currentData[i].diff == "nodata" || currentData[i].diff == undefined || isNaN(currentData[i].diff)) ? "No data for " + $scope.originCountry.name : Number(currentData[i].diff).toFixed(2) + " %";
 	  			//removeAllDiffPlots();
-	  			createDiffPlots(dataManager.getAnswerDifferences($scope.originCountry.name, countryName), dataManager.getQuestionsInWave());
+	  			createDiffPlots(dataManager.getAnswerDifferences($scope.originCountry.name, countryName), dataManager.getQuestionsInWave(), "diff");
 
           $(".nano").nanoScroller({
             sliderMaxHeight: 100,
@@ -132,8 +141,8 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   	}
   	// If the country that the user is hovering over is the origin country
   	else{
+      createDiffPlots(dataManager.getAnswerDifferences($scope.originCountry.name, countryName), dataManager.getQuestionsInWave(), "self");
       $scope.selectCountryValueDifference = "0 %";
-      $(".nano-pane").remove();
   	}
   	// Apply the changes
   	$scope.$apply();

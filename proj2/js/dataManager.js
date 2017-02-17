@@ -140,11 +140,17 @@ function DataManager(){
 
 	// Checks and returs if a country is in the current wave
 	this.countryIsInWave = function(countryName, wID){
-		// Let's just check if the country has answered the first question in the wave
-		if(allAnswers[wID].questions[0] != undefined){
-			return (allAnswers[wID].questions[0].answers[countryName] != undefined)
+		// If we are too fast and the data has not yet been loaded
+		if(allAnswers[wID] == undefined){
+			return undefined;
 		}
-		else{ console.log("This wave has no questions?! Something must have gone wrong"); }
+		else{
+			// Let's just check if the country has answered the first question in the wave
+			if(allAnswers[wID].questions[0] != undefined){
+				return (allAnswers[wID].questions[0].answers[countryName] != undefined)
+			}
+			else{ console.log("This wave has no questions?! Something must have gone wrong"); }
+		}
 	}
 
 	// Returns the questions in the currently selected wave
