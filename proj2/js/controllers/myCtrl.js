@@ -9,13 +9,17 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   // Instance variables
   $scope.showQuestionVisualizer = false;
   $scope.showCountryPicker = true;
+
+  $scope.selectedCountriesGroup = [];
   $scope.selectedCountry = "";
   $scope.selectedCountryPopulation = "";
+
   $scope.originCountry = "";
   $scope.selectCountryValueDifference = "0 %";
   $scope.searchValue = "";
   $scope.currentWave = 5;
   $scope.filteredCountries = [];
+  $scope.firstTimeSelectingCountry = true;
 
   // Sets the data for the countries
   function loadData(){ 
@@ -33,7 +37,6 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
         defer(createWaveSlider);
         // Then we filter the countries to display
         filterCountriesByWave();
-
       }
       else{
         // Recusivly call this function until we have the correct data
@@ -68,7 +71,7 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   // Filters all the countries by which are in the currently selected wave
   function filterCountriesByWave(){
     $scope.filteredCountries = [];
-    for(var i = 0; i < $scope.countries.length-1; i++){
+    for(var i = 0; i < $scope.countries.length; i++){
       // If we are checking too fast and the data has not yet been set, we need to wait
       if(dataManager.countryIsInWave($scope.countries[i].name, $scope.currentWave) == undefined){
         $timeout(filterCountriesByWave, 100);
@@ -83,14 +86,15 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   }
   
   // Called when the user has selected origin country
-  $scope.selectCountry = function(country){
+  $scope.selectCountry = function(country, isWaveChange){
   	// Internal references
   	$scope.originCountry = country;
-  	$scope.selectedCountry = country;
+    if(!isWaveChange)
+      $scope.selectedCountry = country;
   	// Generate the current data
   	currentData = dataManager.calculateAllCountryDifferences(country, $scope.currentWave);
     // Get population data
-    $scope.selectedCountryPopulation = dataManager.getPopulation(country.name, $scope.currentWave);
+    $scope.selectedCountryPopulation = dataManager.getPopulation($scope.selectedCountry.name, $scope.currentWave);
     if($scope.selectedCountryPopulation == 0 || $scope.selectedCountryPopulation == "nodata") $scope.selectedCountryPopulation = "No data";
   	// Create the pie chart with the current data
   	createPieChart(currentData, true);
@@ -98,17 +102,22 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
     $scope.showCountryPicker = false;
     // Check slider colors (which waves did the origin country participate in?)
     $scope.calculateColorForSliderLabels();
-    $scope.hoverOverCountryCompare(country.name);
+    if(dataManager.countryIsInWave($scope.selectedCountry.name, $scope.currentWave) && dataManager.countryIsInWave($scope.originCountry.name, $scope.currentWave)){
+      $scope.hoverOverCountryCompare($scope.selectedCountry.name);
+    }else{
+      clearAllSelections();
+      $scope.hoverOverCountryCompare($scope.originCountry.name);
+    }
   }
-
 
    // Called when we go back from the country visualisation
    $scope.goBack = function(country){
-  	removeAllDiffPlots();
     $(".nano-pane").remove();
+    clearAllSelections();
     $scope.showQuestionVisualizer = false;
     if(document.getElementById('pieChart') != undefined) removePieChart();
     $scope.originCountry = "";
+    $scope.selectedCountry = "";
     $scope.calculateColorForSliderLabels();
     // Change back view to country picker
     $scope.showCountryPicker = true;
@@ -120,18 +129,19 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
     $scope.showQuestionVisualizer = true;
   	// Update the reference
   	for(var i = 0; i < $scope.countries.length; i++){
-  		if($scope.countries[i].name == countryName) $scope.selectedCountry = $scope.countries[i];
+  		if($scope.countries[i].name == countryName) 
+        $scope.selectedCountry = $scope.countries[i];
   	}
     $scope.selectedCountryPopulation = dataManager.getPopulation(countryName, $scope.currentWave);
     if($scope.selectedCountryPopulation == 0 || $scope.selectedCountryPopulation == "nodata") $scope.selectedCountryPopulation = "No data";
   	// Update the displayed values to correctly reflect the current country the user is hovering over
-  	if(countryName != originCountry){
+  	if(countryName != $scope.originCountry.name){
 	  	for(var i = 0; i < currentData.length; i++){
 	  		if(currentData[i].name == countryName){
           $scope.selectCountryValueDifference = (currentData[i].diff == "nodata" || currentData[i].diff == undefined || isNaN(currentData[i].diff)) ? "No data for " + $scope.originCountry.name : Number(currentData[i].diff).toFixed(2) + " %";
 	  			//removeAllDiffPlots();
-	  			createDiffPlots(dataManager.getAnswerDifferences($scope.originCountry.name, countryName), dataManager.getQuestionsInWave(), "diff");
-
+	  			createDiffPlots(dataManager.getAnswerDifferences($scope.originCountry.name, countryName), dataManager.getQuestionsCodebook(), dataManager.getQuestionsOrder(), "diff", $scope.firstTimeSelectingCountry);
+          $scope.firstTimeSelectingCountry = false;
           $(".nano").nanoScroller({
             sliderMaxHeight: 100,
             alwaysVisible: true
@@ -141,11 +151,16 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   	}
   	// If the country that the user is hovering over is the origin country
   	else{
-      createDiffPlots(dataManager.getAnswerDifferences($scope.originCountry.name, countryName), dataManager.getQuestionsInWave(), "self");
+      createDiffPlots(dataManager.getAnswerDifferences($scope.originCountry.name, countryName), dataManager.getQuestionsCodebook(), dataManager.getQuestionsOrder(), "self", $scope.firstTimeSelectingCountry);
       $scope.selectCountryValueDifference = "0 %";
+      $scope.firstTimeSelectingCountry = false;
   	}
   	// Apply the changes
   	$scope.$apply();
+  }
+
+  $scope.selectGroupToFilter = function(countryGroup){
+    createDiffPlots(dataManager.getGroupAnswerDifferences($scope.originCountry.name, countryGroup), dataManager.getQuestionsCodebook(), dataManager.getQuestionsOrder(), "group", $scope.firstTimeSelectingCountry);
   }
 
   // Called when the user changes the interval in the slider. It filters out the correct data to display
@@ -156,17 +171,16 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
     if($scope.originCountry == ""){
       $scope.$apply();
     }else{
-      $scope.selectCountry(currentData[0]);
-      $scope.hoverOverCountryCompare(originCountry);
+      $scope.selectCountry(currentData[0], true);
     }
   }
 
   // Called when searching. The function finds any reference country or continent and filters them
   $scope.searchFilter = function(){
     if($scope.searchValue == "") return;
-    var filteredData = [];
-    filteredData.push(currentData[0]);
-    for(var i = 0; i < currentData.length-1; i++){
+    var nameArray = [];
+    //nameArray.push(currentData[0].name);
+    for(var i = 1; i < currentData.length; i++){
       var found = true;
       if($scope.searchValue){
         found = false;
@@ -178,10 +192,10 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
         }
       }
       if (found) {
-        filteredData.push(currentData[i]);
+        nameArray.push(currentData[i].name);
       }
     }
-    createPieChart(filteredData, false);
+    selectSearchedCountries(nameArray);
   }
 
   // A CSS function that checks if value lacks any data
@@ -200,7 +214,9 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
 
   // Goes back to the root
   $scope.goBackToRoot = function(){
-	 createPieChart(currentData, true);
+    clearAllSelections();
+	  createPieChart(currentData, true);
+    $scope.hoverOverCountryCompare($scope.originCountry.name);
   }
 
   // Returns the name of the selected country

@@ -4,7 +4,12 @@ var width = 700,//Math.max(document.documentElement.clientWidth, window.innerWid
 
 var startAngle;
 var tweenDuration = 1050;
+// For referencing the data
 var currentData = [];
+// For referencing the current objects
+var currentObjects = [];
+// For keeping track of which objects we are tracking
+var currentNames = [];
 var oldPieData = [];
 var rootData = [];
 var originCountry = "";
@@ -158,6 +163,9 @@ function createPieChart(data, isRootData){
     // Correctly sort the data to make the largest differance appear on the opposite side of the pie chart
     currentData = sortCorrect(data);
 
+    currentObjects = [];
+    currentNames = [];
+
     // Give data to svg
     paths = arc_group.selectAll("path").data(pie(currentData));
     paths.enter().append("svg:path")
@@ -184,49 +192,78 @@ function createPieChart(data, isRootData){
         d3.select(this).style({opacity:'1.0'})
       })        
       .on('mousedown', function(d,i){        
-        if(selectedCountry == "" && filteredObjects.length <= 1){
-            selectedCountry = d.data.name;
-            selectedObject = d3.select(this);
-            selectedObject.style("stroke-width", 3);
+        if(selectedCountry == "" && filteredObjects < 1){
+          selectedCountry = d.data.name;
+          selectedObject = d3.select(this);
+          selectedObject.style("stroke-width", 3);
+
+          if(!filteredNames.includes(d3.select(this).data()[0].data.name)){
+            filteredNames.push(d3.select(this).data()[0].data.name);
+            filteredObjects.push(d3.select(this));
+          }
+        }
+        else if(filteredObjects.length > 1 && filteredNames.includes(d3.select(this).data()[0].data.name)){
+            clearAllSelections();
         }
         else {
-            selectedObject.style("stroke-width", 0);
-            selectedCountry = "";
+          selectedObject.style("stroke-width", 0);
+          selectedCountry = "";
+          filteredObjects.forEach(function(element){
+            element.style("stroke-width", 0);
+          })
+          filteredObjects = [];
+          filteredNames = [];
         }
-
-        if(!filteredNames.includes(d3.select(this).data()[0].data.name)){
-          filteredNames.push(d3.select(this).data()[0].data.name);
-          filteredObjects.push(d3.select(this));
-        }
-
         isDraging = true;
       })
       .on('mouseup', function(d,i){
         isDraging = false;
         if(filteredObjects.length > 1){
-            selectedObject.style("stroke-width", 0);
-            selectedCountry = "";
+            //selectedObject.style("stroke-width", 0);
+            //selectedObject = [];
+            //selectedCountry = "";
             var newSelectedData = [];
             newSelectedData.push(currentData[0]);
             for (var i = 0; i < filteredObjects.length; i++) {
-                filteredObjects[i].style("stroke-width", 0);
+                //filteredObjects[i].style("stroke-width", 0);
                 if(currentData[0].name != filteredObjects[i].data()[0].data.name){
                   newSelectedData.push(filteredObjects[i].data()[0].data); 
                 }
             }
-            selectedCountry = "";
-            filteredObjects = [];
-            filteredNames = [];
             createPieChart(newSelectedData, false);
+            angular.element('#app').scope().selectGroupToFilter(filteredNames);
+            //selectedCountry = "";
         }
-        else{
+        else if(selectedCountry == ""){
+          filteredObjects.forEach(function(element){
+            element.style("stroke-width", 0);
+          })
           filteredObjects = [];
+          filteredNames = [];
         }
       })
       .transition()
         .duration(tweenDuration)
         .attrTween("d", pieTween);
     paths.transition()
+        .style("stroke-width", function(d){
+          if(filteredNames.includes(d.data.name) || selectedCountry == d.data.name){
+            if(filteredObjects > 1) {
+              filteredObjects.splice(0, 1);
+              filteredObjects.push(d3.select(this));
+              //d3.select(this).style("stroke-width", 3);
+            }
+            //if(selectedObject.data()[0].data.name != d.data.name){
+              //selectedObject.style("stroke-width", 0);
+              selectedObject = d3.select(this);
+              //selectedObject.style("stroke-width", 3);
+              selectedCountry = d.data.name;
+            //}
+            return 3;
+          }
+          else
+            return 0;
+        })
         .style("fill", function (d) {
           return color(d.data.continent);
         })
@@ -234,10 +271,65 @@ function createPieChart(data, isRootData){
         .attrTween("d", pieTween);
     paths.exit()
       .transition()
+        .style("stroke-width", function(d){
+          if(filteredNames.includes(d.data.name) && selectedCountry == d.data.name){
+            if(selectedObject.data()[0].data.name != d.data.name){
+              selectedObject.style("stroke-width", 0);
+            }
+              //selectedObject = d3.select(this);
+              //selectedObject.style("stroke-width", 3);
+            //}
+            return 3;
+          }
+          else
+            return 0;
+        })
         .duration(tweenDuration)
         .attrTween("d", removePieTween)
       .remove();
+    for(var i = 0; i < paths[0].length; i++){
+      if(!currentNames.includes(d3.select(paths[0][i]).data()[0].data.name)){
+        currentObjects.push(paths[0][i]);
+        currentNames.push(d3.select(paths[0][i]).data()[0].data.name);
+      }
+    }
 }
+
+function selectSearchedCountries(countriesNamesArray){
+  clearAllSelections();
+  var newSelectedData = [];
+  newSelectedData.push(currentData[0]);
+  for(var i = 0; i < currentObjects.length; i++){
+    if(countriesNamesArray.includes(d3.select(currentObjects[i]).data()[0].data.name) && !filteredNames.includes(d3.select(currentObjects[i]).data()[0].data.name)){
+      filteredObjects.push(d3.select(currentObjects[i]));
+      filteredNames.push(d3.select(currentObjects[i]).data()[0].data.name);
+      d3.select(currentObjects[i]).style("stroke-width", 3);
+      newSelectedData.push(d3.select(currentObjects[i]).data()[0].data); 
+    }
+  }
+  createPieChart(newSelectedData, false);
+  if(newSelectedData.length > 2){
+    angular.element('#app').scope().selectGroupToFilter(filteredNames);
+  }
+  else if (newSelectedData.length == 2){
+    angular.element('#app').scope().hoverOverCountryCompare(newSelectedData[1].name);
+  }
+  else{
+    angular.element('#app').scope().hoverOverCountryCompare(newSelectedData[0].name);
+  }
+}
+
+// Clears all selections and resets all stroke borders
+function clearAllSelections(){
+  for(var i = 0; i < currentObjects.length; i++){
+    d3.select(currentObjects[0]).style("stroke-width", 0);
+  }
+  filteredObjects = [];
+  filteredNames = [];
+  selectedObject = [];
+  selectedCountry = "";
+}
+
 
 function removePieChart(){
     vis = undefined;

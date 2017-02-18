@@ -108,11 +108,11 @@ p {
   min-height: 140px;*/
 	margin-bottom: 20px;
 	cursor: pointer;
-    opacity: .3;
-    transition: opacity .5s ease-out;
-    -moz-transition: opacity .5s ease-out;
-    -webkit-transition: opacity .5s ease-out;
-    -o-transition: opacity .5s ease-out;
+  opacity: .3;
+  transition: opacity .5s ease-out;
+  -moz-transition: opacity .5s ease-out;
+  -webkit-transition: opacity .5s ease-out;
+  -o-transition: opacity .5s ease-out;
 }
 
 #countryFlag:hover{
@@ -201,7 +201,6 @@ p {
 
 #questionVisualiserContent{
   height: 965px;
-  /*overflow-y: scroll;*/
   border-left: 1px solid #222;
   align-items: center;
   justify-content: center;

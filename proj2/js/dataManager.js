@@ -3,6 +3,7 @@ function DataManager(){
 	// Instance variables
 	var dataUrl = "data/";
 	var questionsCodebook = [];
+	var questionsOrder = [];
 	var countries = [];
 	var population = [];
 	var allAnswers = [];
@@ -14,6 +15,7 @@ function DataManager(){
 		// Load the questions codebook
 		$.getJSON(dataUrl + "questionsCodebook.json", function(json) {
 			questionsCodebook = json.questions;
+			questionsOrder = json.categories;
 		});
 		// Load the countries
 		$.getJSON(dataUrl + "countries.json", function(json) {
@@ -63,9 +65,10 @@ function DataManager(){
 				// Let's check each question
 				for(var questionId = 0; questionId < questionsCodebook.length; questionId++){
 					// If the question has been asked in this wave AND the origin country has answered this question in this wave 
-					if(this.questionIsInWave(questionsCodebook[questionId].id, wave)){
+					if(this.questionIsInWave(questionsCodebook[questionId].id, wave) && originCountryAnswers[questionId] != "nodata"){
 						if(!questionsInWave.includes(questionsCodebook[questionId]) && originCountryAnswers[questionId] != "nodata")
 							questionsInWave.push(questionsCodebook[questionId]);
+
 						// If current country has answered this question in this wave 
 						if(boolCountryIsInWave && allAnswers[wave].questions[questionId].answers[countries[countryId].name] != undefined){
 							// The question difference
@@ -89,6 +92,9 @@ function DataManager(){
 							// We must check if the wave lacks data about this question, otherwise this country is not in the current wave
 							if(allAnswers[wave].questions[questionId].answers != "nodata") boolCountryIsInWave = false; 
 						}
+					}
+					else{
+						countryQuestionAnswers.push({ question:questionsCodebook[questionId].id, diff:"nodata", ans:"nodata" });
 					}
 				}
 				// Then we divide with number of questions to get the total mean value difference
@@ -130,10 +136,57 @@ function DataManager(){
 		return retArray;
 	}
 
+	this.getGroupAnswerDifferences = function(originCountry, groupCountriesArray){
+		var retArray = [];
+		// Fist we find the origin country
+		for(var i = 0; i < answerDifferencesArray.length; i++){
+			if(answerDifferencesArray[i].name == originCountry){
+				retArray.push(answerDifferencesArray[i]);
+				break;
+			}
+		}
+		// Add a random non origin country with the diff array already defined
+		for(var i = 0; i < answerDifferencesArray.length; i++){
+			if(answerDifferencesArray[i].name != originCountry){
+				retArray.push(answerDifferencesArray[i]);
+				break;
+			}
+		}
+ 		// Then we find all countries in the group
+		var groupAnswersArray = [];
+		for(var i = 0; i < answerDifferencesArray.length; i++){
+			if(groupCountriesArray.includes(answerDifferencesArray[i].name))
+				groupAnswersArray.push(answerDifferencesArray[i]);
+		}
+		retArray[1].name = "Selected Group";
+		// Then we take the mean difference value of the group
+		for(var q = 0; q < questionsCodebook.length; q++){
+			// For each question
+			var qAnsArray = [];
+			for(var a = 0; a < Object.keys(questionsCodebook[q].answers).length; a++){
+				// For each answer
+				var aAnsTot = 0;
+				var aAnsMean = 0;
+				var aAnsDiff = 0;
+				for(var i = 0; i < groupAnswersArray.length; i++){
+					aAnsTot += groupAnswersArray[i].questions[q].ans[Object.keys(questionsCodebook[q].answers)[a]];
+				}
+				aAnsMean = aAnsTot / groupAnswersArray.length;
+				aAnsDiff = retArray[0].questions[q].ans[Object.keys(questionsCodebook[q].answers)[a]] - aAnsMean;
+				retArray[1].questions[q].ans[Object.keys(questionsCodebook[q].answers)[a]] = aAnsMean;
+				retArray[1].questions[q].diff[Object.keys(questionsCodebook[q].answers)[a]] = aAnsDiff;
+			}
+
+		}
+		// Lastly we add all the selected countries answers if we need to display it somewhere
+		retArray.push(groupAnswersArray);
+		return retArray;
+	}
+
 	// Checks and returs if a question is in the current wave
 	this.questionIsInWave = function(qID, wID){
 		for(var i = 0; i < allAnswers[wID].questions.length; i++){
-			if(allAnswers[wID].questions[i].id == qID) return true;
+			if(allAnswers[wID].questions[i].id == qID && allAnswers[wID].questions[i].answers != "nodata") return true;
 		}
 		return false;
 	}
@@ -161,6 +214,11 @@ function DataManager(){
 	// Returns the codebook
 	this.getQuestionsCodebook = function(){
 		return questionsCodebook;
+	}
+
+	// Returns the question order
+	this.getQuestionsOrder = function(){
+		return questionsOrder;
 	}
 
 	// Returns all answers
