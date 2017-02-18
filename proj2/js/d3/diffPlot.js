@@ -12,8 +12,6 @@ var margin = {top: 50, right: 20, bottom: 50, left: 20},
 
 // Our array of questions, the structure is : { "svg":diffVis, "data":data, "question":question, "type":type }
 var questionVisArray = [];
-// An array of all bartips, we need to remove them and generate new ones if the diffplot changes type
-var bartips = [];
 // Reference to all our current data
 var currentPlotData = [];
 
@@ -219,13 +217,12 @@ function createDiffPlots(allData, codebook, questionOrder, type, generateHeaders
       // If the search failed, the svg is not created yet, we need to create it
       if(index == -1) {
         generateNewDiffplot(filterDataForType(questionOrder[c].questions[q], codebook[questionOrder[c].questions[q]], thisType), questionOrder[c].questions[q], codebook, thisType);
-        // We push an empty array for the bartips to populate
-        bartips.push([]);
         hasGeneratedNewSvg = true;
       }else{
         // We might need to update the plot type
         questionVisArray[index].type = thisType;
       }
+      $(".barstip"+index).remove();
       updateDiffPlotData(filterDataForType(questionOrder[c].questions[q], codebook[questionOrder[c].questions[q]], thisType), (index != -1) ? index : questionVisArray.length-1, hasGeneratedNewSvg);
     }
   }
@@ -445,7 +442,6 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
 
   if(type != "nodata"){
     bar.call(tip);
-    bartips[indexInArray].push(tip);
     bar.on('mouseover', tip.show);
     bar.on('mouseout', tip.hide);
 

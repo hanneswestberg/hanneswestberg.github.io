@@ -144,8 +144,6 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
 	  	for(var i = 0; i < currentData.length; i++){
 	  		if(currentData[i].name == countryName){
           $scope.selectCountryValueDifference = (currentData[i].diff == "nodata" || currentData[i].diff == undefined || isNaN(currentData[i].diff)) ? "No data for " + $scope.originCountry.name : Number(currentData[i].diff).toFixed(2) + " %";
-	  			
-
           createDiffPlots(dataManager.getAnswerDifferences($scope.originCountry.name, countryName), dataManager.getQuestionsCodebook(), dataManager.getQuestionsOrder(), (currentData[i].diff == "nodata") ? "they" : "diff", $scope.firstTimeSelectingCountry);
           $scope.firstTimeSelectingCountry = false;
           $(".nano").nanoScroller({
