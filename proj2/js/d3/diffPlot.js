@@ -52,7 +52,7 @@ function generateNewDiffplot(data, questionID, codebook, type){
             if(questionVisArray[i].svg[0][0] == d3.select(this)[0][0])
               id = i;
           }
-          if(questionVisArray[id].type != "self" && questionVisArray[id].type != "nodata"){
+          if(questionVisArray[id].type != "groupthey" && questionVisArray[id].type != "they" && questionVisArray[id].type != "self" && questionVisArray[id].type != "nodata"){
             // Then alternate type
             if(questionVisArray[id].type == "group" || questionVisArray[id].type == "groupab") questionVisArray[id].type = (questionVisArray[id].type == "group") ? "groupab": "group";
             else questionVisArray[id].type = (questionVisArray[id].type == "diff") ? "ab": "diff";
@@ -89,6 +89,115 @@ function generateNewDiffplot(data, questionID, codebook, type){
     questionVisArray.push({ "svg":diffVis, "data":data, "questionID":questionID, "questionData":codebook[questionID], "type":type });
 }
 
+// Filters the data for the choosen type of visualization
+function filterDataForType(questionID, questionData, type){
+  var filteredData = [];
+  // Our usable data array, it makes an array of answers, differences and questions
+  switch(type){
+    case "diff":
+        for(var i = 0; i < Object.keys(currentPlotData[1].questions[questionID].diff).length; i++){
+          filteredData.push([Object.keys(currentPlotData[1].questions[questionID].diff)[i], currentPlotData[1].questions[questionID].diff[Object.keys(currentPlotData[1].questions[questionID].diff)[i]]]);
+        }
+        break;
+    case "groupab":
+    case "ab":
+        for(var i = 0; i < Object.keys(currentPlotData[0].questions[questionID].ans).length; i++){
+          filteredData.push([Object.keys(currentPlotData[0].questions[questionID].ans)[i], currentPlotData[0].questions[questionID].ans[Object.keys(currentPlotData[0].questions[questionID].ans)[i]]]);
+        }
+        for(var i = 0; i < Object.keys(currentPlotData[1].questions[questionID].ans).length; i++){
+          filteredData.push([Object.keys(currentPlotData[1].questions[questionID].ans)[i], currentPlotData[1].questions[questionID].ans[Object.keys(currentPlotData[1].questions[questionID].ans)[i]]]);
+        }
+        break;
+    
+    case "group":
+        for(var i = 0; i < Object.keys(currentPlotData[1].questions[questionID].diff).length; i++){
+          filteredData.push([Object.keys(currentPlotData[1].questions[questionID].diff)[i], currentPlotData[1].questions[questionID].diff[Object.keys(currentPlotData[1].questions[questionID].diff)[i]]]);
+        }
+        break;
+    case "self":
+        for(var i = 0; i < Object.keys(currentPlotData[0].questions[questionID].ans).length; i++){
+          filteredData.push([Object.keys(currentPlotData[0].questions[questionID].ans)[i], currentPlotData[0].questions[questionID].ans[Object.keys(currentPlotData[0].questions[questionID].ans)[i]]]);
+        }
+        break;
+    case "groupthey":
+    case "they":
+        for(var i = 0; i < Object.keys(currentPlotData[1].questions[questionID].ans).length; i++){
+          filteredData.push([Object.keys(currentPlotData[1].questions[questionID].ans)[i], currentPlotData[1].questions[questionID].ans[Object.keys(currentPlotData[1].questions[questionID].ans)[i]]]);
+        }
+        break;
+    case "nodata":
+        filteredData = ["nodata"];
+        break;
+  }
+  return filteredData;
+}
+
+// Generate the tip info for given type
+function generateTipInfoForType(barObj, indexInArray, abUpper){
+  var type = questionVisArray[indexInArray].type;
+  var questionData = questionVisArray[indexInArray].questionData;
+  var questionID = questionVisArray[indexInArray].questionID;
+  var retString = "";
+  var questionOrInfoSuffix = (questionData.type == "question") ? "answered" : questionData.infoSuffix;
+  var questionOrInfoUnit = (questionData.type == "question") ? " %" : questionData.unit;
+  var questionOrInfoUnitSuffixPos = (questionData.type == "question") ? "more" : questionData.unitSuffixPos;
+  var questionOrInfoUnitSuffixNeg = (questionData.type == "question") ? "less" : questionData.unitSuffixNeg;
+  switch(type){
+    case "diff":
+        var posOrNeg = (barObj[1] < 0) ? ("<span style='color:#D3000C'> &#160 " + Number(barObj[1]).toFixed(2) +questionOrInfoUnit+ " "+questionOrInfoUnitSuffixNeg+":") : ("<span style='color:#30C02C'> &#160 +" + Number(barObj[1]).toFixed(2) +questionOrInfoUnit+ " "+questionOrInfoUnitSuffixPos);
+        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong>" + posOrNeg + "</span><p><strong style='color:#B09062'><br>" + currentPlotData[0].name + ":  </strong> &#160 " + currentPlotData[0].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p><strong style='color:#B09062'><p>" + currentPlotData[1].name + ": </strong> &#160 " + currentPlotData[1].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p>";
+        break;
+    case "ab":
+        if(abUpper)
+          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[0].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+        else
+          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+        break;
+    case "groupab":
+        if(abUpper)
+          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[0].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+        else{
+          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> (mean value) "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+          var stopIndex = currentPlotData[2].length;
+          if(currentPlotData[2].length > 8){
+            stopIndex = 8;
+            for(var i = 0; i < stopIndex; i++){
+              retString = retString.concat("<p><strong style='color:#B09062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + currentPlotData[2][i].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p>");
+            }
+            retString = retString.concat("<br><p>+ " + (currentPlotData[2].length - stopIndex) + " <strong style='color:#B09062'>Other Countries</strong></p>");
+          }else{
+            for(var i = 0; i < currentPlotData[2].length; i++){
+              retString = retString.concat("<p><strong style='color:#B09062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + currentPlotData[2][i].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p>");
+            }
+          }
+        }
+        break;
+    case "group":
+        var posOrNeg = (barObj[1] < 0) ? ("<span style='color:#D3000C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit+" "+questionOrInfoUnitSuffixNeg+":") : ("<span style='color:#30C02C'> &#160 +" + Number(barObj[1]).toFixed(2) + questionOrInfoUnit+" "+questionOrInfoUnitSuffixPos);
+        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> (mean value) answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong>" + posOrNeg + "</span><p><strong style='color:#B09062'><br>" + currentPlotData[0].name + ":  </strong> &#160 " + currentPlotData[0].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p><strong style='color:#B09062'><p>" + currentPlotData[1].name + ": </strong> &#160 " + Number(currentPlotData[1].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p><br>";
+        var stopIndex = currentPlotData[2].length;
+        if(currentPlotData[2].length > 8){
+          stopIndex = 8;
+          for(var i = 0; i < stopIndex; i++){
+            retString = retString.concat("<p><strong style='color:#B09062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + currentPlotData[2][i].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p>");
+          }
+          retString = retString.concat("<br><p>+ " + (currentPlotData[2].length - stopIndex) + " <strong style='color:#B09062'>Other Countries</strong></p>");
+        }else{
+          for(var i = 0; i < currentPlotData[2].length; i++){
+            retString = retString.concat("<p><strong style='color:#B09062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + currentPlotData[2][i].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p>");
+          }
+        }
+        break;
+    case "self":
+        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[0].name + "</strong> answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+        break;
+    case "they":
+        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+        break;
+  }
+  return retString;
+}
+
 // Creates all the diffPlots with the given data
 function createDiffPlots(allData, codebook, questionOrder, type, generateHeaders){
   // Lets remove all left over junk
@@ -101,7 +210,7 @@ function createDiffPlots(allData, codebook, questionOrder, type, generateHeaders
     // For the questions in the category
     for(var q = 0; q < questionOrder[c].questions.length; q++){
       var hasGeneratedNewSvg = false;
-      var thisType = (allData[0].questions[questionOrder[c].questions[q]].ans != "nodata") ? type : "nodata";
+      var thisType = (allData[0].questions[questionOrder[c].questions[q]].ans == "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans == "nodata") ? "nodata" : type;
       // Lets first try to find it
       var index = -1;
       for(var i = 0; i < questionVisArray.length; i++){
@@ -120,89 +229,6 @@ function createDiffPlots(allData, codebook, questionOrder, type, generateHeaders
       updateDiffPlotData(filterDataForType(questionOrder[c].questions[q], codebook[questionOrder[c].questions[q]], thisType), (index != -1) ? index : questionVisArray.length-1, hasGeneratedNewSvg);
     }
   }
-}
-
-// Filters the data for the choosen type of visualization
-function filterDataForType(questionID, questionData, type){
-  var filteredData = [];
-  // Our usable data array, it makes an array of answers, differences and questions
-  switch(type){
-    case "diff":
-        for(var i = 0; i < Object.keys(currentPlotData[1].questions[questionID].diff).length; i++){
-          filteredData.push([Object.keys(currentPlotData[1].questions[questionID].diff)[i], currentPlotData[1].questions[questionID].diff[Object.keys(currentPlotData[1].questions[questionID].diff)[i]]]);
-        }
-        break;
-    case "ab":
-        for(var i = 0; i < Object.keys(currentPlotData[0].questions[questionID].ans).length; i++){
-          filteredData.push([Object.keys(currentPlotData[0].questions[questionID].ans)[i], currentPlotData[0].questions[questionID].ans[Object.keys(currentPlotData[0].questions[questionID].ans)[i]]]);
-        }
-        for(var i = 0; i < Object.keys(currentPlotData[1].questions[questionID].ans).length; i++){
-          filteredData.push([Object.keys(currentPlotData[1].questions[questionID].ans)[i], currentPlotData[1].questions[questionID].ans[Object.keys(currentPlotData[1].questions[questionID].ans)[i]]]);
-        }
-        break;
-    case "groupab":
-        for(var i = 0; i < Object.keys(currentPlotData[0].questions[questionID].ans).length; i++){
-          filteredData.push([Object.keys(currentPlotData[0].questions[questionID].ans)[i], currentPlotData[0].questions[questionID].ans[Object.keys(currentPlotData[0].questions[questionID].ans)[i]]]);
-        }
-        for(var i = 0; i < Object.keys(currentPlotData[1].questions[questionID].ans).length; i++){
-          filteredData.push([Object.keys(currentPlotData[1].questions[questionID].ans)[i], currentPlotData[1].questions[questionID].ans[Object.keys(currentPlotData[1].questions[questionID].ans)[i]]]);
-        }
-        break;
-    case "group":
-        for(var i = 0; i < Object.keys(currentPlotData[1].questions[questionID].diff).length; i++){
-          filteredData.push([Object.keys(currentPlotData[1].questions[questionID].diff)[i], currentPlotData[1].questions[questionID].diff[Object.keys(currentPlotData[1].questions[questionID].diff)[i]]]);
-        }
-        break;
-    case "self":
-        for(var i = 0; i < Object.keys(currentPlotData[0].questions[questionID].ans).length; i++){
-          filteredData.push([Object.keys(currentPlotData[0].questions[questionID].ans)[i], currentPlotData[0].questions[questionID].ans[Object.keys(currentPlotData[0].questions[questionID].ans)[i]]]);
-        }
-        break;
-    case "nodata":
-        filteredData = ["nodata"];
-        break;
-  }
-  return filteredData;
-}
-
-// Generate the tip info for given type
-function generateTipInfoForType(barObj, indexInArray, abUpper){
-  var type = questionVisArray[indexInArray].type;
-  var questionData = questionVisArray[indexInArray].questionData;
-  var questionID = questionVisArray[indexInArray].questionID;
-  var retString = "";
-  switch(type){
-    case "diff":
-        var posOrNeg = (barObj[1] < 0) ? ("<span style='color:#D3000C'> &#160 " + Number(barObj[1]).toFixed(2) + " % less:") : ("<span style='color:#30C02C'> &#160 +" + Number(barObj[1]).toFixed(2) + " % more");
-        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong>" + posOrNeg + "</span><p><strong style='color:#B09062'><br>" + currentPlotData[0].name + ":  </strong> &#160 " + currentPlotData[0].questions[questionID].ans[barObj[0]] + " %</p><strong style='color:#B09062'><p>" + currentPlotData[1].name + ": </strong> &#160 " + currentPlotData[1].questions[questionID].ans[barObj[0]] + " %</p>";
-        break;
-    case "ab":
-        if(abUpper)
-          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[0].name + "</strong> answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + " %";
-        else
-          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + " %";
-        break;
-    case "groupab":
-        if(abUpper)
-          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[0].name + "</strong> answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + " %";
-        else
-          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + " %";
-          for(var i = 0; i < currentPlotData[2].length; i++){
-            retString = retString.concat("<p><strong style='color:#B09062'><br style='line-height:5px'/>" + currentPlotData[2][i].name + ":  </strong> &#160 " + currentPlotData[2][i].questions[questionID].ans[barObj[0]] + " %</p>");
-          }
-        break;
-    case "group":
-        var posOrNeg = (barObj[1] < 0) ? ("<span style='color:#D3000C'> &#160 " + Number(barObj[1]).toFixed(2) + " % less:") : ("<span style='color:#30C02C'> &#160 +" + Number(barObj[1]).toFixed(2) + " % more");
-        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> (mean value) answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong>" + posOrNeg + "</span><p><strong style='color:#B09062'><br>" + currentPlotData[0].name + ":  </strong> &#160 " + currentPlotData[0].questions[questionID].ans[barObj[0]] + " %</p><strong style='color:#B09062'><p>" + currentPlotData[1].name + ": </strong> &#160 " + Number(currentPlotData[1].questions[questionID].ans[barObj[0]]).toFixed(2) + " %</p><br style='line-height:10px'/>";
-        for(var i = 0; i < currentPlotData[2].length; i++){
-          retString = retString.concat("<p><strong style='color:#B09062'><br style='line-height:5px'/>" + currentPlotData[2][i].name + ":  </strong> &#160 " + currentPlotData[2][i].questions[questionID].ans[barObj[0]] + " %</p>");
-        }
-        break;
-    case "self":
-        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[0].name + "</strong> answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + " %";
-        break;
-  }
-  return retString;
 }
 
 // Updates the data on the diffPlot
@@ -226,14 +252,15 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
       .attr("font-size", "16px")
       .attr("text-align", "center");
   }
-  else{
+  else {
     // Update the x-scale.
     xScale
       .domain(filteredData.map(function(d) { return d[0];} ))
       .rangeRoundBands([0, diffPlotWidth+10], xRoundBands);
     // Update the y-scale.
+    var yScaleMaxValue = (questionData.type == "info") ? (questionData.maxvalue * 2) : 200;
     yScale
-      .domain([0, 200])
+      .domain([0, yScaleMaxValue])
       .range([diffPlotHeight/2, -diffPlotHeight/2])
       .nice();
   }
@@ -257,7 +284,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
           .direction('s')
           .offset([-10, 0])
           .html(function(d) {
-            var retString = "<p><strong style='color:#FFCA00'>Wording: </strong>" + questionData.wording + "<p/>";
+            var retString = (questionData.type == "question") ?  "<p><strong style='color:#FFCA00'>Wording: </strong>" + questionData.wording + "<p/>" : "<p><strong style='color:#FFCA00'>Info: </strong>" + questionData.wording + "<p/>";
             for(var i = 0; i < Object.keys(questionData.answers).length; i++){
               retString = retString.concat("<p> <strong style='color:#75C9FF'>" + Object.keys(questionData.answers)[i] + ":</strong> " + questionData.answers[Object.keys(questionData.answers)[i]] + "</p>");
             }
@@ -302,6 +329,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
                 return d[1] < 0 ? "bar negative" : "bar positive"; 
                 break;
               case "nodata":
+              case "they":
                 return "bar negative";
                 break;
           }
@@ -327,6 +355,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
                   return d[1] < 0 ? "#D3000C" : "#30C02C";
                   break;
                 case "nodata":
+                case "they":
                   return "#D3000C";
                   break;
               }
@@ -350,8 +379,11 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
                 case "group":
                   return (d[1] == "nodata") ? 0 : (d[1] < 0) ? Y0() : Y(d);
                   break;
+                case "they":
+                  return (d[1] == "nodata") ? 0 : Y0()
+                  break;
                 case "nodata":
-                  return 0
+                  return Y0();
                   break;
               }})
              .attr("width", xScale.rangeBand())
@@ -373,18 +405,42 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
                 case "group":
                   return Math.abs( Y(d) - Y0() );
                   break;
+                case "they":
+                  return Math.abs( Y0() - Y(d) );
+                  break;
                 case "nodata":
-                  return 0;
+                  return Y0();
                   break;
               }
              });
   bar.exit()
      .transition()
      .duration(500)
-      .attr("width", xScale.rangeBand())
       .attr("height", function(d, i) {
-          return 0;
+        switch(type){
+          case "groupab":
+          case "ab":
+          case "diff":
+          case "self":
+          case "group":
+          case "they":
+          case "nodata":
+            return 0;
+            break;
+        }
        })
+        .attr("y", function(d, i) {
+        switch(type){
+          case "groupab":
+          case "ab":
+          case "diff":
+          case "self":
+          case "they":
+          case "group":
+          case "nodata":
+            return Y0();
+            break;
+        }})
      .remove();
 
   if(type != "nodata"){

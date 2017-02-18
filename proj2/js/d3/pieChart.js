@@ -169,6 +169,7 @@ function createPieChart(data, isRootData){
     // Give data to svg
     paths = arc_group.selectAll("path").data(pie(currentData));
     paths.enter().append("svg:path")
+      .attr("class", "diffPlotBar")
       .attr("filter", "url(#simpleChartShadow)")
       .attr("stroke", "white")
       .attr("stroke-width", 0)
@@ -320,17 +321,23 @@ function selectSearchedCountries(countriesNamesArray){
 }
 
 // Clears all selections and resets all stroke borders
-function clearAllSelections(){
-  for(var i = 0; i < currentObjects.length; i++){
-    d3.select(currentObjects[0]).style("stroke-width", 0);
+function clearAllSelections(clearWhat){
+  if(clearWhat == undefined || clearWhat == "all"){
+    var allBars = d3.selectAll(".diffPlotBar");
+    allBars.style("stroke-width", 0);
+    filteredObjects = [];
+    filteredNames = [];
+    selectedObject = [];
+    selectedCountry = "";
+  }else if(clearWhat ==  "group" && filteredObjects.length > 1){
+    filteredObjects = [];
+    filteredNames = [];
+    selectedObject = [];
+    selectedCountry = "";
   }
-  filteredObjects = [];
-  filteredNames = [];
-  selectedObject = [];
-  selectedCountry = "";
 }
 
-
+// Removes this pieChart, however it's not used anymore due to smooth transitions between data
 function removePieChart(){
     vis = undefined;
     d3.select('#pieChart').selectAll('g').remove();

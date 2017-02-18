@@ -39,7 +39,7 @@ function DataManager(){
 		// Clear previous data
 		answerDifferencesArray = [];
 		tempOriginAnswerArray = [];
-		questionsInWave = [];
+		questionsInWave = []; // Not used at the moment
 		// First find the originCountry answers
 		for(var questionId = 0; questionId < Object.keys(allAnswers[wave].questions).length; questionId++){
 			if(allAnswers[wave].questions[questionId].answers[originCountry.name] != undefined){
@@ -66,18 +66,18 @@ function DataManager(){
 				for(var questionId = 0; questionId < questionsCodebook.length; questionId++){
 					// If the question has been asked in this wave AND the origin country has answered this question in this wave 
 					if(this.questionIsInWave(questionsCodebook[questionId].id, wave) && originCountryAnswers[questionId] != "nodata"){
-						if(!questionsInWave.includes(questionsCodebook[questionId]) && originCountryAnswers[questionId] != "nodata")
-							questionsInWave.push(questionsCodebook[questionId]);
-
 						// If current country has answered this question in this wave 
-						if(boolCountryIsInWave && allAnswers[wave].questions[questionId].answers[countries[countryId].name] != undefined){
+						if(allAnswers[wave].questions[questionId].answers[countries[countryId].name] != undefined){
 							// The question difference
 							var questionMeanDifference = 0;
 							var questionDifference = {};
 							// Let's check each answer
 							for(var answerId = 0; answerId < Object.keys(questionsCodebook[questionId].answers).length; answerId++){
-								// We add the absolute value of the difference
-								questionMeanDifference += (originCountryAnswers[0] != undefined) ? Math.abs(originCountryAnswers[questionId][Object.keys(questionsCodebook[questionId].answers)[answerId]] - allAnswers[wave].questions[questionId].answers[countries[countryId].name][Object.keys(questionsCodebook[questionId].answers)[answerId]]) : 0;
+								// If the question is actually a question, otherwise we don't need to calculate the difference
+								if(questionsCodebook[questionId].type == "question"){
+									// We add the absolute value of the difference
+									questionMeanDifference += (originCountryAnswers[0] != undefined) ? Math.abs(originCountryAnswers[questionId][Object.keys(questionsCodebook[questionId].answers)[answerId]] - allAnswers[wave].questions[questionId].answers[countries[countryId].name][Object.keys(questionsCodebook[questionId].answers)[answerId]]) : 0;
+								}
 								// We also store the difference for each answers
 								var key = Object.keys(questionsCodebook[questionId].answers)[answerId];
 								questionDifference[key] = (originCountryAnswers[0] != undefined) ? allAnswers[wave].questions[questionId].answers[countries[countryId].name][Object.keys(questionsCodebook[questionId].answers)[answerId]] - originCountryAnswers[questionId][Object.keys(questionsCodebook[questionId].answers)[answerId]] : "nodata";
@@ -85,8 +85,10 @@ function DataManager(){
 							// Store the country answers and the differences to the origin country
 							countryQuestionAnswers.push({ question:questionsCodebook[questionId].id, diff:questionDifference, ans:allAnswers[wave].questions[questionId].answers[countries[countryId].name] });
 							// Then we divide with number of answers to get the question mean value difference
-							questionMeanDifference = (questionMeanDifference / Object.keys(questionsCodebook[questionId].answers).length);
-							totalMeanDifference += questionMeanDifference;
+							if(questionsCodebook[questionId].type == "question"){
+								questionMeanDifference = (questionMeanDifference / Object.keys(questionsCodebook[questionId].answers).length);
+								totalMeanDifference += questionMeanDifference;
+							}
 						}
 						else{
 							// We must check if the wave lacks data about this question, otherwise this country is not in the current wave
@@ -94,11 +96,14 @@ function DataManager(){
 						}
 					}
 					else{
-						countryQuestionAnswers.push({ question:questionsCodebook[questionId].id, diff:"nodata", ans:"nodata" });
+						if(this.questionIsInWave(questionsCodebook[questionId].id, wave))
+							countryQuestionAnswers.push({ question:questionsCodebook[questionId].id, diff:"nodata", ans:allAnswers[wave].questions[questionId].answers[countries[countryId].name] });
+						else
+							countryQuestionAnswers.push({ question:questionsCodebook[questionId].id, diff:"nodata", ans:"nodata" });
 					}
 				}
 				// Then we divide with number of questions to get the total mean value difference
-				totalMeanDifference = (totalMeanDifference / questionsCodebook.length);
+				totalMeanDifference = (boolCountryIsInWave && countryQuestionAnswers[0].diff == "nodata") ? "nodata" : (totalMeanDifference / questionsCodebook.length);
 				// We try to get population data
 				var countryPopulation;
 				if(population[countries[countryId].name] == undefined){
@@ -108,7 +113,7 @@ function DataManager(){
 					countryPopulation = (population[countries[countryId].name][wave] == null) ? "nodata" : population[countries[countryId].name][wave];
 				}
 				// Then add to our array of differences
-				if(boolCountryIsInWave){
+				if(boolCountryIsInWave && this.countryIsInWave(countries[countryId].name, wave)){
 					totalCountryDifferencesArray.push({ name:countries[countryId].name, diff:totalMeanDifference, pop: countryPopulation, continent: countries[countryId].continent});
 					answerDifferencesArray.push({ name:countries[countryId].name, questions:countryQuestionAnswers});
 				}
@@ -193,17 +198,25 @@ function DataManager(){
 
 	// Checks and returs if a country is in the current wave
 	this.countryIsInWave = function(countryName, wID){
+		//var isInWave = false;
 		// If we are too fast and the data has not yet been loaded
 		if(allAnswers[wID] == undefined){
 			return undefined;
 		}
 		else{
-			// Let's just check if the country has answered the first question in the wave
 			if(allAnswers[wID].questions[0] != undefined){
 				return (allAnswers[wID].questions[0].answers[countryName] != undefined)
+				/*
+				for(var q = 0; q < allAnswers[wID].questions.length; q++){
+					if(allAnswers[wID].questions[q].answers[countryName] != undefined){
+						isInWave = true;
+						break;
+					} 
+				}*/
 			}
 			else{ console.log("This wave has no questions?! Something must have gone wrong"); }
 		}
+		//return isInWave;
 	}
 
 	// Returns the questions in the currently selected wave
