@@ -326,10 +326,10 @@ function clearAllSelections(clearWhat){
     selectedObject = [];
     selectedCountry = "";
   }else if(clearWhat ==  "group" && filteredObjects.length > 1){
-    //filteredObjects = [];
-    //filteredNames = [];
-    //selectedObject = [];
-    //selectedCountry = "";
+    filteredObjects = [];
+    filteredNames = [];
+    selectedObject = [];
+    selectedCountry = "";
   }
 }
 

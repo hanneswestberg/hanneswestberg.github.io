@@ -218,12 +218,18 @@ function createDiffPlots(allData, codebook, questionOrder, type, generateHeaders
       var thisType = type;
       // If both countries have no data, then show no data
       if(allData[0].questions[questionOrder[c].questions[q]].ans == "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans == "nodata"){ thisType = "nodata"; }
-      // If the origin country has data, but not the selected one, then show self
-      else if(allData[0].questions[questionOrder[c].questions[q]].ans != "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans == "nodata"){ thisType = "self"; }
+      // If the origin country has data, but not the selected one, then show self, or if the selected country is the origin country
+      else if(allData[0].name == allData[1].name || allData[0].questions[questionOrder[c].questions[q]].ans != "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans == "nodata"){ thisType = "self"; }
       // If the selected country has data, but not the origin one, then show they
       else if(allData[0].questions[questionOrder[c].questions[q]].ans == "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans != "nodata"){ thisType = "they"; }
-      // If we have data for both countries, well then show diff
-      else if((type != "group" && type != "groupab") && (allData[0].name != allData[1].name) && allData[0].questions[questionOrder[c].questions[q]].ans != "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans != "nodata"){ thisType = "diff"; }
+      // If we have data for both countries, we must investigate further which type to display
+      else if(allData[0].questions[questionOrder[c].questions[q]].ans != "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans != "nodata"){
+        // If we do not have a group, we should check if we should display "ab" or "diff"
+        if(type != "group" && type != "groupab"){ thisType = (type == "diff") ? "diff" : "ab"; }
+        // We have a group, we check if we should display diff or ab
+        else if(type == "group" || type == "groupab"){ thisType = (type == "group") ? "group": "groupab"; }
+      }
+      
 
       // Lets first try to find it
       var index = -1;
