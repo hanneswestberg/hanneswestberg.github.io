@@ -330,7 +330,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
     var questionTip = d3.tip()
       .attr('class', 'd3-tip')
       .direction('s')
-      .offset([-10, 0])
+      .offset([10, 0])
       .html(function(d) {
         var retString = (questionData.type == "question") ?  "<p><strong style='color:#FFCA00'>Wording: </strong>" + questionData.wording + "<p/>" : "<p><strong style='color:#FFCA00'>Info: </strong>" + questionData.wording + "<p/>";
         for(var i = 0; i < Object.keys(questionData.answers).length; i++){
@@ -415,7 +415,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
       })
       .attr("x", function(d) { return X(d); })
       .attr("y", function(d, i) {
-        if(isNaN(d[1])) return 0;
+        if(isNaN(d[1])) return Y0();
         switch(type){
           case "groupab":
           case "ab":

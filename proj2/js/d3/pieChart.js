@@ -231,7 +231,7 @@ function createPieChart(data, isRootData){
             }
 
             createPieChart(newSelectedData, false);
-            angular.element('#app').scope().selectGroupToFilter(filteredNames);
+            angular.element('#app').scope().setSelectedCountriesGroup(filteredNames);
             //selectedCountry = "";
         }
         else if(selectedCountry == ""){
@@ -287,6 +287,7 @@ function createPieChart(data, isRootData){
     }
 }
 
+// Takes an array of names and selects it in the piechart
 function selectSearchedCountries(countriesNamesArray){
   clearAllSelections();
   var newSelectedData = [];
@@ -295,13 +296,12 @@ function selectSearchedCountries(countriesNamesArray){
     if(countriesNamesArray.includes(d3.select(currentObjects[i]).data()[0].data.name) && !filteredNames.includes(d3.select(currentObjects[i]).data()[0].data.name)){
       filteredObjects.push(d3.select(currentObjects[i]));
       filteredNames.push(d3.select(currentObjects[i]).data()[0].data.name);
-      //d3.select(currentObjects[i]).style("stroke-width", 3);
       newSelectedData.push(d3.select(currentObjects[i]).data()[0].data); 
     }
   }
-  createPieChart(newSelectedData, false);
+  createPieChart(newSelectedData, (angular.element('#app').scope().searchValue.toLowerCase() == "all"));
   if(newSelectedData.length > 2){
-    angular.element('#app').scope().selectGroupToFilter(filteredNames);
+    angular.element('#app').scope().setSelectedCountriesGroup(filteredNames);
     angular.element('#app').scope().groupSelection(filteredNames);
   }
   else if (newSelectedData.length == 2){
@@ -312,13 +312,17 @@ function selectSearchedCountries(countriesNamesArray){
   }
 }
 
-function getSelectedCountries(){
-  return filteredNames;
+// Sets all the filtered names
+function setRootAndSelectedCountries(dataForRoot, namesArray){
+  rootData = dataForRoot;
+  filteredNames = namesArray;
 }
 
 // Clears all selections and resets all stroke borders
 function clearAllSelections(clearWhat, clearSearchBar){
+  // We clear the search bar
   if(clearSearchBar != undefined && clearSearchBar == true) angular.element('#app').scope().searchValue = "";
+  // If nothing or all is specified, we clear all selections
   if(clearWhat == undefined || clearWhat == "all"){
     var allBars = d3.selectAll(".diffPlotBar");
     allBars.style("stroke-width", 0);
@@ -326,6 +330,9 @@ function clearAllSelections(clearWhat, clearSearchBar){
     filteredNames = [];
     selectedObject = [];
     selectedCountry = "";
+    angular.element('#app').scope().selectedCountriesGroup = [];
+    // But if we specify "group", then we just clear the filter and let the transition handle the strokes
+    // We call this ONLY if we simultaneously want to change the data in the piechart, because it looks nicer
   }else if(clearWhat ==  "group" && filteredObjects.length > 1){
     filteredObjects = [];
     filteredNames = [];
@@ -366,6 +373,7 @@ function pieTween(d, i) {
   };
 }
 
+// Removes the arc
 function removePieTween(d, i) {
   s0 = 2 * Math.PI;
   e0 = 2 * Math.PI;
