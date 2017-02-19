@@ -185,6 +185,10 @@ function createPieChart(data, isRootData){
             filteredObjects.push(d3.select(this));
             filteredNames.push(d3.select(this).data()[0].data.name);
             d3.select(this).style("stroke-width", 3);
+
+            if(filteredNames.length > 1){
+              angular.element('#app').scope().groupSelection(filteredNames);
+            }
         }
         d3.select(this).style({opacity:'0.8'})
         d3.select(this).style({cursor: 'pointer'})
@@ -203,34 +207,29 @@ function createPieChart(data, isRootData){
             filteredObjects.push(d3.select(this));
           }
         }
-        else if(filteredObjects.length > 1 && filteredNames.includes(d3.select(this).data()[0].data.name)){
-            clearAllSelections();
-        }
         else {
-          selectedObject.style("stroke-width", 0);
-          selectedCountry = "";
-          filteredObjects.forEach(function(element){
-            element.style("stroke-width", 0);
-          })
-          filteredObjects = [];
-          filteredNames = [];
+            clearAllSelections();
         }
         isDraging = true;
       })
       .on('mouseup', function(d,i){
         isDraging = false;
         if(filteredObjects.length > 1){
-            //selectedObject.style("stroke-width", 0);
-            //selectedObject = [];
-            //selectedCountry = "";
             var newSelectedData = [];
             newSelectedData.push(currentData[0]);
             for (var i = 0; i < filteredObjects.length; i++) {
-                //filteredObjects[i].style("stroke-width", 0);
                 if(currentData[0].name != filteredObjects[i].data()[0].data.name){
                   newSelectedData.push(filteredObjects[i].data()[0].data); 
                 }
             }
+            // We remove the origin country if it's in there
+            for (var i = filteredNames.length-1; i>=0; i--) {
+                if (filteredNames[i] === currentData[0].name) {
+                    filteredNames.splice(i, 1);
+                    break;
+                }
+            }
+
             createPieChart(newSelectedData, false);
             angular.element('#app').scope().selectGroupToFilter(filteredNames);
             //selectedCountry = "";
@@ -252,14 +251,9 @@ function createPieChart(data, isRootData){
             if(filteredObjects > 1) {
               filteredObjects.splice(0, 1);
               filteredObjects.push(d3.select(this));
-              //d3.select(this).style("stroke-width", 3);
             }
-            //if(selectedObject.data()[0].data.name != d.data.name){
-              //selectedObject.style("stroke-width", 0);
-              selectedObject = d3.select(this);
-              //selectedObject.style("stroke-width", 3);
-              selectedCountry = d.data.name;
-            //}
+            selectedObject = d3.select(this);
+            selectedCountry = d.data.name;
             return 3;
           }
           else
@@ -277,9 +271,6 @@ function createPieChart(data, isRootData){
             if(selectedObject.data()[0].data.name != d.data.name){
               selectedObject.style("stroke-width", 0);
             }
-              //selectedObject = d3.select(this);
-              //selectedObject.style("stroke-width", 3);
-            //}
             return 3;
           }
           else
@@ -311,6 +302,7 @@ function selectSearchedCountries(countriesNamesArray){
   createPieChart(newSelectedData, false);
   if(newSelectedData.length > 2){
     angular.element('#app').scope().selectGroupToFilter(filteredNames);
+    angular.element('#app').scope().groupSelection(filteredNames);
   }
   else if (newSelectedData.length == 2){
     angular.element('#app').scope().hoverOverCountryCompare(newSelectedData[1].name);
@@ -318,6 +310,10 @@ function selectSearchedCountries(countriesNamesArray){
   else{
     angular.element('#app').scope().hoverOverCountryCompare(newSelectedData[0].name);
   }
+}
+
+function getSelectedCountries(){
+  return filteredNames;
 }
 
 // Clears all selections and resets all stroke borders
@@ -330,10 +326,10 @@ function clearAllSelections(clearWhat){
     selectedObject = [];
     selectedCountry = "";
   }else if(clearWhat ==  "group" && filteredObjects.length > 1){
-    filteredObjects = [];
-    filteredNames = [];
-    selectedObject = [];
-    selectedCountry = "";
+    //filteredObjects = [];
+    //filteredNames = [];
+    //selectedObject = [];
+    //selectedCountry = "";
   }
 }
 
@@ -343,8 +339,6 @@ function removePieChart(){
     d3.select('#pieChart').selectAll('g').remove();
     $("#pieChart").remove();
 }
-
-
 
 // INTERPOLATION //
 function pieTween(d, i) {

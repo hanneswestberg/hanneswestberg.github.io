@@ -62,6 +62,7 @@ function DataManager(){
 				var totalMeanDifference = 0;
 				var countryQuestionAnswers = [];
 				var boolCountryIsInWave = true;
+				var validQuestions = 0;
 				// Let's check each question
 				for(var questionId = 0; questionId < questionsCodebook.length; questionId++){
 					// If the question has been asked in this wave AND the origin country has answered this question in this wave 
@@ -86,6 +87,7 @@ function DataManager(){
 							countryQuestionAnswers.push({ question:questionsCodebook[questionId].id, diff:questionDifference, ans:allAnswers[wave].questions[questionId].answers[countries[countryId].name] });
 							// Then we divide with number of answers to get the question mean value difference
 							if(questionsCodebook[questionId].type == "question"){
+								validQuestions++;
 								questionMeanDifference = (questionMeanDifference / Object.keys(questionsCodebook[questionId].answers).length);
 								totalMeanDifference += questionMeanDifference;
 							}
@@ -103,7 +105,7 @@ function DataManager(){
 					}
 				}
 				// Then we divide with number of questions to get the total mean value difference
-				totalMeanDifference = (boolCountryIsInWave && countryQuestionAnswers[0].diff == "nodata") ? "nodata" : (totalMeanDifference / questionsCodebook.length);
+				totalMeanDifference = (boolCountryIsInWave && countryQuestionAnswers[0].diff == "nodata") ? "nodata" : (totalMeanDifference / validQuestions);
 				// We try to get population data
 				var countryPopulation;
 				if(population[countries[countryId].name] == undefined){
@@ -174,7 +176,8 @@ function DataManager(){
 				var aAnsMean = 0;
 				var aAnsDiff = 0;
 				for(var i = 0; i < groupAnswersArray.length; i++){
-					aAnsTot += groupAnswersArray[i].questions[q].ans[Object.keys(questionsCodebook[q].answers)[a]];
+					if(groupAnswersArray[i].questions[q].ans != undefined && groupAnswersArray[i].questions[q].ans != "nodata")
+						aAnsTot += groupAnswersArray[i].questions[q].ans[Object.keys(questionsCodebook[q].answers)[a]];
 				}
 				aAnsMean = aAnsTot / groupAnswersArray.length;
 				aAnsDiff = retArray[0].questions[q].ans[Object.keys(questionsCodebook[q].answers)[a]] - aAnsMean;
@@ -246,6 +249,7 @@ function DataManager(){
 
 	// Returns the population
 	this.getPopulation = function(country, wave){
+		if(country == "Selected Group") return 0;
 		// We make sure that we return the correct value if you either send in the country object or just the name
 		return (country.name == undefined) ? population[country][wave] : population[country.name][wave];
 	}

@@ -285,7 +285,7 @@
 	"type": "info",
 	"maxvalue": 100,
 	"unit": " years",
-	"infoSuffix": "live",
+	"infoSuffix": "has",
 	"unitSuffixPos": "longer",
 	"unitSuffixNeg": "shorter",
 	"subject": "Life expectancy", 

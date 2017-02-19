@@ -3,8 +3,8 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
   // Create the datamanager instance
   var dataManager = new DataManager();
   var currentData = [];
-  var continentColorDictionary = {"europe":"#1f77b4", "asia":"#ff7f0e", "africa":"#2ca02c", "north america":"#9467bd", "south america":"#8c564b", "oceania":"#d62728"};
-
+  var continentColorDictionary = {"europe":"#1f77b4", "asia":"#ff7f0e", "africa":"#2ca02c", "north america":"#9467bd", "south america":"#8c564b", "oceania":"#d62728", "unknown":"#777777"};
+  var groupCountrySelected = {"name":"Selected Group", "flag":"flag_unknown.png", "continent": "unknown"};
 
   // Instance variables
   $scope.showQuestionVisualizer = false;
@@ -97,22 +97,19 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
     $scope.selectedCountryPopulation = dataManager.getPopulation($scope.selectedCountry.name, $scope.currentWave);
     if($scope.selectedCountryPopulation == 0 || $scope.selectedCountryPopulation == "nodata") $scope.selectedCountryPopulation = "No data";
   	// Create the pie chart with the current data
+
   	createPieChart(currentData, true);
 
     $scope.searchFilter();
+
   	// Change view to visualization
     $scope.showCountryPicker = false;
     // Check slider colors (which waves did the origin country participate in?)
     $scope.calculateColorForSliderLabels();
     // We select and find info about our selected country
-    $scope.hoverOverCountryCompare($scope.selectedCountry.name);
-
-    //if(dataManager.countryIsInWave($scope.selectedCountry.name, $scope.currentWave) && dataManager.countryIsInWave($scope.originCountry.name, $scope.currentWave)){
-      //$scope.hoverOverCountryCompare($scope.selectedCountry.name);
-    //}else{
-      //clearAllSelections();
-      //$scope.hoverOverCountryCompare($scope.originCountry.name);
-    //}
+    //if(!dataManager.countryIsInWave($scope.selectedCountry.name))
+    if(!isWaveChange)
+      $scope.hoverOverCountryCompare(country.name);
   }
 
    // Called when we go back from the country visualisation
@@ -165,7 +162,14 @@ app.controller('myCtrl', function($scope, $http, $rootScope, $timeout){
 
   // This function updates the UI to represent the selected group
   $scope.groupSelection = function(countryGroup){
-
+    // If we have a valid selection
+    if(countryGroup != undefined && countryGroup.length > 1){
+      $scope.selectedCountry = groupCountrySelected;
+      $scope.selectedCountryPopulation = "Unknown";
+      $scope.selectCountryValueDifference = "Unknown";
+      // Apply the changes
+      $scope.safeApply();
+    }
   }
 
 

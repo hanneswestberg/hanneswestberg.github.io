@@ -62,15 +62,17 @@ function generateNewDiffplot(data, questionID, codebook, type){
       // SHADOWS //
       var defs = diffVis.append( 'defs' );
       var filter = defs.append( 'filter' )
+            .style("z-index", -100)
+            .attr("class", "noselect")
             .attr( 'id', 'simpleDiffPlotShadow' ); /// !!! important - define id to reference it later
       filter.append( 'feGaussianBlur' )
             .attr( 'in', 'SourceAlpha' )
-            .attr( 'stdDeviation', 12 ) // !!! important parameter - blur
+            .attr( 'stdDeviation', 7 ) // !!! important parameter - blur
             .attr( 'result', 'blur' );
       filter.append( 'feOffset' )
             .attr( 'in', 'blur' )
-            .attr( 'dx', 3 ) // !!! important parameter - x-offset
-            .attr( 'dy', 4 ) // !!! important parameter - y-offset
+            .attr( 'dx', 2 ) // !!! important parameter - x-offset
+            .attr( 'dy', 2 ) // !!! important parameter - y-offset
             .attr( 'result', 'offsetBlur' );
       var feMerge = filter.append( 'feMerge' );
       feMerge.append( 'feMergeNode' )
@@ -119,9 +121,14 @@ function filterDataForType(questionID, questionData, type){
         break;
     case "groupthey":
     case "they":
-        for(var i = 0; i < Object.keys(currentPlotData[1].questions[questionID].ans).length; i++){
-          filteredData.push([Object.keys(currentPlotData[1].questions[questionID].ans)[i], currentPlotData[1].questions[questionID].ans[Object.keys(currentPlotData[1].questions[questionID].ans)[i]]]);
+        if(currentPlotData[1].questions[questionID].ans != "nodata" && currentPlotData[1].questions[questionID].ans != undefined){
+          for(var i = 0; i < Object.keys(currentPlotData[1].questions[questionID].ans).length; i++){
+            filteredData.push([Object.keys(currentPlotData[1].questions[questionID].ans)[i], currentPlotData[1].questions[questionID].ans[Object.keys(currentPlotData[1].questions[questionID].ans)[i]]]);
+          }
         }
+        else 
+          filteredData = ["nodata"];
+
         break;
     case "nodata":
         filteredData = ["nodata"];
@@ -172,7 +179,7 @@ function generateTipInfoForType(barObj, indexInArray, abUpper){
         break;
     case "group":
         var posOrNeg = (barObj[1] < 0) ? ("<span style='color:#D3000C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit+" "+questionOrInfoUnitSuffixNeg+":") : ("<span style='color:#30C02C'> &#160 +" + Number(barObj[1]).toFixed(2) + questionOrInfoUnit+" "+questionOrInfoUnitSuffixPos);
-        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> (mean value) answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong>" + posOrNeg + "</span><p><strong style='color:#B09062'><br>" + currentPlotData[0].name + ":  </strong> &#160 " + currentPlotData[0].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p><strong style='color:#B09062'><p>" + currentPlotData[1].name + ": </strong> &#160 " + Number(currentPlotData[1].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p><br>";
+        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> (mean value) "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong>" + posOrNeg + "</span><p><strong style='color:#B09062'><br>" + currentPlotData[0].name + ":  </strong> &#160 " + currentPlotData[0].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p><strong style='color:#B09062'><p>" + currentPlotData[1].name + ": </strong> &#160 " + Number(currentPlotData[1].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p><br>";
         var stopIndex = currentPlotData[2].length;
         if(currentPlotData[2].length > 8){
           stopIndex = 8;
@@ -187,10 +194,10 @@ function generateTipInfoForType(barObj, indexInArray, abUpper){
         }
         break;
     case "self":
-        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[0].name + "</strong> answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[0].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
         break;
     case "they":
-        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> answered:<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
         break;
   }
   return retString;
@@ -208,22 +215,32 @@ function createDiffPlots(allData, codebook, questionOrder, type, generateHeaders
     // For the questions in the category
     for(var q = 0; q < questionOrder[c].questions.length; q++){
       var hasGeneratedNewSvg = false;
-      var thisType = (allData[0].questions[questionOrder[c].questions[q]].ans == "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans == "nodata") ? "nodata" : type;
+      var thisType = type;
+      // If both countries have no data, then show no data
+      if(allData[0].questions[questionOrder[c].questions[q]].ans == "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans == "nodata"){ thisType = "nodata"; }
+      // If the origin country has data, but not the selected one, then show self
+      else if(allData[0].questions[questionOrder[c].questions[q]].ans != "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans == "nodata"){ thisType = "self"; }
+      // If the selected country has data, but not the origin one, then show they
+      else if(allData[0].questions[questionOrder[c].questions[q]].ans == "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans != "nodata"){ thisType = "they"; }
+      // If we have data for both countries, well then show diff
+      else if((type != "group" && type != "groupab") && (allData[0].name != allData[1].name) && allData[0].questions[questionOrder[c].questions[q]].ans != "nodata" && allData[1].questions[questionOrder[c].questions[q]].ans != "nodata"){ thisType = "diff"; }
+
       // Lets first try to find it
       var index = -1;
       for(var i = 0; i < questionVisArray.length; i++){
         if(questionVisArray[i].questionID == questionOrder[c].questions[q]) index = i;
       }
       // If the search failed, the svg is not created yet, we need to create it
+      var filteredData = filterDataForType(questionOrder[c].questions[q], codebook[questionOrder[c].questions[q]], thisType);
       if(index == -1) {
-        generateNewDiffplot(filterDataForType(questionOrder[c].questions[q], codebook[questionOrder[c].questions[q]], thisType), questionOrder[c].questions[q], codebook, thisType);
+        generateNewDiffplot(filteredData, questionOrder[c].questions[q], codebook, thisType);
         hasGeneratedNewSvg = true;
       }else{
         // We might need to update the plot type
         questionVisArray[index].type = thisType;
       }
       $(".barstip"+index).remove();
-      updateDiffPlotData(filterDataForType(questionOrder[c].questions[q], codebook[questionOrder[c].questions[q]], thisType), (index != -1) ? index : questionVisArray.length-1, hasGeneratedNewSvg);
+      updateDiffPlotData(filteredData, (index != -1) ? index : questionVisArray.length-1, hasGeneratedNewSvg);
     }
   }
 }
@@ -235,21 +252,43 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
   var questionID = questionVisArray[indexInArray].questionID;
   var questionData = questionVisArray[indexInArray].questionData;
   var type = questionVisArray[indexInArray].type;
-  if(type == "nodata"){
+  if(type == "nodata" || type == "they" || type == "self"){
     var noDataText = diffVis.append("text");
     // Set the display info
     var textLabels = noDataText
       .attr('class', 'noselect nodataLabel')
       .attr("text-anchor", "middle")
       .attr("x", function(d) { return diffPlotWidth/2; })                
-      .attr("y", function(d) { return 50; })
-      .text( function (d) { return "No data for given interval"; })
+      .attr("y", function(d) {
+        if(type == "self" && currentPlotData[0].name != currentPlotData[1].name)
+          return -50;
+        else
+          return 50; 
+      })
+      .text( function (d) { 
+        switch(type){
+          case "nodata":
+            return "No data in given interval"; 
+            break;
+          case "they":
+            return "No data for "+ currentPlotData[0].name; 
+            break;
+          case "self":
+            if(currentPlotData[0].name != currentPlotData[1].name) 
+              return "No data for "+ currentPlotData[1].name;
+            else
+              return "";
+            break;
+        }
+        
+      })
       .attr("font-family", "Open Sans")
       .attr("fill", "#D3000C")
       .attr("font-size", "16px")
       .attr("text-align", "center");
   }
-  else {
+
+  if(type != "nodata") {
     // Update the x-scale.
     xScale
       .domain(filteredData.map(function(d) { return d[0];} ))
@@ -274,34 +313,36 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
           return generateTipInfoForType(d, indexInArray);
         }
   })
+
+
   if(generateHeader){
     // Create the question tip
     var questionTip = d3.tip()
-          .attr('class', 'd3-tip')
-          .direction('s')
-          .offset([-10, 0])
-          .html(function(d) {
-            var retString = (questionData.type == "question") ?  "<p><strong style='color:#FFCA00'>Wording: </strong>" + questionData.wording + "<p/>" : "<p><strong style='color:#FFCA00'>Info: </strong>" + questionData.wording + "<p/>";
-            for(var i = 0; i < Object.keys(questionData.answers).length; i++){
-              retString = retString.concat("<p> <strong style='color:#75C9FF'>" + Object.keys(questionData.answers)[i] + ":</strong> " + questionData.answers[Object.keys(questionData.answers)[i]] + "</p>");
-            }
-            return retString;
+      .attr('class', 'd3-tip')
+      .direction('s')
+      .offset([-10, 0])
+      .html(function(d) {
+        var retString = (questionData.type == "question") ?  "<p><strong style='color:#FFCA00'>Wording: </strong>" + questionData.wording + "<p/>" : "<p><strong style='color:#FFCA00'>Info: </strong>" + questionData.wording + "<p/>";
+        for(var i = 0; i < Object.keys(questionData.answers).length; i++){
+          retString = retString.concat("<p> <strong style='color:#75C9FF'>" + Object.keys(questionData.answers)[i] + ":</strong> " + questionData.answers[Object.keys(questionData.answers)[i]] + "</p>");
+        }
+        return retString;
   })  
   // Create the question subject text
   var text = diffVis.selectAll("text").data([questionData.id]);
     text.enter().append("text");
   // Set the display info
   var textLabels = text
-    .attr('class', 'questionLabel')
-    .attr('class', 'noselect')
-    .attr("text-anchor", "middle")
-    .attr("x", function(d) { return diffPlotWidth/2; })                
-    .attr("y", function(d) { return -30; })
-    .text( function (d) { return questionData.subject; })
-    .attr("font-family", "Open Sans")
-    .attr("fill", "#FFCA00")
-    .attr("font-size", "16px")
-    .attr("text-align", "center");
+      .attr('class', 'questionLabel')
+      .attr('class', 'noselect')
+      .attr("text-anchor", "middle")
+      .attr("x", function(d) { return diffPlotWidth/2; })                
+      .attr("y", function(d) { return -30; })
+      .text( function (d) { return questionData.subject; })
+      .attr("font-family", "Open Sans")
+      .attr("fill", "#FFCA00")
+      .attr("font-size", "16px")
+      .attr("text-align", "center");
     textLabels.call(questionTip);
     textLabels.on('mouseover', questionTip.show);
     textLabels.on('mouseout', questionTip.hide);
@@ -312,108 +353,112 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
   var bar = diffVis.select(".bars").selectAll(".bar").data((type != "nodata") ? filteredData : 0);
   bar.enter().append("rect")
      .attr("height", 0)
-     .attr("y", Y0());
+     .attr("y", Y0())
+     .style("z-index", 100);
   bar.attr("filter", "url(#simpleDiffPlotShadow)")
      .attr("class", function(d, i) {
-          switch(type){
-              case "groupab":
-              case "ab":
-                return "bar positive";
-                break;
-              case "diff":
-              case "self":
-              case "group":
-                return d[1] < 0 ? "bar negative" : "bar positive"; 
-                break;
-              case "nodata":
-              case "they":
-                return "bar negative";
-                break;
+        switch(type){
+          case "groupab":
+          case "ab":
+            return "bar positive";
+            break;
+          case "diff":
+          case "self":
+          case "group":
+            return d[1] < 0 ? "bar negative" : "bar positive"; 
+            break;
+          case "nodata":
+          case "they":
+            return "bar negative";
+            break;
+        }
+    })  
+    .transition()
+    .duration(500)
+    .style("fill", function (d, i) {
+      switch(type){
+        case "groupab":
+        case "ab":
+          // First country
+          if(i < (filteredData.length/2)){ 
+            return "#30C02C";
           }
-        })
-            .transition()
-            .duration(500)
-            .style("fill", function (d, i) {
-              switch(type){
-                case "groupab":
-                case "ab":
-                  // First country
-                  if(i < (filteredData.length/2)){ 
-                    return "#30C02C";
-                  }
-                  // Second country
-                  else{
-                    return "#D3000C";
-                  }
-                  break;
-                case "diff":
-                case "self":
-                case "group":
-                  return d[1] < 0 ? "#D3000C" : "#30C02C";
-                  break;
-                case "nodata":
-                case "they":
-                  return "#D3000C";
-                  break;
-              }
-          })
-            .attr("x", function(d) { return X(d); })
-            .attr("y", function(d, i) {
-              switch(type){
-                case "groupab":
-                case "ab":
-                  // First country
-                  if(i < (filteredData.length/2)){ 
-                    return (d[1] == "nodata") ? 0 : Y(d)
-                  }
-                  // Second country
-                  else{
-                    return (d[1] == "nodata") ? 0 : Y0()
-                  }
-                  break;
-                case "diff":
-                case "self":
-                case "group":
-                  return (d[1] == "nodata") ? 0 : (d[1] < 0) ? Y0() : Y(d);
-                  break;
-                case "they":
-                  return (d[1] == "nodata") ? 0 : Y0()
-                  break;
-                case "nodata":
-                  return Y0();
-                  break;
-              }})
-             .attr("width", xScale.rangeBand())
-             .attr("height", function(d, i) {
-              switch(type){
-                case "groupab":
-                case "ab":
-                  // First country
-                  if(i < (filteredData.length/2)){ 
-                    return Math.abs( Y(d) - Y0() );
-                  }
-                  // Second country
-                  else{
-                    return Math.abs( Y0() - Y(d) );
-                  }
-                  break;
-                case "diff":
-                case "self":
-                case "group":
-                  return Math.abs( Y(d) - Y0() );
-                  break;
-                case "they":
-                  return Math.abs( Y0() - Y(d) );
-                  break;
-                case "nodata":
-                  return Y0();
-                  break;
-              }
-             });
+          // Second country
+          else{
+            return "#D3000C";
+          }
+          break;
+        case "diff":
+        case "self":
+        case "group":
+          return d[1] < 0 ? "#D3000C" : "#30C02C";
+          break;
+        case "nodata":
+        case "they":
+          return "#D3000C";
+          break;
+      }
+      })
+      .attr("x", function(d) { return X(d); })
+      .attr("y", function(d, i) {
+        if(d[1] == NaN) return 0;
+        switch(type){
+          case "groupab":
+          case "ab":
+            // First country
+            if(i < (filteredData.length/2)){ 
+              return (d[1] == "nodata") ? 0 : Y(d)
+            }
+            // Second country
+            else{
+              return (d[1] == "nodata") ? 0 : Y0()
+            }
+            break;
+          case "diff":
+          case "self":
+          case "group":
+            return (d[1] == "nodata") ? 0 : (d[1] < 0) ? Y0() : Y(d);
+            break;
+          case "they":
+            return (d[1] == "nodata") ? 0 : Y0()
+            break;
+          case "nodata":
+            return Y0();
+            break;
+        }})
+       .attr("width", xScale.rangeBand())
+       .attr("height", function(d, i) {
+        if(d[1] == NaN) return 0;
+        switch(type){
+          case "groupab":
+          case "ab":
+            // First country
+            if(i < (filteredData.length/2)){ 
+              return Math.abs( Y(d) - Y0() );
+            }
+            // Second country
+            else{
+              return Math.abs( Y0() - Y(d) );
+            }
+            break;
+          case "diff":
+          case "self":
+          case "group":
+            return Math.abs( Y(d) - Y0() );
+            break;
+          case "they":
+            return Math.abs( Y0() - Y(d) );
+            break;
+          case "nodata":
+            return Y0();
+            break;
+        }
+       });
   bar.exit()
      .transition()
      .duration(500)
-      .attr("height", function(d, i) {
+     .attr("height", function(d, i) {
+        if(d[1] == NaN) return 0;
         switch(type){
           case "groupab":
           case "ab":
@@ -425,8 +470,9 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
             return 0;
             break;
         }
-       })
+        })
         .attr("y", function(d, i) {
+        if(d[1] == NaN) return 0;
         switch(type){
           case "groupab":
           case "ab":
@@ -438,7 +484,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
             return Y0();
             break;
         }})
-     .remove();
+        .remove();
 
   if(type != "nodata"){
     bar.call(tip);
@@ -447,19 +493,20 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
 
     // x axis at the bottom of the chart
     diffVis.select(".x.axis")
-          .attr("font-family", "Open Sans")
-          .attr("font-size", "16px")
-          .attr("transform", "translate(0," + (diffPlotHeight/2) + ")")
-          .attr("fill", "#75C9FF")
-          .call(xAxis.orient("bottom"));
-  }
+      .attr("font-family", "Open Sans")
+      .attr("font-size", "16px")
+      .style("z-index", -100)
+      .attr("transform", "translate(0," + (diffPlotHeight/2) + ")")
+      .attr("fill", "#75C9FF")
+      .call(xAxis.orient("bottom")).selectAll("text")
+        //.attr("y", function(d){
 
-        //.selectAll("text")
-        //.attr("y", 0)
-        //.attr("x", 0)
-        //.attr("dy", ".35em");
-        //.attr("transform", "rotate(45)")
+        //})
+        .attr("z-index", -100)
+        .attr("class", "noselect");
+        //.attr("dy", ".35em")
         //.style("text-anchor", "center");
+  }
 }
 
 // Removes all diff plots
