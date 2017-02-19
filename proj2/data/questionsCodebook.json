@@ -3,17 +3,17 @@
 	"categories": [
 		{
 			"id":0,
-			"subject": "(Info) Development and pollution",
+			"subject": "(Info) Development and Pollution",
 			"questions":[15, 16, 19]
 		},		
 		{
 			"id":1,
-			"subject": "(Info) Education and fertility",
+			"subject": "(Info) Health and Children",
 			"questions":[17, 18, 20]
 		},
 		{
 			"id":2,
-			"subject": "(Values) Living quality",
+			"subject": "(Values) Living Quality",
 			"questions": [0, 3, 4]
 		},
 		{
@@ -80,7 +80,7 @@
 	{
 	"id":3, 
 	"type": "question",
-	"subject": "State of health", 
+	"subject": "State of Health", 
 	"wording": "(Subjective) All in all, how would you describe your state of health these days?. Would you say it is:",
 	"answers": 
 		{
@@ -93,7 +93,7 @@
 	{
 	"id":4, 
 	"type": "question",
-	"subject": "Financial satisfaction", 
+	"subject": "Financial Satisfaction", 
 	"wording": "(Scale 1 - 10) How satisfied are you with the financial situation of your household?",
 	"answers": 
 		{
@@ -231,7 +231,7 @@
 	{
 	"id":13, 
 	"type": "question",
-	"subject": "Hard work", 
+	"subject": "Hard Work", 
 	"wording": "Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?: Hard work",
 	"answers": 
 		{
@@ -242,7 +242,7 @@
 	{
 	"id":14, 
 	"type": "question",
-	"subject": "Feeling of responsibility", 
+	"subject": "Feeling of Responsibility", 
 	"wording": "Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?: Feeling of responsibility",
 	"answers": 
 		{
@@ -288,7 +288,7 @@
 	"infoSuffix": "has",
 	"unitSuffixPos": "longer",
 	"unitSuffixNeg": "shorter",
-	"subject": "Life expectancy", 
+	"subject": "Life Expectancy", 
 	"wording": "Life expectancy is a statistical measure of the average time an organism is expected to live, based on the year of their birth, their current age and other demographic factors including sex",
 	"answers": 
 		{
@@ -303,7 +303,7 @@
 	"infoSuffix": "have",
 	"unitSuffixPos": "more",
 	"unitSuffixNeg": "less",
-	"subject": "Children per woman", 
+	"subject": "Children per Woman", 
 	"wording": "The average children per woman in her lifetime",
 	"answers": 
 		{
@@ -333,7 +333,7 @@
 	"infoSuffix": "have",
 	"unitSuffixPos": "more",
 	"unitSuffixNeg": "less",
-	"subject": "Child mortality", 
+	"subject": "Child Mortality", 
 	"wording": "Child mortality (0-5 year-olds dying per 1,000 born)",
 	"answers": 
 		{

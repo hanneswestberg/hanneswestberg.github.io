@@ -19,11 +19,13 @@ var currentPlotData = [];
 function generateNewDiffplot(data, questionID, codebook, type){
   // Map the values
   data = data.map(function(d, i, p) {
-    return [xValue.call(data, d, i), yValue.call(data, d, i), zValue.call(data, d, i)];
+      return [xValue.call(data, d, i), yValue.call(data, d, i), zValue.call(data, d, i)];
   });
     // Update the x-scale.
   xScale
-    .domain(data.map(function(d) { return d[0];} ))
+    .domain(data.map(function(d) { 
+        return d[0];
+    }))
     .rangeRoundBands([0, diffPlotWidth+10], xRoundBands);
   // Update the y-scale.
   yScale
@@ -40,8 +42,6 @@ function generateNewDiffplot(data, questionID, codebook, type){
         .style("overflow", "visible")
         .on ("mouseover", function(d){
           d3.select(this).style({cursor: 'pointer'})
-        })
-        .on ("mouseout", function(){
         })
         .on('mousedown', function(d,i){
           // First we find the right id
@@ -111,7 +111,7 @@ function filterDataForType(questionID, questionData, type){
     
     case "group":
         for(var i = 0; i < Object.keys(currentPlotData[1].questions[questionID].diff).length; i++){
-          filteredData.push([Object.keys(currentPlotData[1].questions[questionID].diff)[i], currentPlotData[1].questions[questionID].diff[Object.keys(currentPlotData[1].questions[questionID].diff)[i]]]);
+          filteredData.push([Object.keys(currentPlotData[1].questions[questionID].diff)[i], (currentPlotData[1].questions[questionID].diff[Object.keys(currentPlotData[1].questions[questionID].diff)[i]] != NaN) ? currentPlotData[1].questions[questionID].diff[Object.keys(currentPlotData[1].questions[questionID].diff)[i]] : 0]);
         }
         break;
     case "self":
@@ -131,6 +131,7 @@ function filterDataForType(questionID, questionData, type){
 
         break;
     case "nodata":
+    default:
         filteredData = ["nodata"];
         break;
   }
@@ -150,54 +151,55 @@ function generateTipInfoForType(barObj, indexInArray, abUpper){
   switch(type){
     case "diff":
         var posOrNeg = (barObj[1] < 0) ? ("<span style='color:#D3000C'> &#160 " + Number(barObj[1]).toFixed(2) +questionOrInfoUnit+ " "+questionOrInfoUnitSuffixNeg+":") : ("<span style='color:#30C02C'> &#160 +" + Number(barObj[1]).toFixed(2) +questionOrInfoUnit+ " "+questionOrInfoUnitSuffixPos);
-        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong>" + posOrNeg + "</span><p><strong style='color:#B09062'><br>" + currentPlotData[0].name + ":  </strong> &#160 " + currentPlotData[0].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p><strong style='color:#B09062'><p>" + currentPlotData[1].name + ": </strong> &#160 " + currentPlotData[1].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p>";
+        retString = "<p><strong style='color:#B08062'><br>" + currentPlotData[1].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong>" + posOrNeg + "</span><p><strong style='color:#B08062'><br>" + currentPlotData[0].name + ":  </strong> &#160 " + Number(currentPlotData[0].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p><strong style='color:#B08062'><p>" + currentPlotData[1].name + ": </strong> &#160 " + Number(currentPlotData[1].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p>";
         break;
     case "ab":
         if(abUpper)
-          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[0].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+          retString = "<p><strong style='color:#B08062'><br>" + currentPlotData[0].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
         else
-          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+          retString = "<p><strong style='color:#B08062'><br>" + currentPlotData[1].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
         break;
     case "groupab":
         if(abUpper)
-          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[0].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+          retString = "<p><strong style='color:#B08062'><br>" + currentPlotData[0].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
         else{
-          retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> (mean value) "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+          retString = "<p><strong style='color:#B08062'><br>" + currentPlotData[1].name + "</strong> (mean value) "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
           var stopIndex = currentPlotData[2].length;
-          if(currentPlotData[2].length > 8){
-            stopIndex = 8;
+          if(currentPlotData[2].length > 5){
+            stopIndex = 5;
             for(var i = 0; i < stopIndex; i++){
-              retString = retString.concat("<p><strong style='color:#B09062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + currentPlotData[2][i].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p>");
+              retString = retString.concat("<p><strong style='color:#B08062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + Number(currentPlotData[2][i].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p>");
             }
-            retString = retString.concat("<br><p>+ " + (currentPlotData[2].length - stopIndex) + " <strong style='color:#B09062'>Other Countries</strong></p>");
+            retString = retString.concat("<br><p>+ " + (currentPlotData[2].length - stopIndex) + " <strong style='color:#B08062'>Other Countries</strong></p>");
           }else{
             for(var i = 0; i < currentPlotData[2].length; i++){
-              retString = retString.concat("<p><strong style='color:#B09062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + currentPlotData[2][i].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p>");
+              retString = retString.concat("<p><strong style='color:#B08062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + Number(currentPlotData[2][i].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p>");
             }
           }
         }
         break;
     case "group":
         var posOrNeg = (barObj[1] < 0) ? ("<span style='color:#D3000C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit+" "+questionOrInfoUnitSuffixNeg+":") : ("<span style='color:#30C02C'> &#160 +" + Number(barObj[1]).toFixed(2) + questionOrInfoUnit+" "+questionOrInfoUnitSuffixPos);
-        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> (mean value) "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong>" + posOrNeg + "</span><p><strong style='color:#B09062'><br>" + currentPlotData[0].name + ":  </strong> &#160 " + currentPlotData[0].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p><strong style='color:#B09062'><p>" + currentPlotData[1].name + ": </strong> &#160 " + Number(currentPlotData[1].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p><br>";
+        retString = "<p><strong style='color:#B08062'><br>" + currentPlotData[1].name + "</strong> (mean value) "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong>" + posOrNeg + "</span><p><strong style='color:#B08062'><br>" + currentPlotData[0].name + ":  </strong> &#160 " + Number(currentPlotData[0].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p><strong style='color:#B08062'><p>" + currentPlotData[1].name + ": </strong> &#160 " + Number(currentPlotData[1].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p><br>";
         var stopIndex = currentPlotData[2].length;
-        if(currentPlotData[2].length > 8){
-          stopIndex = 8;
+        if(currentPlotData[2].length > 5){
+          stopIndex = 5;
           for(var i = 0; i < stopIndex; i++){
-            retString = retString.concat("<p><strong style='color:#B09062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + currentPlotData[2][i].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p>");
+            retString = retString.concat("<p><strong style='color:#B08062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + Number(currentPlotData[2][i].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p>");
           }
-          retString = retString.concat("<br><p>+ " + (currentPlotData[2].length - stopIndex) + " <strong style='color:#B09062'>Other Countries</strong></p>");
+          retString = retString.concat("<br><p>+ " + (currentPlotData[2].length - stopIndex) + " <strong style='color:#B08062'>Other Countries</strong></p>");
         }else{
           for(var i = 0; i < currentPlotData[2].length; i++){
-            retString = retString.concat("<p><strong style='color:#B09062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + currentPlotData[2][i].questions[questionID].ans[barObj[0]] + questionOrInfoUnit+"</p>");
+            retString = retString.concat("<p><strong style='color:#B08062'>" + currentPlotData[2][i].name + ":  </strong> &#160 " + Number(currentPlotData[2][i].questions[questionID].ans[barObj[0]]).toFixed(2) + questionOrInfoUnit+"</p>");
           }
         }
         break;
     case "self":
-        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[0].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+        retString = "<p><strong style='color:#B08062'><br>" + currentPlotData[0].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
         break;
     case "they":
-        retString = "<p><strong style='color:#B09062'><br>" + currentPlotData[1].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
+    default:
+        retString = "<p><strong style='color:#B08062'><br>" + currentPlotData[1].name + "</strong> "+questionOrInfoSuffix+":<p/><br><strong style='color:#75C9FF'>" + questionData.answers[barObj[0]] + "</strong><span style='color:#30C02C'> &#160 " + Number(barObj[1]).toFixed(2) + questionOrInfoUnit;
         break;
   }
   return retString;
@@ -267,9 +269,9 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
       .attr("x", function(d) { return diffPlotWidth/2; })                
       .attr("y", function(d) {
         if(type == "self" && currentPlotData[0].name != currentPlotData[1].name)
-          return -50;
+          return diffPlotHeight/2 + 80;
         else
-          return 50; 
+          return diffPlotHeight/2 - 80; 
       })
       .text( function (d) { 
         switch(type){
@@ -297,7 +299,9 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
   if(type != "nodata") {
     // Update the x-scale.
     xScale
-      .domain(filteredData.map(function(d) { return d[0];} ))
+      .domain(filteredData.map(function(d) { 
+        return d[0];
+      }))
       .rangeRoundBands([0, diffPlotWidth+10], xRoundBands);
     // Update the y-scale.
     var yScaleMaxValue = (questionData.type == "info") ? (questionData.maxvalue * 2) : 200;
@@ -309,7 +313,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
   // Create the answer tips
   var tip = d3.tip()
       .attr('class', 'd3-tip barstip'+indexInArray)
-      .direction('s')
+      .direction('n')
       .offset([-10, 0])
       .html(function(d, i) {
         if(type == "ab" || type == "groupab"){
@@ -363,6 +367,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
      .style("z-index", 100);
   bar.attr("filter", "url(#simpleDiffPlotShadow)")
      .attr("class", function(d, i) {
+      if(isNaN(d[1])) return "bar negative";
         switch(type){
           case "groupab":
           case "ab":
@@ -375,6 +380,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
             break;
           case "nodata":
           case "they":
+          default:
             return "bar negative";
             break;
         }
@@ -382,6 +388,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
     .transition()
     .duration(500)
     .style("fill", function (d, i) {
+    if(isNaN(d[1])) return "#D3000C";
       switch(type){
         case "groupab":
         case "ab":
@@ -401,13 +408,14 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
           break;
         case "nodata":
         case "they":
+        default:
           return "#D3000C";
           break;
       }
       })
       .attr("x", function(d) { return X(d); })
       .attr("y", function(d, i) {
-        if(d[1] == NaN) return 0;
+        if(isNaN(d[1])) return 0;
         switch(type){
           case "groupab":
           case "ab":
@@ -429,12 +437,13 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
             return (d[1] == "nodata") ? 0 : Y0()
             break;
           case "nodata":
+          default:
             return Y0();
             break;
         }})
        .attr("width", xScale.rangeBand())
        .attr("height", function(d, i) {
-        if(d[1] == NaN) return 0;
+        if(isNaN(d[1])) return 0;
         switch(type){
           case "groupab":
           case "ab":
@@ -456,6 +465,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
             return Math.abs( Y0() - Y(d) );
             break;
           case "nodata":
+          default:
             return Y0();
             break;
         }
@@ -464,7 +474,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
      .transition()
      .duration(500)
      .attr("height", function(d, i) {
-        if(d[1] == NaN) return 0;
+        if(isNaN(d[1])) return 0;
         switch(type){
           case "groupab":
           case "ab":
@@ -473,12 +483,13 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
           case "group":
           case "they":
           case "nodata":
+          default:
             return 0;
             break;
         }
         })
         .attr("y", function(d, i) {
-        if(d[1] == NaN) return 0;
+        if(isNaN(d[1])) return 0;
         switch(type){
           case "groupab":
           case "ab":
@@ -487,6 +498,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
           case "they":
           case "group":
           case "nodata":
+          default:
             return Y0();
             break;
         }})

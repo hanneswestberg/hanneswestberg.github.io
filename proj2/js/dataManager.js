@@ -167,14 +167,31 @@ function DataManager(){
 				var aAnsTot = 0;
 				var aAnsMean = 0;
 				var aAnsDiff = 0;
+				var validCountries = 0;
 				for(var i = 0; i < groupAnswersArray.length; i++){
-					if(groupAnswersArray[i].questions[q].ans != undefined && groupAnswersArray[i].questions[q].ans != "nodata")
+					if(groupAnswersArray[i].questions[q].ans != undefined && groupAnswersArray[i].questions[q].ans != "nodata") {
 						aAnsTot += groupAnswersArray[i].questions[q].ans[Object.keys(questionsCodebook[q].answers)[a]];
+						validCountries++;
+					}
 				}
-				aAnsMean = aAnsTot / groupAnswersArray.length;
+				aAnsMean = aAnsTot / validCountries;
 				aAnsDiff = aAnsMean - retArray[0].questions[q].ans[Object.keys(questionsCodebook[q].answers)[a]];
-				retArray[1].questions[q].ans[Object.keys(questionsCodebook[q].answers)[a]] = aAnsMean;
-				retArray[1].questions[q].diff[Object.keys(questionsCodebook[q].answers)[a]] = aAnsDiff;
+				if(retArray[1].questions[q].ans == "nodata" || retArray[1].questions[q].ans == undefined){
+					retArray[1].questions[q].ans = {};
+					retArray[1].questions[q].ans[Object.keys(questionsCodebook[q].answers)[a]] = aAnsMean;
+				}
+				else{
+					retArray[1].questions[q].ans[Object.keys(questionsCodebook[q].answers)[a]] = aAnsMean;
+				}
+
+				if(retArray[1].questions[q].diff == "nodata" || retArray[1].questions[q].diff == undefined){
+					retArray[1].questions[q].diff = {};
+					retArray[1].questions[q].diff[Object.keys(questionsCodebook[q].answers)[a]] = aAnsDiff;
+				}
+				else{
+					retArray[1].questions[q].diff[Object.keys(questionsCodebook[q].answers)[a]] = aAnsDiff;
+				}
+				
 			}
 
 		}

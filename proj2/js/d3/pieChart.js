@@ -208,7 +208,7 @@ function createPieChart(data, isRootData){
           }
         }
         else {
-            clearAllSelections();
+            clearAllSelections("all", true);
         }
         isDraging = true;
       })
@@ -295,7 +295,7 @@ function selectSearchedCountries(countriesNamesArray){
     if(countriesNamesArray.includes(d3.select(currentObjects[i]).data()[0].data.name) && !filteredNames.includes(d3.select(currentObjects[i]).data()[0].data.name)){
       filteredObjects.push(d3.select(currentObjects[i]));
       filteredNames.push(d3.select(currentObjects[i]).data()[0].data.name);
-      d3.select(currentObjects[i]).style("stroke-width", 3);
+      //d3.select(currentObjects[i]).style("stroke-width", 3);
       newSelectedData.push(d3.select(currentObjects[i]).data()[0].data); 
     }
   }
@@ -317,7 +317,8 @@ function getSelectedCountries(){
 }
 
 // Clears all selections and resets all stroke borders
-function clearAllSelections(clearWhat){
+function clearAllSelections(clearWhat, clearSearchBar){
+  if(clearSearchBar != undefined && clearSearchBar == true) angular.element('#app').scope().searchValue = "";
   if(clearWhat == undefined || clearWhat == "all"){
     var allBars = d3.selectAll(".diffPlotBar");
     allBars.style("stroke-width", 0);
@@ -329,6 +330,7 @@ function clearAllSelections(clearWhat){
     filteredObjects = [];
     filteredNames = [];
     selectedObject = [];
+    angular.element('#app').scope().selectedCountriesGroup = [];
     selectedCountry = "";
   }
 }
