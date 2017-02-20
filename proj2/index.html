@@ -52,14 +52,11 @@
 			<div id="slider" class="col-md-1" style="top:250px; left: 10px"></div>
 
 			<div id="countryPicker" ng-show="showCountryPicker == true" class="col-md-12 .col-md-offset-1">
-				
-
 				<div id="countryFlag" ng-repeat="country in filteredCountries" class="col-lg-1 col-md-2 col-sm-3 col-xs-4 col-centered">
 					<img ng-src="{{'images/'+country.flag}}" alt="country.name" draggable="false" ng-click="selectCountry(country)" style="display:block; margin: 0 auto; width: 90px; height: 90px;">
-					<p style="color: #F8F8F8; text-align: center; white-space: nowrap; margin-left: 0px; margin-right: 0px;">{{ country.name }}</p>
+					<p style="color: #F8F8F8; text-align: center; white-space: nowrap; margin-left: auto; margin-right: auto;">{{ country.name }}</p>
 				</div>
 			</div>
-
 
 
 			<!-- STEP 2 - COUNTRY VISUALIZER -->
@@ -72,11 +69,20 @@
 					  <input id="cmn-toggle-1" ng-click="toggleFilterByWVSData()" class="cmn-toggle cmn-toggle-round" checked type="checkbox" style="opacity: 0">
 					  <label for="cmn-toggle-1" style=" top: 40px; position: absolute;"></label>
 					</div>
+					<div class="tooltipInfo" style="top:37px; left: 130px;">
+				  	  <img ng-src='images/tooltip_info.png' alt="tooltipInfoImg" draggable="false" style="width:100%; height:100%">
+					  <span class="tooltipInfoText">Filters the countries in the Circle Diagram to only those who have value data for the given interval.</span>
+					</div>
 
 					<div class="switch">
 					  <p style="position: absolute; top:80px; width: 160px">A-B plot as standard</p>
 					  <input id="cmn-toggle-2" ng-click="toggleABtestAsStandard()" class="cmn-toggle cmn-toggle-round" checked type="checkbox" style="opacity: 0">
 					  <label for="cmn-toggle-2" style=" top: 120px; position: absolute;"></label>
+					</div>
+
+					<div class="tooltipInfo" style="top:117px; left: 130px;">
+				  	  <img ng-src='images/tooltip_info.png' alt="tooltipInfoImg" draggable="false" style="width:100%; height:100%">
+					  <span class="tooltipInfoText">Sets the standard viewing mode for the Bar Plot. Off means that the standard is difference plot.</span>
 					</div>
 				</div>
 
@@ -94,11 +100,15 @@
 				</div>
 
 			<section class="webdesigntuts-workshop">
-				<form ng-submit="searchFilter()">		    
+				<form ng-submit="searchFilter()">    
 					<input type="search" ng-model="searchValue" placeholder="Search for a country or continent">		    	
 					<input type="submit" id="submit" value="Search" style="width: 80px;">Search</input>
 				</form>
 			</section>
+			<div class="tooltipInfo" style="bottom:80px; right: 250px;">
+			  <img ng-src='images/tooltip_info.png' alt="tooltipInfoImg" draggable="false" style="width:100%; height:100%">
+			  <span class="tooltipInfoText">Here you can search for countries in the current view, whole continents, or even all the current countries in the view by searching for "All".</span>
+			</div>	
 			</div>
 
 			<div id="questionVisualiserContent" ng-show="showQuestionVisualizer != ''" ng-hide="selectedCountry == ''" class="nano-content col-lg-6 col-md-5 col-sm-4 col-xs-12"></div>
@@ -110,26 +120,26 @@
 			<h1 style="color:#FFCA00">Process</h1>
 			<div class="row" style="margin-top: 50px">
 				<div id="processInfo" class="col-sm-6">
-					<h2>Analytic trail 1</h2>
-					<h4>WVS Online Analysis tool<h4>
+					<h2>Analytic Trail 1</h2>
+					<h4>World Value Survey Online Analysis Tool<h4>
 					<p class="analyticTrailText">The Online Analysis tool provided by WVS seemed very complicated at first when the user was presented the initial options. To be able to view the data, the user had to first specify the time interval, then choose the countries and finally the variable or value to visualize. </p>
 					<img class="analyticTrailImg" ng-src='images/analytic_trail_wvs_wavepicker.png' alt="analytic_trail_wvs_wavepicker" draggable="false">
-					<h4>Many steps<h4>
+					<h4>Many Steps<h4>
 					<p class="analyticTrailText">All those steps are required, and great if the user knows what to look for. But if they did not know all these parameters and wanted to have a quick overview of the overall values of the world, they would have a very hard time finding this data.</p>
 					<img class="analyticTrailImg" ng-src='images/analytic_trail_wvs_countrypicker.png' alt="analytic_trail_wvs" draggable="false">
 					<img class="analyticTrailImg" ng-src='images/analytic_trail_wvs_valuepicker.png' alt="analytic_trail_wvs" draggable="false">
-					<h4>No context<h4>
+					<h4>No Context<h4>
 					<p class="analyticTrailText">As the data from WVS are values and opinions, you also have a stronger need to contextualize these with the opinions of other countries. Using the WVS Online Analysis tool, this data was only presented to the user if they added more countries to the visualization. I wanted to improve this.</p>				
 					<img class="analyticTrailImg" ng-src='images/analytic_trail_wvs_barplot.png' alt="analytic_trail_wvs" draggable="false">
 
-					<h4>Research question<h4>
+					<h4>Research Question<h4>
 					<p class="analyticTrailText">I decided to analyse this area as my research question, with the wording:</p>
 					<br>			
 					<p class="analyticTrailText" style="font-style:italic">“How can you visualize the overall values and value differences in the world, as seen by a selected country, with focus on the individual variables while still containing a geographical context?”.</p>
 
 				</div>
 				<div id="processInfo" class="col-sm-6">
-					<h2>Analytic trail 2</h2>
+					<h2>Analytic Trail 2</h2>
 					<h4>Design<h4>
 					<p class="analyticTrailText">I started out experimenting with the flow and design of the visualization and decided to challenge myself with a circle diagram, as opposed to a geographical map of the world that seemed like a natural choice. I wanted the circle diagram to display the overall value differences of the world, and present the more detailed data in a separate view as bars.</p>
 					<img class="analyticTrailImg" ng-src='images/analytic_trail_design.jpg' alt="analytic_trail_design" draggable="false">
@@ -142,13 +152,13 @@
 					Your browser does not support the video tag.
 					</video>
 					<h4>Bar Plot<h4>
-					<p class="analyticTrailText">Though the bar plot you get detailed information about the info and values of the selected country. By clicking you toggle mode from A-B comparison to Difference plot.</p>
+					<p class="analyticTrailText">Though the bar plot you get detailed information about the info and values of the selected country. By clicking, you toggle viewing mode from A-B comparison to difference plot.</p>
 					<video class="analyticTrailVideo" controls loop autoplay>
 					  <source src="videos/analytic_trail_barplot.mp4" type="video/mp4">
 					Your browser does not support the video tag.
 					</video>
 					<h4>Group Filtering<h4>
-					<p class="analyticTrailText">You can filter a group by clicking and dragging over several countries, or by searching for a country, a whole continent or “all” to select all countries. The barplot will calculate the mean values for the selected group.</p>
+					<p class="analyticTrailText">You can filter a group by clicking and dragging over several countries, or by searching for a country, a whole continent or “all” to select all countries. The bar plot will calculate the mean values for the selected group.</p>
 					<video class="analyticTrailVideo" controls loop autoplay>
 					  <source src="videos/analytic_trail_groupfilter.mp4" type="video/mp4">
 					Your browser does not support the video tag.
@@ -159,7 +169,7 @@
 			<div class="row" style=" align-items: center;">
 				<div id="processInfo" class="col-sm-12">
 					<h2>Learning</h2>
-					<p class="analyticTrailText" style="width: 40%">When I started working on this visualization I had only about two weeks of experience in web programming, so I saw this project as a perfect opportunity improve my skills. I have greatly developed my programming knowledge in html, CSS, jQuery, javaScript, D3 and working with frameworks such as Bootstrap and AngularJs. It was an enjoyable challenge to visualize the world as a circular diagram, and still displaying important geographical information. Also how to combine the overview visualization and the detailed information about the different parameters. I will certainly look back at this project as a great learning experience.</p>
+					<p class="analyticTrailText" style="width: 40%">When I started working on this visualization I had only about two weeks of experience in web programming, so I saw this project as a perfect opportunity to improve my skills. I have greatly developed my programming knowledge in html, CSS, jQuery, javaScript, D3 and working with frameworks such as Bootstrap and AngularJS. It was an enjoyable challenge to visualize the world as a circular diagram, and still displaying important geographical information. Also how to combine the overview visualization and the detailed information about the different parameters. I will certainly look back at this project as a great learning experience.</p>
 				</div>
 			</div>
 		</div>
