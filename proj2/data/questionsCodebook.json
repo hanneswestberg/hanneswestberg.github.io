@@ -43,6 +43,7 @@
 	"type": "question",
 	"subject": "Happiness", 
 	"wording": "Taking all things together, would you say you are: Happy",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Very happy",
@@ -56,6 +57,7 @@
 	"type": "question",
 	"subject": "Religion",
 	"wording": "For each of the following, indicate how important it is in your life. Would you say it is: Religion",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Very important",
@@ -69,6 +71,7 @@
 	"type": "question",
 	"subject": "Men make better political leaders", 
 	"wording": "On the whole, men make better political leaders than women do",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Agree strongly",
@@ -82,6 +85,7 @@
 	"type": "question",
 	"subject": "State of Health", 
 	"wording": "(Subjective) All in all, how would you describe your state of health these days?. Would you say it is:",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Very good",
@@ -95,6 +99,7 @@
 	"type": "question",
 	"subject": "Financial Satisfaction", 
 	"wording": "(Scale 1 - 10) How satisfied are you with the financial situation of your household?",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Completely satisfied",
@@ -114,6 +119,7 @@
 	"type": "question",
 	"subject": "Work", 
 	"wording": "For each of the following, indicate how important it is in your life. Would you say it is: Work",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Very important",
@@ -127,6 +133,7 @@
 	"type": "question",
 	"subject": "Politics", 
 	"wording": "For each of the following, indicate how important it is in your life. Would you say it is: Politics",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Very important",
@@ -140,6 +147,7 @@
 	"type": "question",
 	"subject": "Abortion", 
 	"wording": "(Scale 1 - 10) Please tell for each of the following actions whether you think it can always be justified, never be justified, or something in between: Abortion",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Always justifiable",
@@ -159,6 +167,7 @@
 	"type": "question",
 	"subject": "Homosexuality", 
 	"wording": "(Scale 1 - 10) Please tell for each of the following actions whether you think it can always be justified, never be justified, or something in between: Homosexuality",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Always justifiable",
@@ -178,6 +187,7 @@
 	"type": "question",
 	"subject": "Divorce", 
 	"wording": "(Scale 1 - 10) Please tell for each of the following actions whether you think it can always be justified, never be justified, or something in between: Divorce",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Always justifiable",
@@ -197,6 +207,7 @@
 	"type": "question",
 	"subject": "Men have more rights to a job", 
 	"wording": "Do you agree, disagree or neither agree nor disagree with the following statements?: When jobs are scarce, men should have more right to a job than women",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Agree",
@@ -209,6 +220,7 @@
 	"type": "question",
 	"subject": "Men make better business executives", 
 	"wording": "For each of the following statements, can you tell how strongly you agree or disagree with each. Do you strongly agree, agree, disagree, or strongly disagree?: On the whole, men make better business executives than women do",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Agree strongly",
@@ -222,6 +234,7 @@
 	"type": "question",
 	"subject": "Independence", 
 	"wording": "Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?: Independence",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Mentioned",
@@ -233,6 +246,7 @@
 	"type": "question",
 	"subject": "Hard Work", 
 	"wording": "Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?: Hard work",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Mentioned",
@@ -244,6 +258,7 @@
 	"type": "question",
 	"subject": "Feeling of Responsibility", 
 	"wording": "Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?: Feeling of responsibility",
+	"source": "World Values Survey",
 	"answers": 
 		{
 		"a1": "Mentioned",
@@ -260,6 +275,7 @@
 	"unit": "",
 	"subject": "Human Development Index", 
 	"wording": "The Human Development Index (HDI) is a composite statistic of life expectancy, education, and per capita income indicators, which are used to rank countries into four tiers of human development",
+	"source": "Gapminder",
 	"answers": 
 		{
 		"i1": "HDI"
@@ -275,6 +291,7 @@
 	"unit": " GDP per capita PPP",
 	"subject": "GDP per capita", 
 	"wording": "Gross domestic product (GDP) is a monetary measure of the market value of all final goods and services produced in a period (quarterly or yearly)",
+	"source": "Gapminder",
 	"answers": 
 		{
 		"i1": "GDP per capita PPP"
@@ -290,6 +307,7 @@
 	"unitSuffixNeg": "shorter",
 	"subject": "Life Expectancy", 
 	"wording": "Life expectancy is a statistical measure of the average time an organism is expected to live, based on the year of their birth, their current age and other demographic factors including sex",
+	"source": "Gapminder",
 	"answers": 
 		{
 		"i1": "Life expectancy"
@@ -305,6 +323,7 @@
 	"unitSuffixNeg": "less",
 	"subject": "Children per Woman", 
 	"wording": "The average children per woman in her lifetime",
+	"source": "Gapminder",
 	"answers": 
 		{
 		"i1": "Children per woman"
@@ -320,6 +339,7 @@
 	"unitSuffixNeg": "less",
 	"subject": "C02 per capita", 
 	"wording": "The C02 emissions per capita",
+	"source": "Gapminder",
 	"answers": 
 		{
 		"i1": "C02 per capita"
@@ -335,6 +355,7 @@
 	"unitSuffixNeg": "less",
 	"subject": "Child Mortality", 
 	"wording": "Child mortality (0-5 year-olds dying per 1,000 born)",
+	"source": "Gapminder",
 	"answers": 
 		{
 		"i1": "Child mortality"

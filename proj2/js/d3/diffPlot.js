@@ -336,6 +336,7 @@ function updateDiffPlotData(filteredData, indexInArray, generateHeader){
         for(var i = 0; i < Object.keys(questionData.answers).length; i++){
           retString = retString.concat("<p> <strong style='color:#75C9FF'>" + Object.keys(questionData.answers)[i] + ":</strong> " + questionData.answers[Object.keys(questionData.answers)[i]] + "</p>");
         }
+        retString = retString.concat("<p style='font-style:italic'><br><strong style='color:#FFCA00; font-style:normal'>Source: </strong>" + questionData.source + "</p>");
         return retString;
   })  
   // Create the question subject text
