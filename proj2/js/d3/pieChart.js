@@ -115,8 +115,8 @@ function generateNewSvg(){
   vis = d3.select("#countryVisualizer").append("svg:svg")
       .attr("width", width)
       .attr("height", height)
-      .attr("id", "pieChart")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+      .attr("id", "pieChart");
+      //.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
   arc_group = vis.append("svg:g")
       .attr("class", "arc")
       .attr("transform", "translate(" + (width/2) + "," + (height/2) + ")");
