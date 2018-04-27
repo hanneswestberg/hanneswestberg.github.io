@@ -1,0 +1,21 @@
+[
+  {
+    "name": "Web Development",
+    "id": 1
+  }, {
+    "name": "Game Development",
+    "id": 2
+  }, {
+    "name": "Android Application",
+    "id": 3
+  }, {
+    "name": "Information Visualisation",
+    "id": 4
+  }, {
+    "name": "Unity Project",
+    "id": 5
+  }, {
+    "name": "Physical Interaction",
+    "id": 6
+  }
+]

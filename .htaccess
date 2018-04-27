@@ -1,0 +1,60 @@
+AddDefaultCharset UTF-8
+RewriteEngine on
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+
+# Redirect to domain without www.
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule .* http://%1%{REQUEST_URI} [R=301,L]
+
+# Same for HTTPS:
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule .* https://%1%{REQUEST_URI} [R=301,L]
+
+# SPA configuration
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+
+RewriteRule ^(.*) /index.html [NC,L]
+
+SetEnvIf Authorization .+ HTTP_AUTHORIZATION=$0
+# end SPA configuration
+
+
+# Caching static files
+<IfModule mod_headers.c>
+# YEAR 29030400
+<FilesMatch "\.(ico|gif|jpg|jpeg|png|flv|pdf)$">
+  Header set Cache-Control "max-age=60"
+</FilesMatch>
+# WEEK 604800
+<FilesMatch "\.(js|css|swf)$">
+# 1year expiration time
+  Header set Cache-Control "max-age=31536000"
+</FilesMatch>
+# 45 MIN 2700
+<FilesMatch "\.(html|htm|txt|php)$">
+  Header set Cache-Control "max-age=60"
+   #Fix for IE
+	BrowserMatch MSIE ie
+	Header set X-UA-Compatible "IE=Edge,chrome=1" env=ie
+</FilesMatch>
+# 1 Min 60
+<FilesMatch "\.(json|jsonx)$">
+  Header set Cache-Control "max-age=60"
+</FilesMatch>
+<FilesMatch "\\.(js|css|html|htm|php|txt)$">
+     SetOutputFilter DEFLATE
+</FilesMatch>
+</IfModule>
+
+
+AddType image/svg+xml svg svgz
+AddEncoding gzip svgz

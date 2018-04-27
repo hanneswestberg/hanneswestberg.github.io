@@ -1,0 +1,346 @@
+[
+  {
+    "name": "Brandskyddsteamet AB",
+    "date": "2018",
+    "slug": "bst",
+    "description": "Redesigning a website for a successful sprinkler company",
+    "relatedTo":"<a href=\"//compentus.se\" target=\"_blank\">Compentus</a>",
+    "teamSize": "2 people",
+    "myContribution": "Full development of the website",
+    "imgThumbnail": "./assets/images/projects/BST/bst-1.jpg",
+    "images": [
+      {
+        "url": "./assets/images/projects/BST/bst-2.png",
+        "caption": ""
+      },
+      {
+        "url": "./assets/images/projects/BST/bst-3.png",
+        "caption": ""
+      }
+    ],
+    "content": "This project was done in the company <a href=\"//compentus.se\" target=\"_blank\">Compentus</a>, where I am currently employed. Together with a designer I developed a new website in Angular 5 for BST AB",
+    "projectLink": "//acc-v2.bstab.com",
+    "videoUrl": "",
+    "tags":[
+      1
+    ]
+  },
+  {
+    "name": "Digital Hourglass",
+    "date": "2018",
+    "slug": "digital-hourglass",
+    "description": "Reminding you to take precious breaks in your studies",
+    "relatedTo":"<a href=\"//www.kth.se/social/course/DH2400/\" target=\"_blank\">KTH - DH2400</a>",
+    "teamSize": "4 students",
+    "myContribution": "I contributed mainly to the programming part",
+    "imgThumbnail": "./assets/images/projects/Digital Hourglass/Digital-hourglass-thumbnail.jpg",
+    "images": [
+      {
+        "url": "./assets/images/projects/Digital Hourglass/Digital-hourglass-thumbnail.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/images/projects/Digital Hourglass/Digital-hourglass-1.jpg",
+        "caption": ""
+      }
+    ],
+    "content": "The digital hourglass is exactly like it is named, a digital hourglass. But there is more to it than that!",
+    "projectLink": "",
+    "videoUrl": "./assets/images/projects/Digital Hourglass/demo.mp4",
+    "tags":[
+      6
+    ]
+  },
+  {
+    "name": "Tetropica",
+    "date": "2017",
+    "slug": "tetropica",
+    "description": "Creating an automatic puzzle generator of solvable levels in a game",
+    "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DM2904\" target=\"_blank\">KTH - DM2904</a>",
+    "teamSize": "Solo project",
+    "myContribution": "",
+    "imgThumbnail": "./assets/images/projects/Tetropica/Tetropica-thumbnail.png",
+    "images": [
+      {
+        "url": "./assets/images/projects/Tetropica/Tetropica-1.png",
+        "caption": ""
+      },
+      {
+        "url": "./assets/images/projects/Tetropica/Tetropica-2.png",
+        "caption": ""
+      }
+    ],
+    "content": "Creating an automatic puzzle generator of solvable levels in a game",
+    "projectLink": "/Tetropica",
+    "videoUrl": "",
+    "tags":[
+      2
+    ]
+  },
+  {
+    "name": "Seniors vs. Snails",
+    "date": "2017",
+    "slug": "svs",
+    "description": "HAHAHA",
+    "relatedTo":"",
+    "teamSize": "4",
+    "myContribution": "",
+    "imgThumbnail": "",
+    "images": [
+      {
+        "url": "",
+        "caption": ""
+      }
+    ],
+    "content": "Creating an automatic puzzle generator of solvable levels in a game",
+    "projectLink": "",
+    "videoUrl": "",
+    "tags":[
+      1,
+      3
+    ]
+  },
+  {
+    "name": "ValuEye",
+    "date": "2017",
+    "slug": "valueye",
+    "description": "A tool to visualize value data from WVS and development data from Gapminder in the course Information visualization",
+    "relatedTo":"",
+    "teamSize": "Solo project",
+    "myContribution": "",
+    "imgThumbnail": "./assets/images/projects/ValuEye/ValuEye-thumbnail.jpg",
+    "images": [
+      {
+        "url": "./assets/images/projects/ValuEye/ValuEye-thumbnail.jpg",
+        "caption": ""
+      }
+    ],
+    "content": "A tool to visualize value data from WVS and development data from Gapminder in the course Information visualization. I made this service on my own.",
+    "projectLink": "https://hanneswestberg.github.io/proj2/",
+    "videoUrl": "",
+    "tags":[
+      1,
+      3
+    ]
+  },
+  {
+    "name": "Le Bon Nobel",
+    "date": "2017",
+    "slug": "lebon-nobel",
+    "description": "A visualization of the Nobel laureates in the course Information visualization",
+    "relatedTo":"",
+    "teamSize": "8 students",
+    "myContribution": "My contribution hahahah",
+    "imgThumbnail": "./assets/images/projects/Le Bon Nobel/Le Bon Nobel-thumbnail.jpg",
+    "images": [
+      {
+        "url": "./assets/images/projects/Le Bon Nobel/Le Bon Nobel-thumbnail.jpg",
+        "caption": ""
+      }
+    ],
+    "content": "A visualization of the Nobel laureates in the course Information visualization. My contribution to the project can be seen in the about project page.",
+    "projectLink": "https://lebonnobel.github.io/nobel/",
+    "videoUrl": "",
+    "tags":[
+      1,
+      3
+    ]
+  },
+  {
+    "name": "FastSL",
+    "date": "2017",
+    "slug": "fast-sl",
+    "description": "The android app for you in a hurry!",
+    "relatedTo":"",
+    "teamSize": "4 students",
+    "myContribution": "I created the model",
+    "imgThumbnail": "./assets/images/projects/FastSL/FastSL-thumbnail.png",
+    "images": [
+      {
+        "url": "./assets/images/projects/FastSL/FastSL-1.jpg",
+        "caption": "Showing the buses near you"
+      }, {
+        "url": "./assets/images/projects/FastSL/FastSL-2.jpg",
+        "caption": "Bus stop info"
+      }, {
+        "url": "./assets/images/projects/FastSL/FastSL-3.jpg",
+        "caption": "Changing the stop radius"
+      }, {
+        "url": "./assets/images/projects/FastSL/FastSL-4.jpg",
+        "caption": "Showing the notification"
+      }
+    ],
+    "content": "FastSL is an android application I helped create in 2017 in the course....",
+    "projectLink": "",
+    "videoUrl": "./assets/images/projects/FastSL/demo.mp4",
+    "tags":[
+      1,
+      3
+    ]
+  },
+  {
+    "name": "Perfect Steak Pan",
+    "date": "2017",
+    "slug": "perfect-steak-pan",
+    "description": "This pan always cooks the perfect steak!",
+    "relatedTo":"",
+    "teamSize": "3 students",
+    "myContribution": "I did actually nothing",
+    "imgThumbnail": "./assets/images/projects/Perfect Steak Pan/perfectpan-thumbnail.jpg",
+    "images": [
+      {
+        "url": "./assets/images/projects/Perfect Steak Pan/perfectpan-thumbnail.jpg",
+        "caption": "This is not an ordinary pan"
+      }, {
+        "url": "./assets/images/projects/Perfect Steak Pan/perfectpan-1.jpg",
+        "caption": "Making a delicious steak"
+      }
+    ],
+    "content": "Interactive animation created in the course....",
+    "projectLink": "https://www.youtube.com/embed/xjIhPbW8sOE",
+    "videoUrl": "",
+    "tags":[
+      1,
+      3
+    ]
+  },
+  {
+    "name": "Pluggmotiveraren",
+    "date": "2016",
+    "slug": "pluggmotiveraren",
+    "description": "A visual feedback rewarding application to help you study",
+    "relatedTo":"",
+    "teamSize": "2 students",
+    "myContribution": "I was the lead developer in the project",
+    "imgThumbnail": "./assets/images/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
+    "images": [
+      {
+        "url": "./assets/images/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
+        "caption": "This is a good student"
+      }
+    ],
+    "content": "A Unity project made in the course Degree Project in Media Tchnonoly, First Cycle. <br><br> I was the lead developer in the project",
+    "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
+    "videoUrl": "",
+    "tags":[
+      1,
+      3
+    ]
+  },
+  {
+    "name": "ShapaSort",
+    "date": "2016",
+    "slug": "shapasort",
+    "description": "LD34??",
+    "relatedTo":"",
+    "teamSize": "Solo Project",
+    "myContribution": "",
+    "imgThumbnail": "",
+    "images": [
+      {
+        "url": "./assets/images/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
+        "caption": "This is a good student"
+      }
+    ],
+    "content": "A Unity project made in the course Degree Project in Media Tchnonoly, First Cycle. <br><br> I was the lead developer in the project",
+    "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
+    "videoUrl": "",
+    "tags":[
+      1,
+      3
+    ]
+  },
+  {
+    "name": "Lawyer Man",
+    "date": "2016",
+    "slug": "lawyer-man",
+    "description": "A visual feedback rewarding application to help you study",
+    "relatedTo":"",
+    "teamSize": "Solo Project",
+    "myContribution": "",
+    "imgThumbnail": "",
+    "images": [
+      {
+        "url": "./assets/images/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
+        "caption": "This is a good student"
+      }
+    ],
+    "content": "A Unity project made in the course Degree Project in Media Tchnonoly, First Cycle. <br><br> I was the lead developer in the project",
+    "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
+    "videoUrl": "",
+    "tags":[
+      1,
+      3
+    ]
+  },
+  {
+    "name": "Aladin Adventures",
+    "date": "2016",
+    "slug": "aladin-adventures",
+    "description": "An asymetrical virtual reality game experience made in Unity",
+    "relatedTo":"",
+    "teamSize": "4 students",
+    "myContribution": "I created the Unity application",
+    "imgThumbnail": "./assets/images/projects/Aladin Adventures/Aladin-adventures-thumbnail.jpg",
+    "images": [
+      {
+        "url": "./assets/images/projects/Aladin Adventures/Aladin-adventures-thumbnail.jpg",
+        "caption": ""
+      }
+    ],
+    "content": "An asymetrical game experience made in Unity in the course Multimodal Interactions and Interfaces. This game is meant to be played in a Virtual Reality headset using the controllers to steer. Spectators could also enter a website and send objects in different lanes in real time during the session.",
+    "projectLink": "https://www.youtube.com/watch?v=5CCA7gyiYDA",
+    "videoUrl": "",
+    "tags":[
+      1,
+      3
+    ]
+  },
+  {
+    "name": "Lignify",
+    "date": "2015",
+    "slug": "lignify",
+    "description": "Hahahaha",
+    "relatedTo":"",
+    "teamSize": "5 students",
+    "myContribution": "asdf",
+    "imgThumbnail": "",
+    "images": [
+      {
+        "url": "",
+        "caption": ""
+      }
+    ],
+    "content": "An asymetrical game experience made in Unity in the course Multimodal Interactions and Interfaces. This game is meant to be played in a Virtual Reality headset using the controllers to steer. Spectators could also enter a website and send objects in different lanes in real time during the session.",
+    "projectLink": "https://www.youtube.com/watch?v=5CCA7gyiYDA",
+    "videoUrl": "",
+    "tags":[
+      1,
+      3
+    ]
+  },
+  {
+    "name": "B.R.U.C.K",
+    "date": "2014",
+    "slug": "bruck",
+    "description": "A horror game made in Unity",
+    "relatedTo":"",
+    "teamSize": "",
+    "myContribution": "",
+    "imgThumbnail": "",
+    "images": [
+      {
+        "url": "./assets/images/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
+        "caption": "This is a good student"
+      }
+    ],
+    "content": "A Unity project made in the course Degree Project in Media Tchnonoly, First Cycle. <br><br> I was the lead developer in the project",
+    "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
+    "videoUrl": "",
+    "tags":[
+      1,
+      3
+    ]
+  }
+
+]
