@@ -81,23 +81,31 @@
     "name": "Seniors vs. Snails",
     "date": "2017",
     "slug": "svs",
-    "description": "HAHAHA",
-    "relatedTo":"",
+    "description": "The killer snails are loose, and it's time to stop them once and for all!",
+    "relatedTo":"<a href=\"//compentus.se\" target=\"_blank\">Compentus</a>",
     "teamSize": "4",
-    "myContribution": "",
-    "imgThumbnail": "",
+    "myContribution": "I was the lead developer in the project",
+    "imgThumbnail": "./assets/images/projects/Seniors vs. Snails/Game_Garden_1.jpg",
     "images": [
       {
-        "url": "",
+        "url": "./assets/images/projects/Seniors vs. Snails/MainMenu.jpg",
+        "caption": ""
+      }, {
+        "url": "./assets/images/projects/Seniors vs. Snails/Game_Garden_1.jpg",
+        "caption": ""
+      }, {
+        "url": "./assets/images/projects/Seniors vs. Snails/Game_Paris.jpg",
+        "caption": ""
+      }, {
+        "url": "./assets/images/projects/Seniors vs. Snails/Album_1.jpg",
         "caption": ""
       }
     ],
-    "content": "Creating an automatic puzzle generator of solvable levels in a game",
-    "projectLink": "",
+    "content": "Seniors vs. Snails is a crazy mobile action adventure game developed in Unity with <a href=\"//compentus.se\" target=\"_blank\">Compentus</a>.",
+    "projectLink": "//compentus.se/produkter/produkt-seniorsvssnails",
     "videoUrl": "",
     "tags":[
-      1,
-      3
+      2
     ]
   },
   {
@@ -105,7 +113,7 @@
     "date": "2017",
     "slug": "valueye",
     "description": "A tool to visualize value data from WVS and development data from Gapminder in the course Information visualization",
-    "relatedTo":"",
+    "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DH2321\" target=\"_blank\">KTH - DH2321</a>",
     "teamSize": "Solo project",
     "myContribution": "",
     "imgThumbnail": "./assets/images/projects/ValuEye/ValuEye-thumbnail.jpg",
@@ -115,12 +123,11 @@
         "caption": ""
       }
     ],
-    "content": "A tool to visualize value data from WVS and development data from Gapminder in the course Information visualization. I made this service on my own.",
+    "content": "A tool to visualize value data from WVS and development data from Gapminder in the course Information visualization.",
     "projectLink": "https://hanneswestberg.github.io/proj2/",
     "videoUrl": "",
     "tags":[
-      1,
-      3
+      4
     ]
   },
   {
@@ -128,7 +135,7 @@
     "date": "2017",
     "slug": "lebon-nobel",
     "description": "A visualization of the Nobel laureates in the course Information visualization",
-    "relatedTo":"",
+    "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DH2321\" target=\"_blank\">KTH - DH2321</a>",
     "teamSize": "8 students",
     "myContribution": "My contribution hahahah",
     "imgThumbnail": "./assets/images/projects/Le Bon Nobel/Le Bon Nobel-thumbnail.jpg",
@@ -142,8 +149,7 @@
     "projectLink": "https://lebonnobel.github.io/nobel/",
     "videoUrl": "",
     "tags":[
-      1,
-      3
+      4
     ]
   },
   {
@@ -151,7 +157,7 @@
     "date": "2017",
     "slug": "fast-sl",
     "description": "The android app for you in a hurry!",
-    "relatedTo":"",
+    "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DH2642\" target=\"_blank\">KTH - DH2642</a>",
     "teamSize": "4 students",
     "myContribution": "I created the model",
     "imgThumbnail": "./assets/images/projects/FastSL/FastSL-thumbnail.png",
@@ -174,7 +180,6 @@
     "projectLink": "",
     "videoUrl": "./assets/images/projects/FastSL/demo.mp4",
     "tags":[
-      1,
       3
     ]
   },
@@ -183,7 +188,7 @@
     "date": "2017",
     "slug": "perfect-steak-pan",
     "description": "This pan always cooks the perfect steak!",
-    "relatedTo":"",
+    "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DH2629\" target=\"_blank\">KTH - DH2629</a>",
     "teamSize": "3 students",
     "myContribution": "I did actually nothing",
     "imgThumbnail": "./assets/images/projects/Perfect Steak Pan/perfectpan-thumbnail.jpg",
@@ -200,8 +205,7 @@
     "projectLink": "https://www.youtube.com/embed/xjIhPbW8sOE",
     "videoUrl": "",
     "tags":[
-      1,
-      3
+      5
     ]
   },
   {
@@ -209,7 +213,7 @@
     "date": "2016",
     "slug": "pluggmotiveraren",
     "description": "A visual feedback rewarding application to help you study",
-    "relatedTo":"",
+    "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DM129X\" target=\"_blank\">KTH - DM129X</a>",
     "teamSize": "2 students",
     "myContribution": "I was the lead developer in the project",
     "imgThumbnail": "./assets/images/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
@@ -223,8 +227,7 @@
     "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
     "videoUrl": "",
     "tags":[
-      1,
-      3
+      5
     ]
   },
   {
@@ -232,7 +235,7 @@
     "date": "2016",
     "slug": "shapasort",
     "description": "LD34??",
-    "relatedTo":"",
+    "relatedTo":"<a href=\"//ldjam.com/\" target=\"_blank\">Ludum Dare</a>",
     "teamSize": "Solo Project",
     "myContribution": "",
     "imgThumbnail": "",
@@ -246,8 +249,7 @@
     "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
     "videoUrl": "",
     "tags":[
-      1,
-      3
+      2
     ]
   },
   {
@@ -255,7 +257,7 @@
     "date": "2016",
     "slug": "lawyer-man",
     "description": "A visual feedback rewarding application to help you study",
-    "relatedTo":"",
+    "relatedTo":"<a href=\"//ldjam.com/\" target=\"_blank\">Ludum Dare</a>",
     "teamSize": "Solo Project",
     "myContribution": "",
     "imgThumbnail": "",
@@ -269,8 +271,7 @@
     "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
     "videoUrl": "",
     "tags":[
-      1,
-      3
+      2
     ]
   },
   {
@@ -278,7 +279,7 @@
     "date": "2016",
     "slug": "aladin-adventures",
     "description": "An asymetrical virtual reality game experience made in Unity",
-    "relatedTo":"",
+    "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DT2140\" target=\"_blank\">KTH - DT2140</a>",
     "teamSize": "4 students",
     "myContribution": "I created the Unity application",
     "imgThumbnail": "./assets/images/projects/Aladin Adventures/Aladin-adventures-thumbnail.jpg",
@@ -292,8 +293,7 @@
     "projectLink": "https://www.youtube.com/watch?v=5CCA7gyiYDA",
     "videoUrl": "",
     "tags":[
-      1,
-      3
+      2
     ]
   },
   {
@@ -301,7 +301,7 @@
     "date": "2015",
     "slug": "lignify",
     "description": "Hahahaha",
-    "relatedTo":"",
+    "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/AD1RD1\" target=\"_blank\">KTH - AD1RD1</a>",
     "teamSize": "5 students",
     "myContribution": "asdf",
     "imgThumbnail": "",
@@ -315,8 +315,7 @@
     "projectLink": "https://www.youtube.com/watch?v=5CCA7gyiYDA",
     "videoUrl": "",
     "tags":[
-      1,
-      3
+      5
     ]
   },
   {
@@ -324,7 +323,7 @@
     "date": "2014",
     "slug": "bruck",
     "description": "A horror game made in Unity",
-    "relatedTo":"",
+    "relatedTo":"Hobby",
     "teamSize": "",
     "myContribution": "",
     "imgThumbnail": "",
@@ -338,8 +337,7 @@
     "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
     "videoUrl": "",
     "tags":[
-      1,
-      3
+      2
     ]
   }
 
