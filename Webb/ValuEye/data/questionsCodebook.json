@@ -1,0 +1,365 @@
+{
+	"name": "all",
+	"categories": [
+		{
+			"id":0,
+			"subject": "(Info) Development and Pollution",
+			"questions":[15, 16, 19]
+		},		
+		{
+			"id":1,
+			"subject": "(Info) Health and Children",
+			"questions":[17, 18, 20]
+		},
+		{
+			"id":2,
+			"subject": "(Values) Living Quality",
+			"questions": [0, 3, 4]
+		},
+		{
+			"id":3,
+			"subject": "(Values) Importance in Life",
+			"questions": [5, 1, 6]
+		},
+		{
+			"id":4,
+			"subject": "(Values) Justifiable",
+			"questions": [7, 8, 9]
+		},
+		{
+			"id":5,
+			"subject": "(Values) Gender",
+			"questions": [2, 10, 11]
+		},
+		{
+			"id":6,
+			"subject": "(Values) Important child qualities",
+			"questions": [12, 13, 14]
+		}
+	],
+	"questions": [
+	{
+	"id":0, 
+	"type": "question",
+	"subject": "Happiness", 
+	"wording": "Taking all things together, would you say you are: Happy",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Very happy",
+		"a2": "Rather happy",
+		"a3": "Not very happy",
+		"a4": "Not at all happy"
+		}
+	},
+	{
+	"id":1, 
+	"type": "question",
+	"subject": "Religion",
+	"wording": "For each of the following, indicate how important it is in your life. Would you say it is: Religion",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Very important",
+		"a2": "Rather important",
+		"a3": "Not very important",
+		"a4": "Not at all important"
+		}
+	},	
+	{
+	"id":2, 
+	"type": "question",
+	"subject": "Men make better political leaders", 
+	"wording": "On the whole, men make better political leaders than women do",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Agree strongly",
+		"a2": "Agree",
+		"a3": "Disagree",
+		"a4": "Strongly disagree"
+		}
+	},
+	{
+	"id":3, 
+	"type": "question",
+	"subject": "State of Health", 
+	"wording": "(Subjective) All in all, how would you describe your state of health these days?. Would you say it is:",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Very good",
+		"a2": "Good",
+		"a3": "Fair",
+		"a4": "Poor"
+		}
+	},
+	{
+	"id":4, 
+	"type": "question",
+	"subject": "Financial Satisfaction", 
+	"wording": "(Scale 1 - 10) How satisfied are you with the financial situation of your household?",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Completely satisfied",
+		"a2": "9",
+		"a3": "8",
+		"a4": "7",
+		"a5": "6",
+		"a6": "5",
+		"a7": "4",
+		"a8": "3",
+		"a9": "2",
+		"a10": "Completely dissatisfied"
+		}
+	},
+	{
+	"id":5, 
+	"type": "question",
+	"subject": "Work", 
+	"wording": "For each of the following, indicate how important it is in your life. Would you say it is: Work",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Very important",
+		"a2": "Rather important",
+		"a3": "Not very important",
+		"a4": "Not at all important"
+		}
+	},
+	{
+	"id":6, 
+	"type": "question",
+	"subject": "Politics", 
+	"wording": "For each of the following, indicate how important it is in your life. Would you say it is: Politics",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Very important",
+		"a2": "Rather important",
+		"a3": "Not very important",
+		"a4": "Not at all important"
+		}
+	},
+	{
+	"id":7, 
+	"type": "question",
+	"subject": "Abortion", 
+	"wording": "(Scale 1 - 10) Please tell for each of the following actions whether you think it can always be justified, never be justified, or something in between: Abortion",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Always justifiable",
+		"a2": "9",
+		"a3": "8",
+		"a4": "7",
+		"a5": "6",
+		"a6": "5",
+		"a7": "4",
+		"a8": "3",
+		"a9": "2",
+		"a10": "Never justifiable"
+		}
+	},	
+	{
+	"id":8, 
+	"type": "question",
+	"subject": "Homosexuality", 
+	"wording": "(Scale 1 - 10) Please tell for each of the following actions whether you think it can always be justified, never be justified, or something in between: Homosexuality",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Always justifiable",
+		"a2": "9",
+		"a3": "8",
+		"a4": "7",
+		"a5": "6",
+		"a6": "5",
+		"a7": "4",
+		"a8": "3",
+		"a9": "2",
+		"a10": "Never justifiable"
+		}
+	},	
+	{
+	"id":9, 
+	"type": "question",
+	"subject": "Divorce", 
+	"wording": "(Scale 1 - 10) Please tell for each of the following actions whether you think it can always be justified, never be justified, or something in between: Divorce",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Always justifiable",
+		"a2": "9",
+		"a3": "8",
+		"a4": "7",
+		"a5": "6",
+		"a6": "5",
+		"a7": "4",
+		"a8": "3",
+		"a9": "2",
+		"a10": "Never justifiable"
+		}
+	},	
+	{
+	"id":10, 
+	"type": "question",
+	"subject": "Men have more rights to a job", 
+	"wording": "Do you agree, disagree or neither agree nor disagree with the following statements?: When jobs are scarce, men should have more right to a job than women",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Agree",
+		"a2": "Neither",		
+		"a3": "Disagree"
+		}
+	},
+	{
+	"id":11, 
+	"type": "question",
+	"subject": "Men make better business executives", 
+	"wording": "For each of the following statements, can you tell how strongly you agree or disagree with each. Do you strongly agree, agree, disagree, or strongly disagree?: On the whole, men make better business executives than women do",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Agree strongly",
+		"a2": "Agree",
+		"a3": "Disagree",
+		"a4": "Strongly disagree"
+		}
+	},
+	{
+	"id":12, 
+	"type": "question",
+	"subject": "Independence", 
+	"wording": "Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?: Independence",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Mentioned",
+		"a2": "Not mentioned"
+		}
+	},
+	{
+	"id":13, 
+	"type": "question",
+	"subject": "Hard Work", 
+	"wording": "Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?: Hard work",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Mentioned",
+		"a2": "Not mentioned"
+		}
+	},
+	{
+	"id":14, 
+	"type": "question",
+	"subject": "Feeling of Responsibility", 
+	"wording": "Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?: Feeling of responsibility",
+	"source": "World Values Survey",
+	"answers": 
+		{
+		"a1": "Mentioned",
+		"a2": "Not mentioned"
+		}
+	},
+	{
+	"id":15, 
+	"type": "info",
+	"maxvalue": 1,
+	"infoSuffix": "has",
+	"unitSuffixPos": "more",
+	"unitSuffixNeg": "less",
+	"unit": "",
+	"subject": "Human Development Index", 
+	"wording": "The Human Development Index (HDI) is a composite statistic of life expectancy, education, and per capita income indicators, which are used to rank countries into four tiers of human development",
+	"source": "Gapminder",
+	"answers": 
+		{
+		"i1": "HDI"
+		}
+	},
+	{
+	"id":16, 
+	"type": "info",
+	"maxvalue": 100000,
+	"infoSuffix": "has",
+	"unitSuffixPos": "more",
+	"unitSuffixNeg": "less",
+	"unit": " GDP per capita PPP",
+	"subject": "GDP per capita", 
+	"wording": "Gross domestic product (GDP) is a monetary measure of the market value of all final goods and services produced in a period (quarterly or yearly)",
+	"source": "Gapminder",
+	"answers": 
+		{
+		"i1": "GDP per capita PPP"
+		}
+	},
+	{
+	"id":17, 
+	"type": "info",
+	"maxvalue": 100,
+	"unit": " years",
+	"infoSuffix": "has",
+	"unitSuffixPos": "longer",
+	"unitSuffixNeg": "shorter",
+	"subject": "Life Expectancy", 
+	"wording": "Life expectancy is a statistical measure of the average time an organism is expected to live, based on the year of their birth, their current age and other demographic factors including sex",
+	"source": "Gapminder",
+	"answers": 
+		{
+		"i1": "Life expectancy"
+		}
+	},
+	{
+	"id":18, 
+	"type": "info",
+	"maxvalue": 10,
+	"unit": " children per woman",
+	"infoSuffix": "has",
+	"unitSuffixPos": "more",
+	"unitSuffixNeg": "less",
+	"subject": "Children per Woman", 
+	"wording": "The average children per woman in her lifetime",
+	"source": "Gapminder",
+	"answers": 
+		{
+		"i1": "Children per woman"
+		}
+	},
+	{
+	"id":19, 
+	"type": "info",
+	"maxvalue": 70,
+	"unit": " CO2 per capita",
+	"infoSuffix": "has",
+	"unitSuffixPos": "more",
+	"unitSuffixNeg": "less",
+	"subject": "C02 per capita", 
+	"wording": "The C02 emissions per capita",
+	"source": "Gapminder",
+	"answers": 
+		{
+		"i1": "C02 per capita"
+		}
+	},
+	{
+	"id":20, 
+	"type": "info",
+	"maxvalue": 230,
+	"unit": " Mortalities per 1,000 born",
+	"infoSuffix": "has",
+	"unitSuffixPos": "more",
+	"unitSuffixNeg": "less",
+	"subject": "Child Mortality", 
+	"wording": "Child mortality (0-5 year-olds dying per 1,000 born)",
+	"source": "Gapminder",
+	"answers": 
+		{
+		"i1": "Child mortality"
+		}
+	}
+	]
+}

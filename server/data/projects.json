@@ -7,20 +7,21 @@
     "relatedTo":"<a href=\"//compentus.se\" target=\"_blank\">Compentus</a>",
     "teamSize": "2 people",
     "myContribution": "Full development of the website",
-    "imgThumbnail": "./assets/images/projects/BST/bst-1.jpg",
+    "imgThumbnail": "./assets/projects/BST/bst-1.jpg",
     "images": [
       {
-        "url": "./assets/images/projects/BST/bst-2.png",
+        "url": "./assets/projects/BST/bst-2.png",
         "caption": ""
       },
       {
-        "url": "./assets/images/projects/BST/bst-3.png",
+        "url": "./assets/projects/BST/bst-3.png",
         "caption": ""
       }
     ],
     "content": "This project was done in the company <a href=\"//compentus.se\" target=\"_blank\">Compentus</a>, where I am currently employed. Together with a designer I developed a new website in Angular 5 for BST AB",
     "projectLink": "//acc-v2.bstab.com",
     "videoUrl": "",
+    "reportUrl": "",
     "tags":[
       1
     ]
@@ -29,24 +30,25 @@
     "name": "Digital Hourglass",
     "date": "2018",
     "slug": "digital-hourglass",
-    "description": "Reminding you to take precious breaks in your studies",
+    "description": "Increasing your study effectiveness by reminding you to take regular breaks",
     "relatedTo":"<a href=\"//www.kth.se/social/course/DH2400/\" target=\"_blank\">KTH - DH2400</a>",
     "teamSize": "4 students",
-    "myContribution": "I contributed mainly to the programming part",
-    "imgThumbnail": "./assets/images/projects/Digital Hourglass/Digital-hourglass-thumbnail.jpg",
+    "myContribution": "Evenly distributed work. I contributed mostly to the programming part",
+    "imgThumbnail": "./assets/projects/Digital Hourglass/Digital-hourglass-thumbnail.jpg",
     "images": [
       {
-        "url": "./assets/images/projects/Digital Hourglass/Digital-hourglass-thumbnail.jpg",
+        "url": "./assets/projects/Digital Hourglass/Digital-hourglass-thumbnail.jpg",
         "caption": ""
       },
       {
-        "url": "./assets/images/projects/Digital Hourglass/Digital-hourglass-1.jpg",
+        "url": "./assets/projects/Digital Hourglass/Digital-hourglass-1.jpg",
         "caption": ""
       }
     ],
-    "content": "The digital hourglass is exactly like it is named, a digital hourglass. But there is more to it than that!",
+    "content": "The digital hourglass is exactly like it is named, a digital hourglass. But there is more to it than that! Not only does it keep track of your study time, it also reminds you when to take a break, and how long depending on your set timer. No longer do you need to use your phone that otherwise may be distracting.",
     "projectLink": "",
-    "videoUrl": "./assets/images/projects/Digital Hourglass/demo.mp4",
+    "videoUrl": "./assets/projects/Digital Hourglass/demo.mp4",
+    "reportUrl": "",
     "tags":[
       6
     ]
@@ -59,20 +61,21 @@
     "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DM2904\" target=\"_blank\">KTH - DM2904</a>",
     "teamSize": "Solo project",
     "myContribution": "",
-    "imgThumbnail": "./assets/images/projects/Tetropica/Tetropica-thumbnail.png",
+    "imgThumbnail": "./assets/projects/Tetropica/Tetropica-thumbnail.png",
     "images": [
       {
-        "url": "./assets/images/projects/Tetropica/Tetropica-1.png",
+        "url": "./assets/projects/Tetropica/Tetropica-1.png",
         "caption": ""
       },
       {
-        "url": "./assets/images/projects/Tetropica/Tetropica-2.png",
+        "url": "./assets/projects/Tetropica/Tetropica-2.png",
         "caption": ""
       }
     ],
-    "content": "Creating an automatic puzzle generator of solvable levels in a game",
-    "projectLink": "/Tetropica",
+    "content": "Tetropica is a puzzle game concept that challenges the player to solve levels of grid filled tiles using different sets of Tetris blocks. The game created within this project utilizes a level generator of solvable levels to be able to deliver a large range of challenges for the player to solve. The generator was constructed in modules and was responsible for both the creation of a level and to ensure that it was solvable. The solutions to the puzzles were made using a distance matrix and different block placement algorithms to both ensure that a solution was found and to find the best solution to any given level. The resulting work in this project a fully functional generator of solvable levels that for the most part generated levels with only a single solution.",
+    "projectLink": "./Unity/Tetropica/index.html",
     "videoUrl": "",
+    "reportUrl": "./assets/projects/Tetropica/Tetropica Project Report.pdf",
     "tags":[
       2
     ]
@@ -85,25 +88,26 @@
     "relatedTo":"<a href=\"//compentus.se\" target=\"_blank\">Compentus</a>",
     "teamSize": "4",
     "myContribution": "I was the lead developer in the project",
-    "imgThumbnail": "./assets/images/projects/Seniors vs. Snails/Game_Garden_1.jpg",
+    "imgThumbnail": "./assets/projects/Seniors vs. Snails/Game_Garden_1.jpg",
     "images": [
       {
-        "url": "./assets/images/projects/Seniors vs. Snails/MainMenu.jpg",
+        "url": "./assets/projects/Seniors vs. Snails/MainMenu.jpg",
         "caption": ""
       }, {
-        "url": "./assets/images/projects/Seniors vs. Snails/Game_Garden_1.jpg",
+        "url": "./assets/projects/Seniors vs. Snails/Game_Garden_1.jpg",
         "caption": ""
       }, {
-        "url": "./assets/images/projects/Seniors vs. Snails/Game_Paris.jpg",
+        "url": "./assets/projects/Seniors vs. Snails/Game_Paris.jpg",
         "caption": ""
       }, {
-        "url": "./assets/images/projects/Seniors vs. Snails/Album_1.jpg",
+        "url": "./assets/projects/Seniors vs. Snails/Album_1.jpg",
         "caption": ""
       }
     ],
     "content": "Seniors vs. Snails is a crazy mobile action adventure game developed in Unity with <a href=\"//compentus.se\" target=\"_blank\">Compentus</a>.",
     "projectLink": "//compentus.se/produkter/produkt-seniorsvssnails",
     "videoUrl": "",
+    "reportUrl": "",
     "tags":[
       2
     ]
@@ -116,16 +120,21 @@
     "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DH2321\" target=\"_blank\">KTH - DH2321</a>",
     "teamSize": "Solo project",
     "myContribution": "",
-    "imgThumbnail": "./assets/images/projects/ValuEye/ValuEye-thumbnail.jpg",
+    "imgThumbnail": "./assets/projects/ValuEye/ValuEye-thumbnail.jpg",
     "images": [
       {
-        "url": "./assets/images/projects/ValuEye/ValuEye-thumbnail.jpg",
+        "url": "./assets/projects/ValuEye/ValuEye-thumbnail.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/ValuEye/valueye-1.png",
         "caption": ""
       }
     ],
     "content": "A tool to visualize value data from WVS and development data from Gapminder in the course Information visualization.",
-    "projectLink": "https://hanneswestberg.github.io/proj2/",
+    "projectLink": "./Webb/ValuEye",
     "videoUrl": "",
+    "reportUrl": "",
     "tags":[
       4
     ]
@@ -137,17 +146,22 @@
     "description": "A visualization of the Nobel laureates in the course Information visualization",
     "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DH2321\" target=\"_blank\">KTH - DH2321</a>",
     "teamSize": "8 students",
-    "myContribution": "My contribution hahahah",
-    "imgThumbnail": "./assets/images/projects/Le Bon Nobel/Le Bon Nobel-thumbnail.jpg",
+    "myContribution": "My contribution can be seen under the tab 'individual contributions'",
+    "imgThumbnail": "./assets/projects/Le Bon Nobel/Le Bon Nobel-thumbnail.jpg",
     "images": [
       {
-        "url": "./assets/images/projects/Le Bon Nobel/Le Bon Nobel-thumbnail.jpg",
+        "url": "./assets/projects/Le Bon Nobel/Le Bon Nobel-thumbnail.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/Le Bon Nobel/lebon-1.png",
         "caption": ""
       }
     ],
     "content": "A visualization of the Nobel laureates in the course Information visualization. My contribution to the project can be seen in the about project page.",
     "projectLink": "https://lebonnobel.github.io/nobel/",
     "videoUrl": "",
+    "reportUrl": "",
     "tags":[
       4
     ]
@@ -159,26 +173,27 @@
     "description": "The android app for you in a hurry!",
     "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DH2642\" target=\"_blank\">KTH - DH2642</a>",
     "teamSize": "4 students",
-    "myContribution": "I created the model",
-    "imgThumbnail": "./assets/images/projects/FastSL/FastSL-thumbnail.png",
+    "myContribution": "Evenly distributed project. I mainly worked on creating the model",
+    "imgThumbnail": "./assets/projects/FastSL/FastSL-thumbnail.png",
     "images": [
       {
-        "url": "./assets/images/projects/FastSL/FastSL-1.jpg",
+        "url": "./assets/projects/FastSL/FastSL-1.jpg",
         "caption": "Showing the buses near you"
       }, {
-        "url": "./assets/images/projects/FastSL/FastSL-2.jpg",
+        "url": "./assets/projects/FastSL/FastSL-2.jpg",
         "caption": "Bus stop info"
       }, {
-        "url": "./assets/images/projects/FastSL/FastSL-3.jpg",
+        "url": "./assets/projects/FastSL/FastSL-3.jpg",
         "caption": "Changing the stop radius"
       }, {
-        "url": "./assets/images/projects/FastSL/FastSL-4.jpg",
+        "url": "./assets/projects/FastSL/FastSL-4.jpg",
         "caption": "Showing the notification"
       }
     ],
-    "content": "FastSL is an android application I helped create in 2017 in the course....",
+    "content": "FastSL is an android application created in 2017 that helps you to fast get information about nearby trains and buses. Here you can search for nearby stops, get line information and subscribe to a certain line to get update notifications from your phone. The project was made in Android studio and Java.",
     "projectLink": "",
-    "videoUrl": "./assets/images/projects/FastSL/demo.mp4",
+    "videoUrl": "./assets/projects/FastSL/demo.mp4",
+    "reportUrl": "",
     "tags":[
       3
     ]
@@ -190,20 +205,21 @@
     "description": "This pan always cooks the perfect steak!",
     "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DH2629\" target=\"_blank\">KTH - DH2629</a>",
     "teamSize": "3 students",
-    "myContribution": "I did actually nothing",
-    "imgThumbnail": "./assets/images/projects/Perfect Steak Pan/perfectpan-thumbnail.jpg",
+    "myContribution": "Evenly distributed project. I made the interactive animation in Unity",
+    "imgThumbnail": "./assets/projects/Perfect Steak Pan/perfectpan-thumbnail.jpg",
     "images": [
       {
-        "url": "./assets/images/projects/Perfect Steak Pan/perfectpan-thumbnail.jpg",
+        "url": "./assets/projects/Perfect Steak Pan/perfectpan-thumbnail.jpg",
         "caption": "This is not an ordinary pan"
       }, {
-        "url": "./assets/images/projects/Perfect Steak Pan/perfectpan-1.jpg",
+        "url": "./assets/projects/Perfect Steak Pan/perfectpan-1.jpg",
         "caption": "Making a delicious steak"
       }
     ],
-    "content": "Interactive animation created in the course....",
-    "projectLink": "https://www.youtube.com/embed/xjIhPbW8sOE",
-    "videoUrl": "",
+    "content": "The perfect steak pan always cooks the perfect steak due to it's highly advanced sensors that detect the height and width of the steak to adjust the heat accordingly. You then put on the VibratoRing that vibrates when the steak should be flipped. The result - the perfect steak, every time!",
+    "projectLink": "",
+    "videoUrl": "https://www.youtube.com/embed/xjIhPbW8sOE",
+    "reportUrl": "",
     "tags":[
       5
     ]
@@ -215,63 +231,24 @@
     "description": "A visual feedback rewarding application to help you study",
     "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DM129X\" target=\"_blank\">KTH - DM129X</a>",
     "teamSize": "2 students",
-    "myContribution": "I was the lead developer in the project",
-    "imgThumbnail": "./assets/images/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
+    "myContribution": "I made the Unity application and the visual animations",
+    "imgThumbnail": "./assets/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
     "images": [
       {
-        "url": "./assets/images/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
+        "url": "./assets/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
         "caption": "This is a good student"
+      },
+      {
+        "url": "./assets/projects/Pluggmotiveraren/pluggmotiveraren-1.jpg",
+        "caption": "Rankup time!"
       }
     ],
-    "content": "A Unity project made in the course Degree Project in Media Tchnonoly, First Cycle. <br><br> I was the lead developer in the project",
-    "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
-    "videoUrl": "",
+    "content": "A Unity project made in the course Degree Project in Media Tchnonoly, First Cycle. In this project we wanted to investigate if students felt more motivated to study if they were using an interactive visual feedback application with gamified elements.",
+    "projectLink": "",
+    "videoUrl": "https://www.youtube.com/embed/JzZkE2XAfDM",
+    "reportUrl": "./assets/projects/Pluggmotiveraren/pluggmotiveraren.pdf",
     "tags":[
       5
-    ]
-  },
-  {
-    "name": "ShapaSort",
-    "date": "2016",
-    "slug": "shapasort",
-    "description": "LD34??",
-    "relatedTo":"<a href=\"//ldjam.com/\" target=\"_blank\">Ludum Dare</a>",
-    "teamSize": "Solo Project",
-    "myContribution": "",
-    "imgThumbnail": "",
-    "images": [
-      {
-        "url": "./assets/images/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
-        "caption": "This is a good student"
-      }
-    ],
-    "content": "A Unity project made in the course Degree Project in Media Tchnonoly, First Cycle. <br><br> I was the lead developer in the project",
-    "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
-    "videoUrl": "",
-    "tags":[
-      2
-    ]
-  },
-  {
-    "name": "Lawyer Man",
-    "date": "2016",
-    "slug": "lawyer-man",
-    "description": "A visual feedback rewarding application to help you study",
-    "relatedTo":"<a href=\"//ldjam.com/\" target=\"_blank\">Ludum Dare</a>",
-    "teamSize": "Solo Project",
-    "myContribution": "",
-    "imgThumbnail": "",
-    "images": [
-      {
-        "url": "./assets/images/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
-        "caption": "This is a good student"
-      }
-    ],
-    "content": "A Unity project made in the course Degree Project in Media Tchnonoly, First Cycle. <br><br> I was the lead developer in the project",
-    "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
-    "videoUrl": "",
-    "tags":[
-      2
     ]
   },
   {
@@ -281,17 +258,88 @@
     "description": "An asymetrical virtual reality game experience made in Unity",
     "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/DT2140\" target=\"_blank\">KTH - DT2140</a>",
     "teamSize": "4 students",
-    "myContribution": "I created the Unity application",
-    "imgThumbnail": "./assets/images/projects/Aladin Adventures/Aladin-adventures-thumbnail.jpg",
+    "myContribution": "Evenly distributed project. I created the Unity application",
+    "imgThumbnail": "./assets/projects/Aladin Adventures/Aladin-adventures-thumbnail.jpg",
     "images": [
       {
-        "url": "./assets/images/projects/Aladin Adventures/Aladin-adventures-thumbnail.jpg",
+        "url": "./assets/projects/Aladin Adventures/Aladin-adventures-thumbnail.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/Aladin Adventures/Aladin-adventures-1.jpg",
         "caption": ""
       }
     ],
     "content": "An asymetrical game experience made in Unity in the course Multimodal Interactions and Interfaces. This game is meant to be played in a Virtual Reality headset using the controllers to steer. Spectators could also enter a website and send objects in different lanes in real time during the session.",
-    "projectLink": "https://www.youtube.com/watch?v=5CCA7gyiYDA",
+    "projectLink": "",
+    "videoUrl": "https://www.youtube.com/embed/5CCA7gyiYDA",
+    "reportUrl": "",
+    "tags":[
+      2
+    ]
+  },
+  {
+    "name": "ShapaSort Recycling",
+    "date": "2016",
+    "slug": "shapasort",
+    "description": "A game made in 48 hours in the game development contest Ludum Dare",
+    "relatedTo":"<a href=\"//ldjam.com/\" target=\"_blank\">Ludum Dare</a>",
+    "teamSize": "Solo Project",
+    "myContribution": "",
+    "imgThumbnail": "./assets/projects/LD-ShapaSort/shapasort-thumbnail.jpg",
+    "images": [
+      {
+        "url": "./assets/projects/LD-ShapaSort/shapasort-thumbnail.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/LD-ShapaSort/shapasort-1.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/LD-ShapaSort/shapasort-2.jpg",
+        "caption": ""
+      }
+    ],
+    "content": "ShapaSort is a game about sorting, well trash...<br><br>The theme this Ludum Dare was shapeshifting and I decided to make a game where you shift the shape of trash to sort.<br><br><a href=\"http://ludumdare.com/compo/ludum-dare-35/?action=preview&uid=47223\">Link to submission</a>",
+    "projectLink": "./Unity/ShapaSort/index.html",
     "videoUrl": "",
+    "reportUrl": "",
+    "tags":[
+      2
+    ]
+  },
+  {
+    "name": "Lawyer Man",
+    "date": "2015",
+    "slug": "lawyer-man",
+    "description": "A game made in 48 hours in the game development contest Ludum Dare",
+    "relatedTo":"<a href=\"//ldjam.com/\" target=\"_blank\">Ludum Dare</a>",
+    "teamSize": "Solo Project",
+    "myContribution": "",
+    "imgThumbnail": "./assets/projects/LD-Lawyer Man/lawyer-man-thumbnail.jpg",
+    "images": [
+      {
+        "url": "./assets/projects/LD-Lawyer Man/lawyer-man-thumbnail.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/LD-Lawyer Man/lawyer-man-1.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/LD-Lawyer Man/lawyer-man-2.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/LD-Lawyer Man/lawyer-man-3.jpg",
+        "caption": ""
+      }
+    ],
+    "content": "Lawyer Man is a speed typing action game where you flee from an angry mob of peasants and suing them if they get close. You have to match the paper with the color of their outfit and also type their name exactly correct for them to finally leave you. The theme this Ludum Dare was An unconventional weapon.<br><br><a href=\"http://ludumdare.com/compo/ludum-dare-32/?action=preview&uid=47223\">Link to submission</a><br><br>[HOW TO PLAY]<br>There are four different types of peasants following you. Red, blue, green and yellow. You have to give them paperwork in the matching color for them to be distracted and walk away. You get score for every distracted peasant.<br><br>When you see a peasant, select the matching paper(1,2,3,4) press open paper(Space) and write the peasant's name(upper/lowercase doesn't matter). Then go and give it to them. If the color and name matched the peasant will go away, if not, the peasant will rip the paper apart. You only have a limited number of papers, so be careful. More papers do however spawn around the map.<br><br>Move - W,A,S,D or ARROWS<br>Select paper - 1,2,3,4<br>Open paper - Space<br>Stamp(when you are done writing) - Enter<br>Cancel writing - Esc",
+    "projectLink": "./Unity/LawyerMan/index.html",
+    "videoUrl": "",
+    "reportUrl": "",
     "tags":[
       2
     ]
@@ -300,20 +348,29 @@
     "name": "Lignify",
     "date": "2015",
     "slug": "lignify",
-    "description": "Hahahaha",
+    "description": "A social board game for interdisciplinary teams to work better together",
     "relatedTo":"<a href=\"//www.kth.se/student/kurser/kurs/AD1RD1\" target=\"_blank\">KTH - AD1RD1</a>",
     "teamSize": "5 students",
-    "myContribution": "asdf",
-    "imgThumbnail": "",
+    "myContribution": "Evenly distributed project. I made the animation in Unity",
+    "imgThumbnail": "./assets/projects/Lignify/Lignify-thumbnail.png",
     "images": [
       {
-        "url": "",
+        "url": "./assets/projects/Lignify/Lignify-1.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/Lignify/Lignify-2.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/Lignify/Lignify-3.jpg",
         "caption": ""
       }
     ],
-    "content": "An asymetrical game experience made in Unity in the course Multimodal Interactions and Interfaces. This game is meant to be played in a Virtual Reality headset using the controllers to steer. Spectators could also enter a website and send objects in different lanes in real time during the session.",
-    "projectLink": "https://www.youtube.com/watch?v=5CCA7gyiYDA",
-    "videoUrl": "",
+    "content": "This board game was created to help teams containing the three interdisciplinary areas of engineering, design and economy to understand each other better. With the use of this board game regularly within a project or at the start of a project the team hopefully will work better together after discovering how the three different areas might approach certain problems.",
+    "projectLink": "",
+    "videoUrl": "https://www.youtube.com/embed/eOJzsjT6ICM",
+    "reportUrl": "",
     "tags":[
       5
     ]
@@ -324,18 +381,27 @@
     "slug": "bruck",
     "description": "A horror game made in Unity",
     "relatedTo":"Hobby",
-    "teamSize": "",
-    "myContribution": "",
-    "imgThumbnail": "",
+    "teamSize": "4 people",
+    "myContribution": "I was the lead developer in the project",
+    "imgThumbnail": "./assets/projects/Bruck/bruck-2.jpg",
     "images": [
       {
-        "url": "./assets/images/projects/Pluggmotiveraren/pluggmotiveraren-thumbnail.jpg",
-        "caption": "This is a good student"
+        "url": "./assets/projects/Bruck/bruck-2.jpg",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/Bruck/bruck-1.png",
+        "caption": ""
+      },
+      {
+        "url": "./assets/projects/Bruck/bruck-3.jpg",
+        "caption": ""
       }
     ],
-    "content": "A Unity project made in the course Degree Project in Media Tchnonoly, First Cycle. <br><br> I was the lead developer in the project",
-    "projectLink": "https://www.youtube.com/embed/JzZkE2XAfDM",
+    "content": "What would you do if you wake up trapped in a moon base with an alien monster roaming around? <br><br>A hobby project that started in 2014 and continued to grow for a couple of years. Still an ongoing project with lots of ideas.",
+    "projectLink": "",
     "videoUrl": "",
+    "reportUrl": "",
     "tags":[
       2
     ]
