@@ -73,7 +73,7 @@
       }
     ],
     "content": "Tetropica is a puzzle game concept that challenges the player to solve levels of grid filled tiles using different sets of Tetris blocks. The game created within this project utilizes a level generator of solvable levels to be able to deliver a large range of challenges for the player to solve. The generator was constructed in modules and was responsible for both the creation of a level and to ensure that it was solvable. The solutions to the puzzles were made using a distance matrix and different block placement algorithms to both ensure that a solution was found and to find the best solution to any given level. The resulting work in this project a fully functional generator of solvable levels that for the most part generated levels with only a single solution.",
-    "projectLink": "./Unity/Tetropica/index.html",
+    "projectLink": "",
     "videoUrl": "",
     "reportUrl": "./assets/projects/Tetropica/Tetropica Project Report.pdf",
     "tags":[
@@ -301,8 +301,8 @@
         "caption": ""
       }
     ],
-    "content": "ShapaSort is a game about sorting, well trash...<br><br>The theme this Ludum Dare was shapeshifting and I decided to make a game where you shift the shape of trash to sort.<br><br><a href=\"http://ludumdare.com/compo/ludum-dare-35/?action=preview&uid=47223\">Link to submission</a>",
-    "projectLink": "./Unity/ShapaSort/index.html",
+    "content": "ShapaSort is a game about sorting, well trash...<br><br>The theme this Ludum Dare was shapeshifting and I decided to make a game where you shift the shape of trash to sort.",
+    "projectLink": "http://ludumdare.com/compo/ludum-dare-35/?action=preview&uid=47223",
     "videoUrl": "",
     "reportUrl": "",
     "tags":[
@@ -336,8 +336,8 @@
         "caption": ""
       }
     ],
-    "content": "Lawyer Man is a speed typing action game where you flee from an angry mob of peasants and suing them if they get close. You have to match the paper with the color of their outfit and also type their name exactly correct for them to finally leave you. The theme this Ludum Dare was An unconventional weapon.<br><br><a href=\"http://ludumdare.com/compo/ludum-dare-32/?action=preview&uid=47223\">Link to submission</a><br><br>[HOW TO PLAY]<br>There are four different types of peasants following you. Red, blue, green and yellow. You have to give them paperwork in the matching color for them to be distracted and walk away. You get score for every distracted peasant.<br><br>When you see a peasant, select the matching paper(1,2,3,4) press open paper(Space) and write the peasant's name(upper/lowercase doesn't matter). Then go and give it to them. If the color and name matched the peasant will go away, if not, the peasant will rip the paper apart. You only have a limited number of papers, so be careful. More papers do however spawn around the map.<br><br>Move - W,A,S,D or ARROWS<br>Select paper - 1,2,3,4<br>Open paper - Space<br>Stamp(when you are done writing) - Enter<br>Cancel writing - Esc",
-    "projectLink": "./Unity/LawyerMan/index.html",
+    "content": "Lawyer Man is a speed typing action game where you flee from an angry mob of peasants and suing them if they get close. You have to match the paper with the color of their outfit and also type their name exactly correct for them to finally leave you. The theme this Ludum Dare was An unconventional weapon.",
+    "projectLink": "http://ludumdare.com/compo/ludum-dare-32/?action=preview&uid=47223",
     "videoUrl": "",
     "reportUrl": "",
     "tags":[
@@ -406,5 +406,4 @@
       2
     ]
   }
-
 ]
